@@ -1,0 +1,80 @@
+name: Deploy MegaTrix Admin Core to Vercel
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  Deploy-Production:
+    name: Deploy to Vercel (Production)
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Verify Vercel Secrets
+        run: |
+          echo "Verifying Vercel secrets configuration..."
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::❌ GitHub Secret 'VERCEL_TOKEN' is empty or missing! Please add it in Repo Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "::error::❌ GitHub Secret 'VERCEL_ORG_ID' is empty or missing! Please add it in Repo Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::error::❌ GitHub Secret 'VERCEL_PROJECT_ID' is empty or missing! Please add it in Repo Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          echo "✅ All required Vercel secrets are populated."
+          echo "VERCEL_ORG_ID: $VERCEL_ORG_ID"
+          echo "VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Detach Git Metadata for Hobby Tier
+        run: rm -rf .git
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_REF: ${{ github.ref_name }}
+        run: |
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} \
+            -m githubCommitMessage="$COMMIT_MSG" \
+            -m githubCommitRef="$COMMIT_REF"
