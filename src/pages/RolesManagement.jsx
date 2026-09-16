@@ -345,7 +345,7 @@ const RolesManagement = () => {
                   Platform Scopes
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {['global', 'bizmanager', 'schoolmanager', 'mailerx'].map((plat) => {
+                  {['global', 'bizmanager', 'schoolmanager'].map((plat) => {
                     const active = platformScopes.includes(plat);
                     return (
                       <button

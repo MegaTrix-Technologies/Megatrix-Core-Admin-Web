@@ -7,22 +7,17 @@ import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
 import AccountActivation from './pages/AccountActivation';
-import DashboardOverview from './pages/DashboardOverview';
-import UserManagement from './pages/UserManagement';
-import RolesManagement from './pages/RolesManagement';
-import AuditLogViewer from './pages/AuditLogViewer';
-import SubscriptionManagement from './pages/SubscriptionManagement';
-import PlatformRegistry from './pages/PlatformRegistry';
 import BizManagerModule from './pages/modules/BizManagerModule';
 import SchoolManagerModule from './pages/modules/SchoolManagerModule';
-import MailerXModule from './pages/services/MailerXModule';
+import ProductUserManagement from './pages/ProductUserManagement';
+import SettingsPage from './pages/SettingsPage';
 
 // Protected Admin Route Guard
 const ProtectedAdminRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAdminAuth();
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white/50 text-xs">
+      <div className="min-h-screen bg-black flex items-center justify-center text-white/50 text-xs font-tech">
         Authenticating session...
       </div>
     );
@@ -43,13 +38,28 @@ const PublicAdminRoute = ({ children }) => {
   return children;
 };
 
+// Intelligent Root Dispatcher: Renders the active portal's primary dashboard
+const ActivePortalDashboard = () => {
+  const { activePlatform } = useAdminAuth();
+  const isSchoolHub =
+    activePlatform?.id === 'schoolhub' ||
+    activePlatform?.aliasId === 'schoolhub' ||
+    activePlatform?.id === 'schoolmanager';
+
+  return isSchoolHub ? (
+    <SchoolManagerModule defaultTab="overview" />
+  ) : (
+    <BizManagerModule defaultTab="invoices" />
+  );
+};
+
 function App() {
   return (
     <AdminAuthProvider>
-      <div className="min-h-screen bg-black text-white selection:bg-emerald-500 selection:text-black">
+      <div className="min-h-screen bg-black text-white selection:bg-mx-blue selection:text-white">
         <ToastContainer
           position="top-right"
-          autoClose={4000}
+          autoClose={3500}
           hideProgressBar={false}
           newestOnTop
           closeOnClick
@@ -61,7 +71,7 @@ function App() {
         />
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
-            {/* Public Login Route */}
+            {/* ─── PUBLIC ROUTES ─── */}
             <Route
               path="/login"
               element={
@@ -71,7 +81,6 @@ function App() {
               }
             />
 
-            {/* Public Account Activation Route for Invited Users */}
             <Route
               path="/activate"
               element={
@@ -81,104 +90,173 @@ function App() {
               }
             />
 
-            {/* Protected SuperAdmin Dashboard Routes */}
+            {/* ─── ROOT COMMAND CENTER (DYNAMIC ACTIVE PORTAL) ─── */}
             <Route
               path="/"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <DashboardOverview />
+                    <ActivePortalDashboard />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            {/* ─── 1. SCHOOL HUB INTEGRATED SAAS ROUTES ─── */}
+            <Route
+              path="/schoolhub"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <SchoolManagerModule defaultTab="overview" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/users"
+              path="/schoolhub/schools"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <UserManagement />
+                    <SchoolManagerModule defaultTab="schools" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/roles"
+              path="/schoolhub/challans"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <RolesManagement />
+                    <SchoolManagerModule defaultTab="plans" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/audit"
+              path="/schoolhub/users/:subview"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <AuditLogViewer />
+                    <ProductUserManagement />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/subscriptions"
+              path="/schoolhub/users"
+              element={<Navigate to="/schoolhub/users/all" replace />}
+            />
+
+            {/* ─── 2. BIZ MANAGER INTEGRATED SAAS ROUTES ─── */}
+            <Route
+              path="/bizmanager"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <SubscriptionManagement />
+                    <BizManagerModule defaultTab="invoices" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/platforms"
+              path="/bizmanager/stores"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <PlatformRegistry />
+                    <BizManagerModule defaultTab="stores" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
             <Route
-              path="/modules/bizmanager"
+              path="/bizmanager/invoices"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <BizManagerModule />
+                    <BizManagerModule defaultTab="invoices" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
+            <Route
+              path="/bizmanager/finance"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <BizManagerModule defaultTab="khata" />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            <Route
+              path="/bizmanager/users/:subview"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <ProductUserManagement />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            <Route
+              path="/bizmanager/users"
+              element={<Navigate to="/bizmanager/users/all" replace />}
+            />
+
+            {/* ─── 3. GOVERNANCE & SETTINGS (PROFILE, SECURITY, ADMIN USERS) ─── */}
+            <Route
+              path="/settings"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <SettingsPage />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            {/* ─── LEGACY COMPATIBILITY REDIRECTS (PRESERVES EXISTING ENDPOINTS) ─── */}
             <Route
               path="/modules/schoolmanager"
-              element={
-                <ProtectedAdminRoute>
-                  <AdminLayout>
-                    <SchoolManagerModule />
-                  </AdminLayout>
-                </ProtectedAdminRoute>
-              }
+              element={<Navigate to="/schoolhub" replace />}
             />
-
+            <Route
+              path="/modules/bizmanager"
+              element={<Navigate to="/bizmanager" replace />}
+            />
+            <Route
+              path="/users"
+              element={<Navigate to="/settings?tab=admins" replace />}
+            />
+            <Route
+              path="/roles"
+              element={<Navigate to="/settings?tab=admins" replace />}
+            />
+            <Route
+              path="/audit"
+              element={<Navigate to="/settings?tab=security" replace />}
+            />
+            <Route
+              path="/platforms"
+              element={<Navigate to="/" replace />}
+            />
+            <Route
+              path="/subscriptions"
+              element={<Navigate to="/schoolhub/challans" replace />}
+            />
             <Route
               path="/services/mailerx"
-              element={
-                <ProtectedAdminRoute>
-                  <AdminLayout>
-                    <MailerXModule />
-                  </AdminLayout>
-                </ProtectedAdminRoute>
-              }
+              element={<Navigate to="/" replace />}
             />
 
             {/* Fallback */}

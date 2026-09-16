@@ -37,9 +37,13 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const SchoolManagerModule = () => {
+const SchoolManagerModule = ({ defaultTab = 'overview' }) => {
   // Navigation
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState(defaultTab);
+
+  useEffect(() => {
+    if (defaultTab) setActiveTab(defaultTab);
+  }, [defaultTab]);
 
   // Service Health & Global Loading
   const [health, setHealth] = useState({ online: true, service: 'School Manager', status: 'operational' });
@@ -102,8 +106,8 @@ const SchoolManagerModule = () => {
   });
   const [resettingPasswordLoading, setResettingPasswordLoading] = useState(false);
 
-  const schoolAppUrl = import.meta.env.VITE_SCHOOLMANAGER_APP_URL || 'http://localhost:5174';
-  const schoolApiUrl = import.meta.env.VITE_SCHOOLMANAGER_API_URL || 'http://localhost:5001/api';
+  const schoolAppUrl = import.meta.env.VITE_SCHOOLMANAGER_APP_URL || 'https://schoolhub.megatrixai.com';
+  const schoolApiUrl = import.meta.env.VITE_SCHOOLMANAGER_API_URL || 'https://api-schoolhub.megatrixai.com/api';
 
   // 1. Initial Telemetry & Health Fetch
   const checkHealth = useCallback(async () => {
@@ -433,7 +437,7 @@ const SchoolManagerModule = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all shadow-lg shadow-sky-600/25 cursor-pointer"
             >
               <FiBookOpen className="w-4 h-4" />
-              <span>Launch School Hub (Port 5174)</span>
+              <span>Launch School Hub</span>
               <FiExternalLink className="w-3.5 h-3.5 opacity-70" />
             </a>
           </div>
@@ -474,7 +478,7 @@ const SchoolManagerModule = () => {
           <div className="space-y-1">
             <p className="font-bold text-rose-300">School Manager Service Unavailable</p>
             <p className="text-rose-200/80 leading-relaxed">
-              Live administrative gateway on port 5001 could not be reached. Ensure the School Manager backend server is running.
+              Live administrative gateway ({schoolApiUrl}) could not be reached. Ensure the School Manager backend server is running.
               Live administrative actions (block, delete, password resets) are temporarily restricted until the connection is restored.
             </p>
           </div>
@@ -604,7 +608,7 @@ const SchoolManagerModule = () => {
           {/* 4 Approved Role Portals Showcase (Section 4.1 in School-Manager docs) */}
           <div className="space-y-3">
             <label className="block text-xs font-bold text-mx-subtle uppercase tracking-wider">
-              School Manager Role Portals (Port 5174)
+              School Manager Role Portals
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <a

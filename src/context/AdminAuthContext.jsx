@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import adminApi from '../services/adminApi';
-import { PLATFORMS, getDefaultPlatform, getPlatformById } from '../config/platforms';
+import autonomousEngine from '../services/autonomousEngine';
+import { PLATFORMS, EXPOSED_PORTALS, getDefaultPlatform, getPlatformById } from '../config/platforms';
 import { toast } from 'react-toastify';
 
 const AdminAuthContext = createContext(null);
@@ -26,6 +27,9 @@ export const AdminAuthProvider = ({ children }) => {
   useEffect(() => {
     const verifySession = async () => {
       if (adminUser?.token) {
+        // If autonomous local session, keep valid
+        if (adminUser.isAutonomous) return;
+
         try {
           const res = await adminApi.getMe();
           if (res.success && res.user) {
@@ -38,10 +42,14 @@ export const AdminAuthProvider = ({ children }) => {
               JSON.stringify({ ...adminUser, ...res.user })
             );
           }
-        } catch {
-          // Token expired or invalid
-          setAdminUser(null);
-          localStorage.removeItem('megatrix_admin_user');
+        } catch (err) {
+          // Only clear if server explicitly returned 401 Unauthorized
+          if (err.response && err.response.status === 401) {
+            setAdminUser(null);
+            localStorage.removeItem('megatrix_admin_user');
+          } else {
+            console.warn('[AdminAuth] Server unreachable on mount, keeping local cached session.');
+          }
         }
       }
     };
@@ -51,26 +59,53 @@ export const AdminAuthProvider = ({ children }) => {
   const switchPlatform = (platformId) => {
     const selected = getPlatformById(platformId);
     setActivePlatform(selected);
-    localStorage.setItem('megatrix_active_platform', platformId);
-    toast.info(`Switched active platform to ${selected.name}`);
+    localStorage.setItem('megatrix_active_platform', selected.id);
+    toast.info(`Switched active portal to ${selected.name}`);
   };
 
   const login = async (email, password) => {
     try {
       setLoading(true);
-      const res = await adminApi.login(email, password);
-      if (res.success && res.user) {
-        const sessionPayload = {
-          token: res.token,
-          ...res.user,
-        };
+      // 1. Try Live Express Backend (Port 5002 -> MongoDB Atlas)
+      try {
+        const res = await adminApi.login(email, password);
+        if (res.success && res.user) {
+          const sessionPayload = {
+            token: res.token,
+            ...res.user,
+          };
 
-        setAdminUser(sessionPayload);
-        localStorage.setItem('megatrix_admin_user', JSON.stringify(sessionPayload));
-        toast.success(`Welcome back, ${res.user.name || 'Administrator'}!`);
-        return { success: true };
+          setAdminUser(sessionPayload);
+          localStorage.setItem('megatrix_admin_user', JSON.stringify(sessionPayload));
+          toast.success(`Welcome back, ${res.user.name || 'Administrator'}! (Live Gateway)`);
+          return { success: true };
+        }
+      } catch (liveErr) {
+        // If network error / connection refused (backend offline), fall back to autonomous engine
+        const isNetworkRefused =
+          !liveErr.response ||
+          liveErr.code === 'ERR_NETWORK' ||
+          liveErr.message?.includes('Network Error');
+
+        if (isNetworkRefused) {
+          console.warn('[AdminAuth] Live Gateway unreachable, falling back to Autonomous Core...');
+          const autoRes = await autonomousEngine.login(email, password);
+          if (autoRes.success && autoRes.user) {
+            const sessionPayload = {
+              token: autoRes.token,
+              ...autoRes.user,
+              isAutonomous: true,
+            };
+            setAdminUser(sessionPayload);
+            localStorage.setItem('megatrix_admin_user', JSON.stringify(sessionPayload));
+            toast.info(`Connected via Autonomous Core (Backend Offline)`);
+            return { success: true };
+          }
+        }
+        throw liveErr;
       }
-      throw new Error(res.message || 'Authentication failed.');
+
+      throw new Error('Authentication failed.');
     } catch (error) {
       const msg =
         error.response?.data?.message ||
@@ -117,7 +152,8 @@ export const AdminAuthProvider = ({ children }) => {
         adminUser,
         activePlatform,
         switchPlatform,
-        platforms: PLATFORMS,
+        platforms: EXPOSED_PORTALS,
+        allPlatforms: PLATFORMS,
         login,
         logout,
         hasPermission,

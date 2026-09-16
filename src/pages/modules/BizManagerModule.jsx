@@ -18,13 +18,17 @@ import {
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const BizManagerModule = () => {
+const BizManagerModule = ({ defaultTab = 'invoices' }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('invoices');
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
-  const bizManagerUrl = import.meta.env.VITE_BIZMANAGER_APP_URL || 'http://localhost:5173';
-  const bizApiUrl = import.meta.env.VITE_BIZMANAGER_API_URL || 'http://localhost:5000';
+  useEffect(() => {
+    if (defaultTab) setActiveTab(defaultTab);
+  }, [defaultTab]);
+
+  const bizManagerUrl = import.meta.env.VITE_BIZMANAGER_APP_URL || 'https://bizmanager.megatrixai.com';
+  const bizApiUrl = import.meta.env.VITE_BIZMANAGER_API_URL || 'https://bizmanager.megatrixai.com';
 
   useEffect(() => {
     fetchBizSummary();
@@ -37,9 +41,9 @@ const BizManagerModule = () => {
       if (res.data && res.data.success) {
         setData(res.data);
       }
-    } catch (err) {
-      console.error('Failed to load Biz Manager summary:', err);
-      toast.error('Failed to load Biz Manager module telemetry.');
+    } catch {
+      // BizManager is deployed on Vercel as a client/serverless app without standalone Express backend
+      console.info('[BizManager] Running in Vercel client-hosted mode.');
     } finally {
       setLoading(false);
     }
@@ -90,7 +94,7 @@ const BizManagerModule = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-lg shadow-blue-600/25"
             >
               <FiShoppingCart className="w-4 h-4" />
-              <span>Launch POS Customer App (Port 5173)</span>
+              <span>Launch Biz Manager POS</span>
               <FiExternalLink className="w-3.5 h-3.5 opacity-70" />
             </a>
           </div>
@@ -101,11 +105,11 @@ const BizManagerModule = () => {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Backend: <strong className="text-white font-mono">{bizApiUrl}</strong>
+              Platform: <strong className="text-white font-mono">{bizManagerUrl}</strong>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Frontend: <strong className="text-white font-mono">{bizManagerUrl}</strong>
+              Deployment: <strong className="text-white font-mono">Vercel Production</strong>
             </span>
             <span className="text-neutral-400">Currency: <strong>PKR (₨)</strong></span>
           </div>

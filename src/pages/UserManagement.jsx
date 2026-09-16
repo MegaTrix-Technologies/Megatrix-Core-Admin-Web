@@ -347,8 +347,7 @@ const UserManagement = () => {
               <option value="all">All Platforms</option>
               <option value="global">Global Platform</option>
               <option value="bizmanager">Biz Manager</option>
-              <option value="schoolmanager">School Manager</option>
-              <option value="mailerx">MailerX</option>
+              <option value="schoolmanager">School Hub</option>
             </select>
           </div>
         </div>
@@ -679,7 +678,7 @@ const UserManagement = () => {
                   Authorized Platform Scopes
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {['global', 'bizmanager', 'schoolmanager', 'mailerx'].map((plat) => {
+                  {['global', 'bizmanager', 'schoolmanager'].map((plat) => {
                     const active = formPlatformScopes.includes(plat);
                     return (
                       <button
@@ -846,7 +845,7 @@ const UserManagement = () => {
                   Platform Scopes
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {['global', 'bizmanager', 'schoolmanager', 'mailerx'].map((plat) => {
+                  {['global', 'bizmanager', 'schoolmanager'].map((plat) => {
                     const active = formPlatformScopes.includes(plat);
                     return (
                       <button

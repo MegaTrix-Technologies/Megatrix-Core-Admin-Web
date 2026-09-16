@@ -149,24 +149,24 @@ const PlatformRegistry = () => {
                   </button>
                 )}
 
-                {p.id === 'bizmanager' && (
+                {(p.id === 'bizmanager' || p.aliasId === 'bizmanager') && (
                   <a
-                    href="http://localhost:5173"
+                    href={p.appUrl || 'https://bizmanager.megatrixai.com'}
                     target="_blank"
                     rel="noreferrer"
                     className="p-2 rounded-xl bg-mx-elevated hover:bg-mx-border2 text-neutral-300 hover:text-white transition-all border border-mx-border2"
-                    title="Open Biz Manager POS App (Port 5173)"
+                    title="Open Biz Manager POS App"
                   >
                     <FiExternalLink className="w-4 h-4" />
                   </a>
                 )}
-                {p.id === 'schoolmanager' && (
+                {(p.id === 'schoolhub' || p.aliasId === 'schoolmanager') && (
                   <a
-                    href="http://localhost:5174"
+                    href={p.appUrl || 'https://schoolhub.megatrixai.com'}
                     target="_blank"
                     rel="noreferrer"
                     className="p-2 rounded-xl bg-mx-elevated hover:bg-mx-border2 text-neutral-300 hover:text-white transition-all border border-mx-border2"
-                    title="Open School Manager ERP (Port 5174)"
+                    title="Open School Hub ERP"
                   >
                     <FiExternalLink className="w-4 h-4" />
                   </a>

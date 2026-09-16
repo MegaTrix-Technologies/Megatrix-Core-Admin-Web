@@ -105,11 +105,25 @@ const AdminLogin = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-lg bg-white hover:bg-white/90 text-black font-bold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-white/5"
+              className="w-full py-3 px-4 rounded-lg bg-white hover:bg-white/90 text-black font-bold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-white/5 cursor-pointer"
             >
               <span>{loading ? 'Authenticating...' : 'Access Command Center'}</span>
               <FiArrowRight className="w-4 h-4" />
             </button>
+
+            {/* Quick Demo Fill for Localhost Development */}
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('admin.megatrix@gmail.com');
+                  setPassword('Orangeman235!');
+                }}
+                className="text-[11px] text-mx-blue hover:underline cursor-pointer"
+              >
+                Auto-fill SuperAdmin Credentials (dev)
+              </button>
+            </div>
           </form>
 
           {/* Footer */}

@@ -236,7 +236,7 @@ export const adminApi = {
   // 7. External Platform Module Proxies & Health
   getBizManagerSummary: async () => {
     try {
-      const url = `${import.meta.env.VITE_BIZMANAGER_API_URL || 'http://localhost:5000'}/api/admin/overview`;
+      const url = `${import.meta.env.VITE_BIZMANAGER_API_URL || 'https://bizmanager.megatrixai.com'}/api/admin/overview`;
       const res = await axios.get(url, { timeout: 3000 });
       return { online: true, data: res.data };
     } catch {
