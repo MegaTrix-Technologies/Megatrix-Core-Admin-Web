@@ -111,19 +111,6 @@ const AdminLogin = () => {
               <FiArrowRight className="w-4 h-4" />
             </button>
 
-            {/* Quick Demo Fill for Localhost Development */}
-            <div className="pt-1 text-center">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('admin.megatrix@gmail.com');
-                  setPassword('Orangeman235!');
-                }}
-                className="text-[11px] text-mx-blue hover:underline cursor-pointer"
-              >
-                Auto-fill SuperAdmin Credentials (dev)
-              </button>
-            </div>
           </form>
 
           {/* Footer */}
