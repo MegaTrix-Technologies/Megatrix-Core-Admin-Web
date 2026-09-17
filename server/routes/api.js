@@ -25,6 +25,7 @@ const router = express.Router();
  * ========================================================= */
 router.post('/auth/login', authController.login);
 router.get('/auth/me', verifyAdminToken, authController.getMe);
+router.put('/auth/profile', verifyAdminToken, authController.updateProfile);
 router.get('/auth/invitations/verify', authController.verifyInvitation);
 router.post('/auth/invitations/activate', authController.activateInvitation);
 

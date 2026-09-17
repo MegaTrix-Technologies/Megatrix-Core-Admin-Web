@@ -137,6 +137,65 @@ export const authController = {
   },
 
   /**
+   * Update Current Authenticated User Profile (Name, Phone)
+   */
+  updateProfile: async (req, res) => {
+    try {
+      const user = await AdminUser.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'Administrator account not found.' });
+      }
+
+      const { name, phone } = req.body;
+      if (name && typeof name === 'string' && name.trim()) {
+        user.name = name.trim();
+      }
+      if (phone !== undefined && typeof phone === 'string') {
+        user.phone = phone.trim();
+      }
+
+      await user.save();
+
+      // Log profile update in AuditLog
+      await AuditLog.create({
+        actor: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.isSuperAdmin ? 'SUPERADMIN' : user.accessLevel.toUpperCase(),
+        },
+        action: 'PROFILE_UPDATED',
+        target: { id: user._id, type: 'USER', email: user.email, name: user.name },
+        details: { updatedFields: { name: user.name, phone: user.phone } },
+        ipAddress: req.ip || req.connection?.remoteAddress || '127.0.0.1',
+        userAgent: req.headers['user-agent'] || 'System Agent',
+      });
+
+      return res.json({
+        success: true,
+        message: 'Profile updated successfully.',
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          status: user.status,
+          accessLevel: user.accessLevel,
+          roles: user.roles,
+          platformScopes: user.platformScopes,
+          permissions: user.permissions,
+          isSuperAdmin: user.isSuperAdmin,
+          lastLoginAt: user.lastLoginAt,
+          lastLoginIp: user.lastLoginIp,
+        },
+      });
+    } catch (err) {
+      console.error('[UpdateProfile Error]:', err);
+      return res.status(500).json({ success: false, message: 'Failed to update administrator profile.' });
+    }
+  },
+
+  /**
    * Verify and Accept Account Invitation Token
    */
   activateInvitation: async (req, res) => {

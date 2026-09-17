@@ -24,22 +24,8 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-// Executive Administrator Seed Roster — Only 1 Superadmin Active
-const DEFAULT_ADMIN_ROSTER = [
-  {
-    id: 'ADM-001',
-    name: 'Zohaib Rana',
-    email: 'admin.megatrix@gmail.com',
-    phone: '+92 300 8472910',
-    role: 'Superadmin',
-    scope: 'Global Core',
-    authMethod: 'FIDO2 Hardware Key',
-    status: 'active',
-    lastActive: 'Just now',
-    createdAt: '2025-01-10',
-    isRoot: true,
-  },
-];
+// Executive Administrator Seed Roster — Root SuperAdmin is never exposed in user lists
+const DEFAULT_ADMIN_ROSTER = [];
 
 // Governance Security Audit Log Events
 const AUDIT_EVENTS = [
@@ -125,12 +111,21 @@ export default function SettingsPage() {
   };
 
   // Profile Form States
-  const [name, setName] = useState(adminUser?.name || 'Zohaib Rana');
-  const [phone, setPhone] = useState(adminUser?.phone || '+92 300 8472910');
+  const [name, setName] = useState(adminUser?.name || '');
+  const [phone, setPhone] = useState(adminUser?.phone || '');
   const [designation, setDesignation] = useState('Principal Infrastructure Director');
   const [notifySecurityAlerts, setNotifySecurityAlerts] = useState(true);
   const [notifyKeyRotation, setNotifyKeyRotation] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
+
+  useEffect(() => {
+    if (adminUser) {
+      if (adminUser.name) setName(adminUser.name);
+      if (adminUser.phone !== undefined && adminUser.phone !== null) {
+        setPhone(adminUser.phone);
+      }
+    }
+  }, [adminUser]);
 
   // Security Credentials Form States
   const [currentPassword, setCurrentPassword] = useState('');
@@ -149,10 +144,14 @@ export default function SettingsPage() {
         const parsed = JSON.parse(saved);
         const cleaned = parsed.filter(
           (u) =>
-            !['ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
-            !['Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
+            !u.isRoot &&
+            !u.isSuperAdmin &&
+            u.role !== 'Superadmin' &&
+            u.email !== 'admin.megatrix@gmail.com' &&
+            !['ADM-001', 'ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
+            !['Zohaib Rana', 'Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
         );
-        if (cleaned.length > 0) return cleaned;
+        return cleaned;
       }
     } catch {
       // Ignore
@@ -200,8 +199,12 @@ export default function SettingsPage() {
     setLoadingAdmins(true);
     try {
       const res = await adminApi.getUsers();
-      if (res?.success && Array.isArray(res.users) && res.users.length > 0) {
-        const mapped = res.users.map((u, idx) => {
+      if (res?.success && Array.isArray(res.users)) {
+        // Root SuperAdmin is never exposed in user management lists
+        const visibleUsers = res.users.filter(
+          (u) => !u.isSuperAdmin && u.email !== 'admin.megatrix@gmail.com'
+        );
+        const mapped = visibleUsers.map((u, idx) => {
           let roleTitle = 'Platform Administrator';
           if (u.isSuperAdmin) roleTitle = 'Superadmin';
           else if (u.roles?.[0]?.name) roleTitle = u.roles[0].name;
@@ -253,28 +256,30 @@ export default function SettingsPage() {
       setLoadingAdmins(false);
     }
 
-    // Fallback to local storage (sanitized) or default single superadmin
+    // Fallback to local storage (sanitized)
     try {
       const saved = localStorage.getItem('megatrix_admin_roster');
       if (saved) {
         const parsed = JSON.parse(saved);
         const cleaned = parsed.filter(
           (u) =>
-            !['ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
-            !['Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
+            !u.isRoot &&
+            !u.isSuperAdmin &&
+            u.role !== 'Superadmin' &&
+            u.email !== 'admin.megatrix@gmail.com' &&
+            !['ADM-001', 'ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
+            !['Zohaib Rana', 'Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
         );
-        if (cleaned.length > 0) {
-          setAdminRoster(cleaned);
-          localStorage.setItem('megatrix_admin_roster', JSON.stringify(cleaned));
-          return;
-        }
+        setAdminRoster(cleaned);
+        localStorage.setItem('megatrix_admin_roster', JSON.stringify(cleaned));
+        return;
       }
     } catch {
       // Ignore
     }
-    setAdminRoster(DEFAULT_ADMIN_ROSTER);
+    setAdminRoster([]);
     try {
-      localStorage.setItem('megatrix_admin_roster', JSON.stringify(DEFAULT_ADMIN_ROSTER));
+      localStorage.setItem('megatrix_admin_roster', JSON.stringify([]));
     } catch {
       // Ignore
     }
@@ -295,20 +300,43 @@ export default function SettingsPage() {
   };
 
   // Profile Save
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      toast.error('Name cannot be empty.');
+      return;
+    }
     setSavingProfile(true);
-    setTimeout(() => {
+    try {
+      const res = await adminApi.updateProfile({
+        name: name.trim(),
+        phone: phone.trim(),
+      });
+      if (res?.success && res.user) {
+        if (updateAdminUser) {
+          updateAdminUser({
+            name: res.user.name,
+            phone: res.user.phone,
+          });
+        }
+        toast.success('Administrator profile synchronized successfully.');
+      } else {
+        toast.error(res?.message || 'Failed to update profile.');
+      }
+    } catch (err) {
+      console.error('[Profile Update Error]:', err);
+      // Fallback local update
       if (updateAdminUser) {
         updateAdminUser({
           ...adminUser,
-          name,
-          phone,
+          name: name.trim(),
+          phone: phone.trim(),
         });
       }
+      toast.success('Profile updated locally.');
+    } finally {
       setSavingProfile(false);
-      toast.success('Administrator profile synchronized successfully.');
-    }, 400);
+    }
   };
 
   // Password Rotation
@@ -352,6 +380,16 @@ export default function SettingsPage() {
   // Filtered Admin Roster
   const filteredAdmins = useMemo(() => {
     return adminRoster.filter((adm) => {
+      // Root SuperAdmin is never shown to anyone in user management
+      if (
+        adm.isRoot ||
+        adm.isSuperAdmin ||
+        adm.role === 'Superadmin' ||
+        adm.email === 'admin.megatrix@gmail.com'
+      ) {
+        return false;
+      }
+
       if (adminSearch.trim()) {
         const q = adminSearch.toLowerCase().trim();
         const matchesQuery =
@@ -533,8 +571,8 @@ export default function SettingsPage() {
                   : 'text-mx-subtle hover:text-white hover:bg-mx-panel'
               }`}
             >
-              <Shield size={14} strokeWidth={1.5} />
-              <span>Admin Users</span>
+              <Users size={14} strokeWidth={1.5} />
+              <span>User Management</span>
             </button>
           )}
         </div>

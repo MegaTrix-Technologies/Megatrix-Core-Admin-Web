@@ -95,16 +95,10 @@ function App() {
               }
             />
 
-            {/* ─── 2. GLOBAL USER MANAGEMENT ─── */}
+            {/* ─── 2. USER MANAGEMENT (GOVERNANCE ROUTE) ─── */}
             <Route
               path="/users"
-              element={
-                <ProtectedAdminRoute>
-                  <AdminLayout>
-                    <GlobalUserManagement />
-                  </AdminLayout>
-                </ProtectedAdminRoute>
-              }
+              element={<Navigate to="/settings?tab=admins" replace />}
             />
 
             {/* ─── 3. SCHOOL HUB PROJECT WORKSPACE ─── */}

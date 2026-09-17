@@ -103,17 +103,6 @@ const Sidebar = ({
                   : []),
               ]}
             />
-
-            {/* Platform User Management */}
-            {canManageUsers && (
-              <NavItem
-                to="/users"
-                icon={Users}
-                label="User Management"
-                isCollapsed={isCollapsed && !isMobile}
-                onClick={onCloseMobile}
-              />
-            )}
           </div>
 
           {/* ─────────────────────────────────────────────────────────────
@@ -145,8 +134,8 @@ const Sidebar = ({
             {canManageAdmins && (
               <NavItem
                 to="/settings?tab=admins"
-                icon={Shield}
-                label="Admin Users"
+                icon={Users}
+                label="User Management"
                 isCollapsed={isCollapsed && !isMobile}
                 onClick={onCloseMobile}
               />

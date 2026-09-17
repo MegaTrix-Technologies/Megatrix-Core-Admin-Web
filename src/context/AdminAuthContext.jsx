@@ -146,10 +146,23 @@ export const AdminAuthProvider = ({ children }) => {
     return false;
   };
 
+  const updateAdminUser = (updatedData) => {
+    setAdminUser((prev) => {
+      const merged = { ...prev, ...updatedData };
+      try {
+        localStorage.setItem('megatrix_admin_user', JSON.stringify(merged));
+      } catch (e) {
+        console.error('[AdminAuth] Failed to sync updated user to localStorage:', e);
+      }
+      return merged;
+    });
+  };
+
   return (
     <AdminAuthContext.Provider
       value={{
         adminUser,
+        updateAdminUser,
         activePlatform,
         switchPlatform,
         platforms: EXPOSED_PORTALS,

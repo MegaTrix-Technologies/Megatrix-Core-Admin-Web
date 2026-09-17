@@ -23,7 +23,10 @@ export const userController = {
         role = '',
       } = req.query;
 
-      const query = {};
+      const query = {
+        isSuperAdmin: { $ne: true },
+        email: { $ne: 'admin.megatrix@gmail.com' },
+      };
 
       if (search.trim()) {
         const regex = new RegExp(search.trim(), 'i');

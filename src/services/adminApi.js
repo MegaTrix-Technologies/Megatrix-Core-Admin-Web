@@ -63,6 +63,11 @@ export const adminApi = {
     return res.data;
   },
 
+  updateProfile: async (profileData) => {
+    const res = await apiClient.put('/auth/profile', profileData);
+    return res.data;
+  },
+
   verifyInvitation: async (token) => {
     const res = await apiClient.get(`/auth/invitations/verify?token=${encodeURIComponent(token)}`);
     return res.data;
