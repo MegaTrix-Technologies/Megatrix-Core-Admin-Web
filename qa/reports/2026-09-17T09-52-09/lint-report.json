@@ -1,0 +1,887 @@
+{
+  "runId": "2026-09-17T09-52-09",
+  "route": "/settings?tab=profile",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 3,
+    "p1": 41,
+    "p2": 4,
+    "p3": 10,
+    "total": 58
+  },
+  "violations": [
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div:nth-of-type(1) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 288,
+        "y": 92,
+        "w": 65,
+        "h": 16,
+        "area": 1034
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-1.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div:nth-of-type(1) > div.flex:nth-of-type(1) > span.text-neutral-600:nth-of-type(2)",
+      "box": {
+        "x": 361,
+        "y": 88,
+        "w": 6,
+        "h": 24,
+        "area": 150
+      },
+      "measured": "rgb(82, 82, 82)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-2.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div:nth-of-type(1) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 288,
+        "y": 148,
+        "w": 472,
+        "h": 16,
+        "area": 7550
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-3.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 995,
+        "y": 118,
+        "w": 44,
+        "h": 16,
+        "area": 697
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 1091,
+        "y": 118,
+        "w": 69,
+        "h": 16,
+        "area": 1105
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.min-w-0:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 369,
+        "y": 252,
+        "w": 149,
+        "h": 16,
+        "area": 2377
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 307,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span.text-neutral-200:nth-of-type(2)",
+      "box": {
+        "x": 309,
+        "y": 323,
+        "w": 142,
+        "h": 16,
+        "area": 2277
+      },
+      "measured": "rgb(229, 229, 229)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 351,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 405,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span.inline-flex:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 329,
+        "y": 423,
+        "w": 126,
+        "h": 16,
+        "area": 2012
+      },
+      "measured": "rgb(52, 211, 153)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 270,
+        "w": 283,
+        "h": 17,
+        "area": 4670
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 940,
+        "y": 270,
+        "w": 283,
+        "h": 17,
+        "area": 4670
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 347,
+        "w": 582,
+        "h": 17,
+        "area": 9603
+      },
+      "measured": "rgb(163, 163, 163)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 409,
+        "w": 582,
+        "h": 15,
+        "area": 8730
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)"
+    },
+    {
+      "id": "DL-03",
+      "sev": "P0",
+      "name": "Tinted surface detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "rgba(59, 130, 246, 0.2) (saturation: 91%, area: 1011px²)",
+      "expected": "background saturation <= 8% for elements > 256px²",
+      "cropPath": "crops/DL-03-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "9px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "rgba(59, 130, 246, 0.2)",
+      "expected": "transparent or panel (#141414)",
+      "cropPath": "crops/DL-04-2.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.w-12:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 226,
+        "w": 48,
+        "h": 48,
+        "area": 2304
+      },
+      "measured": "height 48px",
+      "expected": "height <= 26px",
+      "cropPath": "crops/DL-04-3.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.w-12:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 226,
+        "w": 48,
+        "h": 48,
+        "area": 2304
+      },
+      "measured": "18px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 371,
+        "w": 54,
+        "h": 22,
+        "area": 1188
+      },
+      "measured": "10px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "5 badges",
+      "expected": "<= 2 badges per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "9px (\"Superadmin\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-1.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.w-12:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 226,
+        "w": 48,
+        "h": 48,
+        "area": 2304
+      },
+      "measured": "18px (\"M\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-2.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 307,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "10px (\"Assigned Role\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-3.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 351,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "10px (\"Platform Authorization Scope\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 371,
+        "w": 54,
+        "h": 22,
+        "area": 1188
+      },
+      "measured": "10px (\"global\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 405,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "10px (\"Account Status\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 409,
+        "w": 582,
+        "h": 15,
+        "area": 8730
+      },
+      "measured": "10px (\"Contact the primary root admin\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font sizes",
+      "selector": "viewport",
+      "measured": "8 distinct sizes (14, 11, 12, 16, 20, 9, 18, 10)",
+      "expected": "<= 5 distinct sizes per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font weights",
+      "selector": "viewport",
+      "measured": "4 distinct weights (700, 600, 400, 500)",
+      "expected": "<= 3 distinct weights per viewport"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 886,
+        "y": 119,
+        "w": 14,
+        "h": 14,
+        "area": 196
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-1.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(2) > svg:nth-of-type(1)",
+      "box": {
+        "x": 973,
+        "y": 119,
+        "w": 14,
+        "h": 14,
+        "area": 196
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-2.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > svg:nth-of-type(1)",
+      "box": {
+        "x": 1069,
+        "y": 119,
+        "w": 14,
+        "h": 14,
+        "area": 196
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-3.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span.inline-flex:nth-of-type(2) > svg:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 424,
+        "w": 14,
+        "h": 14,
+        "area": 196
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\""
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > h2.text-sm:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 232,
+        "w": 16,
+        "h": 16,
+        "area": 256
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\""
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 653,
+        "y": 378,
+        "w": 16,
+        "h": 16,
+        "area": 256
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\""
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(3) > button.inline-flex:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 1068,
+        "y": 466,
+        "w": 14,
+        "h": 14,
+        "area": 196
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\""
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2)",
+      "box": {
+        "x": 869,
+        "y": 107,
+        "w": 379,
+        "h": 38,
+        "area": 14398
+      },
+      "measured": "12px",
+      "expected": "One of [0, 6, 10, 14, 9999]px",
+      "cropPath": "crops/DL-07-1.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1)",
+      "box": {
+        "x": 288,
+        "y": 205,
+        "w": 304,
+        "h": 257,
+        "area": 78128
+      },
+      "measured": "12px",
+      "expected": "One of [0, 6, 10, 14, 9999]px",
+      "cropPath": "crops/DL-07-2.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Pill radius on non-dot element",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.w-12:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 226,
+        "w": 48,
+        "h": 48,
+        "area": 2304
+      },
+      "measured": "border-radius: 9999px on 48x48px element",
+      "expected": "Radius 9999px only on elements <= 10px or avatars",
+      "cropPath": "crops/DL-07-3.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1)",
+      "box": {
+        "x": 616,
+        "y": 205,
+        "w": 632,
+        "h": 309,
+        "area": 195288
+      },
+      "measured": "12px",
+      "expected": "One of [0, 6, 10, 14, 9999]px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(1)",
+      "box": {
+        "x": 874,
+        "y": 112,
+        "w": 81,
+        "h": 28,
+        "area": 2271
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-1.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(2)",
+      "box": {
+        "x": 961,
+        "y": 112,
+        "w": 90,
+        "h": 28,
+        "area": 2508
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-2.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3)",
+      "box": {
+        "x": 1057,
+        "y": 112,
+        "w": 186,
+        "h": 28,
+        "area": 5214
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-3.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 371,
+        "w": 54,
+        "h": 22,
+        "area": 1188
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span.inline-flex:nth-of-type(2)",
+      "box": {
+        "x": 309,
+        "y": 423,
+        "w": 146,
+        "h": 16,
+        "area": 2332
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 293,
+        "w": 283,
+        "h": 34,
+        "area": 9622
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 940,
+        "y": 293,
+        "w": 283,
+        "h": 34,
+        "area": 9622
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 369,
+        "w": 582,
+        "h": 34,
+        "area": 19788
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 409,
+        "w": 582,
+        "h": 15,
+        "area": 8730
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div:nth-of-type(1) > div.flex:nth-of-type(1) > span.text-neutral-600:nth-of-type(2)",
+      "box": {
+        "x": 361,
+        "y": 88,
+        "w": 6,
+        "h": 24,
+        "area": 150
+      },
+      "measured": "2.69:1 (\"/\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-1.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1168,
+        "y": 118,
+        "w": 63,
+        "h": 16,
+        "area": 1011
+      },
+      "measured": "1.00:1 (\"Superadmin\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-2.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 307,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.18:1 (\"Assigned Role\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-3.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 351,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.18:1 (\"Platform Authorization Scope\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 405,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.18:1 (\"Account Status\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 409,
+        "w": 582,
+        "h": 15,
+        "area": 8730
+      },
+      "measured": "4.18:1 (\"Contact the primary root admin\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    }
+  ],
+  "timestamp": "2026-09-17T09:52:14.878Z"
+}

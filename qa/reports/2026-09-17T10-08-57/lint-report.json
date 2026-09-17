@@ -1,0 +1,24 @@
+{
+  "runId": "2026-09-17T10-08-57",
+  "route": "/settings?tab=profile",
+  "score": 92,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 1,
+    "p2": 0,
+    "p3": 0,
+    "total": 1
+  },
+  "violations": [
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "3 badges",
+      "expected": "<= 2 badges per viewport"
+    }
+  ],
+  "timestamp": "2026-09-17T10:09:02.432Z"
+}

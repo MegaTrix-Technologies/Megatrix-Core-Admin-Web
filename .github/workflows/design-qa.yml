@@ -1,0 +1,89 @@
+name: MegaTrix Design QA Gate
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  design-qa:
+    name: Automated Design QA Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Backend Server
+        run: |
+          node server/index.js &
+          echo "Waiting for API server on port 5002..."
+          npx wait-on http://localhost:5002/health --timeout 15000 || true
+
+      - name: Run Vite Preview Server
+        run: |
+          npx vite preview --port 5175 --strictPort &
+          echo "Waiting for Preview server on port 5175..."
+          npx wait-on http://localhost:5175 --timeout 20000
+
+      - name: Execute Design QA Gate
+        id: design_qa
+        run: |
+          npm run qa
+        continue-on-error: true
+
+      - name: Upload QA Reports and Visual Evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: design-qa-reports
+          path: |
+            qa/reports/**
+            HISTORY.csv
+          retention-days: 30
+
+      - name: Post PR Summary Comment
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const reportPath = path.join(process.env.GITHUB_WORKSPACE, 'qa/reports/REPORT.md');
+            if (fs.existsSync(reportPath)) {
+              const content = fs.readFileSync(reportPath, 'utf8');
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `### MegaTrix Design QA Pipeline Results\n\n${content}`
+              });
+            }
+
+      - name: Enforce Design Gate Exit Status
+        run: |
+          if [ "${{ steps.design_qa.outcome }}" != "success" ]; then
+            echo "[MX-QA] [ERROR] Design QA gate failed. Score < 90 or P0/P1 violations detected."
+            exit 1
+          fi
+          echo "[MX-QA] [PASS] Design QA gate passed successfully (Score >= 90, P0=0, P1=0)."

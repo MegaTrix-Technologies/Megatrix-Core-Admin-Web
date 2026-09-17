@@ -1,23 +1,17 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../context/AdminAuthContext';
-import PortalSelector from './navigation/PortalSelector';
 import { NavItem, NavGroup } from './navigation/NavGroup';
 import {
   LayoutDashboard,
-  Building2,
-  Users,
-  UserCheck,
-  UserX,
-  UserMinus,
-  Activity,
-  Receipt,
+  FolderKanban,
+  GraduationCap,
   Store,
-  Wallet,
+  Users,
   Settings,
   Shield,
   Key,
-  CreditCard,
+  User,
 } from 'lucide-react';
 
 const Sidebar = ({
@@ -25,13 +19,17 @@ const Sidebar = ({
   isMobile = false,
   onCloseMobile,
 }) => {
-  const { activePlatform, hasPermission, adminUser } = useAdminAuth();
+  const { hasPermission, adminUser, canAccessPlatform } = useAdminAuth();
   const location = useLocation();
 
-  const isSchoolHub =
-    activePlatform?.id === 'schoolhub' ||
-    activePlatform?.aliasId === 'schoolhub' ||
-    activePlatform?.id === 'schoolmanager';
+  const canAccessSchoolHub =
+    canAccessPlatform('schoolhub') || canAccessPlatform('schoolmanager');
+  const canAccessBizManager = canAccessPlatform('bizmanager');
+
+  const canManageUsers =
+    adminUser?.isSuperAdmin ||
+    adminUser?.accessLevel === 'full' ||
+    hasPermission('global.users.view');
 
   const canManageAdmins =
     adminUser?.isSuperAdmin || hasPermission('global.users.view');
@@ -43,222 +41,133 @@ const Sidebar = ({
       }`}
     >
       <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-4">
-        {/* Top: Portal / Product Selector */}
-        <div className="pb-3 border-b border-mx-border">
-          <PortalSelector isCollapsed={isCollapsed && !isMobile} />
-        </div>
+        {/* Top Header Label */}
+        {!isCollapsed && (
+          <div className="px-3 pt-2 pb-1 flex items-center justify-between">
+            <span className="text-[11px] font-bold text-mx-subtle uppercase tracking-widest font-mono">
+              Core Navigation
+            </span>
+            <span className="text-[11px] font-mono px-2 h-[22px] flex items-center rounded-sm bg-mx-panel text-mx-subtle border border-mx-border">
+              Enterprise
+            </span>
+          </div>
+        )}
 
-        {/* Dynamic Contextual Navigation */}
+        {/* Navigation Groups */}
         <nav className="space-y-4 flex-1">
-          {isSchoolHub ? (
-            /* ─────────────────────────────────────────────────────────────
-             * SCHOOL HUB NAVIGATION
-             * ───────────────────────────────────────────────────────────── */
-            <>
-              <div className="space-y-1">
-                {!isCollapsed && (
-                  <div className="text-[10px] font-bold text-mx-subtle uppercase tracking-wider px-3 mb-1">
-                    School Hub
-                  </div>
-                )}
-
-                {/* 1. Dashboard */}
-                <NavItem
-                  to="/schoolhub"
-                  icon={LayoutDashboard}
-                  label="Dashboard"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                  exact={true}
-                />
-
-                {/* 2. Schools Directory */}
-                <NavItem
-                  to="/schoolhub/schools"
-                  icon={Building2}
-                  label="Schools Directory"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                />
-
-                {/* 3. User Management (Expandable 4 Sub-routes) */}
-                <NavGroup
-                  icon={Users}
-                  title="User Management"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onItemClick={onCloseMobile}
-                  items={[
-                    {
-                      to: '/schoolhub/users/all',
-                      label: 'View All Users',
-                      icon: UserCheck,
-                    },
-                    {
-                      to: '/schoolhub/users/blocked',
-                      label: 'Blocked Users',
-                      icon: UserX,
-                    },
-                    {
-                      to: '/schoolhub/users/deleted',
-                      label: 'Recently Deleted Users',
-                      icon: UserMinus,
-                    },
-                    {
-                      to: '/schoolhub/users/activity',
-                      label: 'User Activity',
-                      icon: Activity,
-                    },
-                  ]}
-                />
-
-                {/* 4. Fees & Challans */}
-                <NavItem
-                  to="/schoolhub/challans"
-                  icon={Receipt}
-                  label="Fees & 3-Copy Challans"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                />
-              </div>
-            </>
-          ) : (
-            /* ─────────────────────────────────────────────────────────────
-             * BIZ MANAGER NAVIGATION
-             * ───────────────────────────────────────────────────────────── */
-            <>
-              <div className="space-y-1">
-                {!isCollapsed && (
-                  <div className="text-[10px] font-bold text-mx-subtle uppercase tracking-wider px-3 mb-1">
-                    Biz Manager
-                  </div>
-                )}
-
-                {/* 1. Dashboard */}
-                <NavItem
-                  to="/bizmanager"
-                  icon={LayoutDashboard}
-                  label="Dashboard"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                  exact={true}
-                />
-
-                {/* 2. Stores & Outlets */}
-                <NavItem
-                  to="/bizmanager/stores"
-                  icon={Store}
-                  label="Stores & Inventory"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                />
-
-                {/* 3. POS & Invoices */}
-                <NavItem
-                  to="/bizmanager/invoices"
-                  icon={CreditCard}
-                  label="POS Sales & Invoices"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                />
-
-                {/* 4. Customer Khata & Finance */}
-                <NavItem
-                  to="/bizmanager/finance"
-                  icon={Wallet}
-                  label="Khata & Receivables"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onClick={onCloseMobile}
-                />
-
-                {/* 5. User Management (Expandable 4 Sub-routes) */}
-                <NavGroup
-                  icon={Users}
-                  title="User Management"
-                  isCollapsed={isCollapsed && !isMobile}
-                  onItemClick={onCloseMobile}
-                  items={[
-                    {
-                      to: '/bizmanager/users/all',
-                      label: 'View All Users',
-                      icon: UserCheck,
-                    },
-                    {
-                      to: '/bizmanager/users/blocked',
-                      label: 'Blocked Users',
-                      icon: UserX,
-                    },
-                    {
-                      to: '/bizmanager/users/deleted',
-                      label: 'Recently Deleted Users',
-                      icon: UserMinus,
-                    },
-                    {
-                      to: '/bizmanager/users/activity',
-                      label: 'User Activity',
-                      icon: Activity,
-                    },
-                  ]}
-                />
-              </div>
-            </>
-          )}
-
           {/* ─────────────────────────────────────────────────────────────
-           * COMMON SETTINGS & GOVERNANCE SECTION
+           * 1. PLATFORM ADMINISTRATION
            * ───────────────────────────────────────────────────────────── */}
-          <div className="pt-3 border-t border-mx-border space-y-1">
+          <div className="space-y-1">
             {!isCollapsed && (
-              <div className="text-[10px] font-bold text-mx-subtle uppercase tracking-wider px-3 mb-1">
-                Governance & Settings
+              <div className="text-[11px] font-bold text-mx-subtle uppercase tracking-wider px-3 mb-1 font-mono">
+                Platform
               </div>
             )}
 
+            {/* Platform Executive Dashboard */}
+            <NavItem
+              to="/dashboard"
+              icon={LayoutDashboard}
+              label="Dashboard"
+              isCollapsed={isCollapsed && !isMobile}
+              onClick={onCloseMobile}
+              exact={true}
+            />
+
+            {/* Projects Navigation */}
             <NavGroup
-              icon={Settings}
-              title="Settings"
+              icon={FolderKanban}
+              title="Projects"
               isCollapsed={isCollapsed && !isMobile}
               onItemClick={onCloseMobile}
-              defaultExpanded={location.pathname.startsWith('/settings')}
+              defaultExpanded={true}
               items={[
-                {
-                  to: '/settings?tab=profile',
-                  label: 'Profile',
-                  icon: Settings,
-                },
-                {
-                  to: '/settings?tab=security',
-                  label: 'Security',
-                  icon: Key,
-                },
-                ...(canManageAdmins
+                ...(canAccessSchoolHub
                   ? [
                       {
-                        to: '/settings?tab=admins',
-                        label: 'Admin Users',
-                        icon: Shield,
-                        badge: 'Root',
+                        to: '/projects/school-hub',
+                        label: 'School Hub',
+                        icon: GraduationCap,
+                      },
+                    ]
+                  : []),
+                ...(canAccessBizManager
+                  ? [
+                      {
+                        to: '/projects/biz-manager',
+                        label: 'Biz Manager',
+                        icon: Store,
                       },
                     ]
                   : []),
               ]}
             />
+
+            {/* Platform User Management */}
+            {canManageUsers && (
+              <NavItem
+                to="/users"
+                icon={Users}
+                label="User Management"
+                isCollapsed={isCollapsed && !isMobile}
+                onClick={onCloseMobile}
+              />
+            )}
+          </div>
+
+          {/* ─────────────────────────────────────────────────────────────
+           * 2. GOVERNANCE & SETTINGS
+           * ───────────────────────────────────────────────────────────── */}
+          <div className="pt-3 border-t border-mx-border space-y-1">
+            {!isCollapsed && (
+              <div className="text-[11px] font-bold text-mx-subtle uppercase tracking-wider px-3 mb-1 font-mono">
+                System and Governance
+              </div>
+            )}
+
+            <NavItem
+              to="/settings?tab=profile"
+              icon={User}
+              label="Profile"
+              isCollapsed={isCollapsed && !isMobile}
+              onClick={onCloseMobile}
+            />
+
+            <NavItem
+              to="/settings?tab=security"
+              icon={Key}
+              label="Security and Audit"
+              isCollapsed={isCollapsed && !isMobile}
+              onClick={onCloseMobile}
+            />
+
+            {canManageAdmins && (
+              <NavItem
+                to="/settings?tab=admins"
+                icon={Shield}
+                label="Admin Users"
+                isCollapsed={isCollapsed && !isMobile}
+                onClick={onCloseMobile}
+              />
+            )}
           </div>
         </nav>
       </div>
 
       {/* Bottom Status / Indicator */}
-      <div className="p-3 border-t border-mx-border text-[10px] text-mx-subtle flex items-center justify-between">
+      <div className="p-3 border-t border-mx-border text-[11px] text-mx-subtle flex items-center justify-between font-mono">
         {!isCollapsed ? (
           <>
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="truncate">MegaTrix Core Online</span>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-mx-positive" />
+              <span className="truncate text-mx-subtle">Core Online</span>
             </div>
-            <span className="text-neutral-500 font-mono">v1.0</span>
+            <span className="text-mx-subtle">v1.0</span>
           </>
         ) : (
-          <div className="w-full flex justify-center" title="MegaTrix Core Online">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <div className="w-full flex justify-center" title="Core Online">
+            <span className="w-2 h-2 rounded-full bg-mx-positive" />
           </div>
         )}
       </div>

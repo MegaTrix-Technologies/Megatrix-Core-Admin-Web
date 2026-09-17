@@ -1,0 +1,40 @@
+{
+  "runId": "2026-09-17T09-51-28",
+  "route": "/dashboard",
+  "score": 84,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 2,
+    "p2": 0,
+    "p3": 0,
+    "total": 2
+  },
+  "violations": [
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(1) > a.group:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(1) > span.font-display:nth-of-type(1)",
+      "box": {
+        "x": 162,
+        "y": 35,
+        "w": 149,
+        "h": 9,
+        "area": 1337
+      },
+      "measured": "9px (\"BUSINESS INTELLIGENCE\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-1.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font sizes",
+      "selector": "viewport",
+      "measured": "6 distinct sizes (14, 9, 12, 11, 28, 16)",
+      "expected": "<= 5 distinct sizes per viewport"
+    }
+  ],
+  "timestamp": "2026-09-17T09:51:33.875Z"
+}

@@ -84,8 +84,8 @@
   <rect x="71"  y="61" width="8" height="8" fill="#FFFFFF"/>
   <rect x="91"  y="61" width="8" height="8" fill="#FFFFFF"/>
   <rect x="101" y="61" width="8" height="8" fill="#FFFFFF"/>
-  <rect x="121" y="61" width="8" height="8" fill="#FFFFFF"/>
-  <rect x="131" y="61" width="8" height="8" fill="#FFFFFF"/>
+  <rect x="121" y="61" width="8" height="8" fill="#3b82f6"/>
+  <rect x="131" y="61" width="8" height="8" fill="#3b82f6"/>
 
   <!-- Row 7: ##....##.##.## -->
   <rect x="1"   y="71" width="8" height="8" fill="#FFFFFF"/>
@@ -94,6 +94,6 @@
   <rect x="71"  y="71" width="8" height="8" fill="#FFFFFF"/>
   <rect x="91"  y="71" width="8" height="8" fill="#FFFFFF"/>
   <rect x="101" y="71" width="8" height="8" fill="#FFFFFF"/>
-  <rect x="121" y="71" width="8" height="8" fill="#FFFFFF"/>
-  <rect x="131" y="71" width="8" height="8" fill="#FFFFFF"/>
+  <rect x="121" y="71" width="8" height="8" fill="#3b82f6"/>
+  <rect x="131" y="71" width="8" height="8" fill="#3b82f6"/>
 </svg>

@@ -23,6 +23,8 @@ import {
   FiSend,
   FiChevronLeft,
   FiChevronRight,
+  FiCopy,
+  FiExternalLink,
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -54,6 +56,9 @@ const UserManagement = () => {
   const [inspectUser, setInspectUser] = useState(null);
   const [editUser, setEditUser] = useState(null);
   const [deleteConfirmUser, setDeleteConfirmUser] = useState(null);
+  const [shareLinkModalOpen, setShareLinkModalOpen] = useState(false);
+  const [shareLinkData, setShareLinkData] = useState(null);
+  const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
   // Invite Form State
   const [formName, setFormName] = useState('');
@@ -88,7 +93,7 @@ const UserManagement = () => {
         }
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to load user directory');
+      console.warn('Backend user directory offline or unreachable:', err.message);
     } finally {
       setLoading(false);
     }
@@ -174,9 +179,16 @@ const UserManagement = () => {
 
       const res = await adminApi.inviteUser(payload);
       if (res.success) {
-        toast.success(`Invitation dispatched to ${formEmail} via MailerX Relay!`);
         setInviteModalOpen(false);
+        setShareLinkData({
+          name: formName.trim(),
+          email: formEmail.trim().toLowerCase(),
+          invitationUrl: res.invitationUrl,
+          accessLevel: formAccessLevel,
+        });
+        setShareLinkModalOpen(true);
         fetchUsers(1);
+        toast.success(`Invitation dispatched to ${formEmail} via Brevo!`);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to dispatch invitation');
@@ -1029,6 +1041,116 @@ const UserManagement = () => {
               >
                 Confirm Revocation
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SLACK-STYLE INVITATION SHARE MODAL */}
+      {shareLinkModalOpen && shareLinkData && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-mx-surface border border-white/10 rounded-2xl w-full max-w-lg p-6 space-y-5 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                  <FiMail className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white">Administrator Invitation Dispatched</h4>
+                  <p className="text-[11px] text-white/50">Brevo notification sent & direct link ready</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShareLinkModalOpen(false)}
+                className="text-white/40 hover:text-white p-1"
+              >
+                <FiX className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-3 bg-black/40 border border-white/10 rounded-xl space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+                  <span className="text-xs font-semibold text-white">Email Sent via Brevo SMTP</span>
+                </div>
+                <p className="text-xs text-white/70">
+                  We sent an invitation email to <strong className="text-white">{shareLinkData.email}</strong>.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold text-white/70">
+                  Shareable Confidential Invitation Link
+                </label>
+                <p className="text-[11px] text-white/50">
+                  Copy and send this direct link to the recipient (Slack-style). The invitee will set their password upon opening:
+                </p>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={shareLinkData.invitationUrl}
+                    className="h-10 flex-1 px-3 py-2 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-xs font-mono text-white select-all overflow-ellipsis"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareLinkData.invitationUrl);
+                      setShareLinkCopied(true);
+                      toast.success('Invitation link copied to clipboard!');
+                      setTimeout(() => setShareLinkCopied(false), 2500);
+                    }}
+                    className={`h-10 px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer flex items-center gap-2 shrink-0 ${
+                      shareLinkCopied
+                        ? 'bg-emerald-500 text-black'
+                        : 'bg-white hover:bg-neutral-200 text-black'
+                    }`}
+                  >
+                    {shareLinkCopied ? (
+                      <>
+                        <FiCheck className="w-3.5 h-3.5" />
+                        <span>Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <FiCopy className="w-3.5 h-3.5" />
+                        <span>Copy Link</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-3 bg-white/5 border border-white/10 rounded-xl space-y-1">
+                <div className="flex items-center gap-2">
+                  <FiShield className="w-3.5 h-3.5 text-blue-400" />
+                  <span className="text-xs font-semibold text-white">Cryptographic Confidentiality</span>
+                </div>
+                <p className="text-[11px] text-white/50">
+                  Single-use 256-bit token. Valid for 48 hours. Upon visiting, the user configures their master password.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                <a
+                  href={shareLinkData.invitationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white"
+                >
+                  <FiExternalLink className="w-3.5 h-3.5" />
+                  <span>Preview Activation Page</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setShareLinkModalOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-neutral-200 text-black"
+                >
+                  Done
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -231,3 +231,51 @@ export const preventSelfEscalation = (req, res, next) => {
 
   next();
 };
+
+/**
+ * Enforces that actor is Superadmin or Full Access Administrator for Credentials access
+ */
+export const requireCredentialsAccess = async (req, res, next) => {
+  const actor = req.user;
+  if (!actor) {
+    return res.status(401).json({ success: false, message: 'Unauthenticated.' });
+  }
+
+  // SuperAdmin or Full Access user has authority
+  if (actor.isSuperAdmin || actor.accessLevel === 'full') {
+    return next();
+  }
+
+  // Audit unauthorized attempt
+  try {
+    await AuditLog.create({
+      actor: {
+        id: actor._id,
+        name: actor.name,
+        email: actor.email,
+        role: actor.isSuperAdmin ? 'SUPERADMIN' : (actor.accessLevel || 'PARTIAL').toUpperCase(),
+      },
+      action: 'UNAUTHORIZED_CREDENTIALS_ACCESS_ATTEMPT',
+      target: {
+        id: req.params.id || null,
+        type: 'CREDENTIAL',
+        name: req.query?.project || req.body?.name || 'CREDENTIAL_VAULT',
+      },
+      platform: req.query?.project || 'global',
+      details: {
+        attemptedPath: req.originalUrl,
+        method: req.method,
+        reason: 'Restricted to Superadmin and Full Access Administrators only',
+      },
+      ipAddress: req.ip || req.connection?.remoteAddress,
+      userAgent: req.headers['user-agent'],
+    });
+  } catch (err) {
+    console.error('[Audit Log Failure]:', err.message);
+  }
+
+  return res.status(403).json({
+    success: false,
+    message: 'Access Denied: Credential management is strictly restricted to Superadmin and authorized Full Access administrators.',
+  });
+};

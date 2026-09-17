@@ -25,7 +25,7 @@ const AdminLogin = () => {
       <div className="relative w-full lg:w-[60%] h-[40vh] lg:h-screen bg-black flex items-center justify-center overflow-hidden">
         {/* ParticleNetwork fills this entire panel */}
         <ParticleNetwork className="absolute inset-0" />
-        
+
         {/* Logo overlay centered on top of particles */}
         <div className="relative z-10 flex flex-col items-center space-y-6 pointer-events-none">
           <img src="/megatrix-icon.svg" alt="MegaTrix" className="w-52 lg:w-72 drop-shadow-2xl" />
@@ -132,7 +132,7 @@ const AdminLogin = () => {
               Restricted Access. All operations are monitored and logged.
             </p>
             <p className="text-[10px] text-mx-muted/50 text-center">
-              © 2026 MegaTrix Technologies Inc.
+              © 2026 MegaTrix Technologies (Pvt) Ltd.
             </p>
           </div>
         </div>

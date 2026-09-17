@@ -1,0 +1,72 @@
+{
+  "runId": "2026-09-17T09-43-04",
+  "route": "/dashboard",
+  "score": 68,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 4,
+    "p2": 0,
+    "p3": 0,
+    "total": 4
+  },
+  "violations": [
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(1) > div.space-y-2:nth-of-type(1) > div.flex:nth-of-type(1) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 746,
+        "y": 119,
+        "w": 97,
+        "h": 26,
+        "area": 2527
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(1) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 627,
+        "y": 458,
+        "w": 104,
+        "h": 26,
+        "area": 2715
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-2.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(2) > div.flex:nth-of-type(1) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 1111,
+        "y": 458,
+        "w": 112,
+        "h": 26,
+        "area": 2902
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-3.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "4 badges",
+      "expected": "<= 2 badges per viewport"
+    }
+  ],
+  "timestamp": "2026-09-17T09:43:09.928Z"
+}

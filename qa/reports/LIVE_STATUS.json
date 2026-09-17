@@ -1,0 +1,110 @@
+{
+  "runId": "2026-09-17T11-49-02",
+  "phase": "playwright",
+  "step": 29,
+  "total": 48,
+  "current": "[tablet-768] PW-02: Interactive hit targets meet minimum 40x40 touch target size",
+  "score": 100,
+  "p0": 0,
+  "p1": 0,
+  "p2": 0,
+  "p3": 0,
+  "lastShot": "qa/reports/2026-09-17T11-49-02/shots/bizmanager-1280.png",
+  "updatedAt": "2026-09-17T11:50:33.409Z",
+  "steps": [
+    {
+      "id": "DL-01",
+      "name": "Palette token adherence",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-02",
+      "name": "Accent budget & hues",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-03",
+      "name": "Tinted surfaces",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-04",
+      "name": "Badge geometry",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-05",
+      "name": "Type scale",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-06",
+      "name": "Icon system",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-07",
+      "name": "Radius scale",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-08",
+      "name": "Spacing grid",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-09",
+      "name": "Shadow & glow",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-10",
+      "name": "Background gradients",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-11",
+      "name": "Contrast ratio (WCAG AA)",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-12",
+      "name": "AI-tell heuristics",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    },
+    {
+      "id": "DL-13",
+      "name": "Copy & tone",
+      "passed": true,
+      "violations": [],
+      "sev": null
+    }
+  ],
+  "passed": 24,
+  "failed": 4,
+  "skipped": 0
+}

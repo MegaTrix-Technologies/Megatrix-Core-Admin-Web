@@ -36,7 +36,7 @@ const AdminLayout = ({ children }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-black text-white flex flex-col font-sans">
       {/* 1. Unified Clean Header */}
       <Header
         isSidebarCollapsed={sidebarCollapsed}

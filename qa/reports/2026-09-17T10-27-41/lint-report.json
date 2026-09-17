@@ -1,0 +1,24 @@
+{
+  "runId": "2026-09-17T10-27-41",
+  "route": "/platforms/bizmanager",
+  "score": 75,
+  "passedGate": false,
+  "counts": {
+    "p0": 1,
+    "p1": 0,
+    "p2": 0,
+    "p3": 0,
+    "total": 1
+  },
+  "violations": [
+    {
+      "id": "DL-02",
+      "sev": "P0",
+      "name": "Rainbow hues detected (exceeds allowed non-neutral hues)",
+      "selector": "viewport",
+      "measured": "3 distinct hues on screen",
+      "expected": "<= 2 non-neutral hues"
+    }
+  ],
+  "timestamp": "2026-09-17T10:27:47.139Z"
+}

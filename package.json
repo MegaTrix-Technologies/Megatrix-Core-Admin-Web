@@ -9,7 +9,13 @@
     "dev:all": "node scripts/start-all.js",
     "server": "node server/index.js",
     "build": "vite build",
-    "preview": "vite preview --port 5175"
+    "preview": "vite preview --port 5175",
+    "qa:tokens": "node qa/lint/check-tokens.js",
+    "qa:lint": "node qa/lint/run-lint.js",
+    "qa:e2e": "playwright test --config=playwright.config.js",
+    "qa:report": "node qa/reporters/build-report.js",
+    "qa": "node qa/run-qa.js",
+    "qa:update-baseline": "playwright test --update-snapshots"
   },
   "dependencies": {
     "axios": "^1.6.7",
@@ -30,11 +36,18 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
+    "colorjs.io": "^0.7.1",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.63.0",
+    "pngjs": "^7.0.0",
     "postcss": "^8.4.35",
+    "puppeteer": "^25.11.0",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
   }

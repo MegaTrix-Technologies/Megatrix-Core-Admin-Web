@@ -263,6 +263,32 @@ export const adminApi = {
     };
   },
 
+  // 8. Restricted Project Credentials (AES-256-GCM)
+  getCredentials: async (params = {}) => {
+    const res = await apiClient.get('/credentials', { params });
+    return res.data;
+  },
+
+  revealCredential: async (id) => {
+    const res = await apiClient.post(`/credentials/${id}/reveal`);
+    return res.data;
+  },
+
+  createCredential: async (data) => {
+    const res = await apiClient.post('/credentials', data);
+    return res.data;
+  },
+
+  updateCredential: async (id, data) => {
+    const res = await apiClient.put(`/credentials/${id}`, data);
+    return res.data;
+  },
+
+  deleteCredential: async (id) => {
+    const res = await apiClient.delete(`/credentials/${id}`);
+    return res.data;
+  },
+
   // Gateway mode helpers for UI compatibility
   getMode: () => 'live',
   setMode: () => {},

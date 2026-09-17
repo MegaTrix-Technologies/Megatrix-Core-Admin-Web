@@ -1,0 +1,207 @@
+{
+  "runId": "2026-09-16T21-26-20",
+  "route": "/platforms/bizmanager",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 13,
+    "p2": 0,
+    "p3": 0,
+    "total": 13
+  },
+  "violations": [
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(2) > div.relative:nth-of-type(1) > button.flex:nth-of-type(1) > div.w-8:nth-of-type(1) > span.absolute:nth-of-type(2)",
+      "box": {
+        "x": 1246,
+        "y": 39,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(2) > div.relative:nth-of-type(1) > button.flex:nth-of-type(1) > div.w-8:nth-of-type(1) > span.absolute:nth-of-type(2)",
+      "box": {
+        "x": 1246,
+        "y": 39,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)",
+      "cropPath": "crops/DL-04-2.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.p-3:nth-of-type(2) > div.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 12,
+        "y": 776,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)",
+      "cropPath": "crops/DL-04-3.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 313,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 313,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(2) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 634,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(2) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 634,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(1) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 893,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(2) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 954,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(3) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1015,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(4) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1076,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1137,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(107, 114, 128)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "11 badges",
+      "expected": "<= 2 badges per viewport"
+    }
+  ],
+  "timestamp": "2026-09-16T21:26:26.003Z"
+}

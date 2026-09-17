@@ -1,0 +1,17 @@
+#!/bin/sh
+# MegaTrix Design QA - Pre-Push Hook
+# Enforces tokens, DL rules, and design gate compliance prior to remote git push.
+
+echo "[MX-QA] Running Design QA pre-push gate..."
+npm run qa:tokens || {
+  echo "[MX-QA] [ERROR] Design tokens failed validation. Push aborted."
+  exit 1
+}
+
+npm run qa:lint || {
+  echo "[MX-QA] [ERROR] Design Law linter detected violations. Push aborted."
+  exit 1
+}
+
+echo "[MX-QA] [PASS] Design QA pre-push gate passed."
+exit 0

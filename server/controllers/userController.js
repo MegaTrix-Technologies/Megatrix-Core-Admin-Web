@@ -263,7 +263,7 @@ export const userController = {
         expiresAt,
       });
 
-      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5175';
+      const frontendUrl = process.env.FRONTEND_URL || process.env.APP_PUBLIC_URL || 'http://localhost:5175';
       const invitationUrl = `${frontendUrl}/activate?token=${rawToken}`;
 
       // Dispatch authentic email via MailerX

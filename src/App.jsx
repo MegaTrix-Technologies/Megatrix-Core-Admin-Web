@@ -7,6 +7,8 @@ import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
 import AccountActivation from './pages/AccountActivation';
+import PlatformDashboard from './pages/PlatformDashboard';
+import GlobalUserManagement from './pages/GlobalUserManagement';
 import BizManagerModule from './pages/modules/BizManagerModule';
 import SchoolManagerModule from './pages/modules/SchoolManagerModule';
 import ProductUserManagement from './pages/ProductUserManagement';
@@ -33,24 +35,9 @@ const PublicAdminRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAdminAuth();
   if (loading) return null;
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
   return children;
-};
-
-// Intelligent Root Dispatcher: Renders the active portal's primary dashboard
-const ActivePortalDashboard = () => {
-  const { activePlatform } = useAdminAuth();
-  const isSchoolHub =
-    activePlatform?.id === 'schoolhub' ||
-    activePlatform?.aliasId === 'schoolhub' ||
-    activePlatform?.id === 'schoolmanager';
-
-  return isSchoolHub ? (
-    <SchoolManagerModule defaultTab="overview" />
-  ) : (
-    <BizManagerModule defaultTab="invoices" />
-  );
 };
 
 function App() {
@@ -71,7 +58,7 @@ function App() {
         />
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
-            {/* ─── PUBLIC ROUTES ─── */}
+            {/* ─── PUBLIC AUTHENTICATION ROUTES ─── */}
             <Route
               path="/login"
               element={
@@ -83,37 +70,65 @@ function App() {
 
             <Route
               path="/activate"
-              element={
-                <PublicAdminRoute>
-                  <AccountActivation />
-                </PublicAdminRoute>
-              }
+              element={<AccountActivation />}
             />
 
-            {/* ─── ROOT COMMAND CENTER (DYNAMIC ACTIVE PORTAL) ─── */}
+            {/* ─── 1. PLATFORM EXECUTIVE DASHBOARD ─── */}
             <Route
               path="/"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <ActivePortalDashboard />
+                    <PlatformDashboard />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <PlatformDashboard />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
 
-            {/* ─── 1. SCHOOL HUB INTEGRATED SAAS ROUTES ─── */}
+            {/* ─── 2. GLOBAL USER MANAGEMENT ─── */}
+            <Route
+              path="/users"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <GlobalUserManagement />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            {/* ─── 3. SCHOOL HUB PROJECT WORKSPACE ─── */}
+            <Route
+              path="/projects/school-hub"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <SchoolManagerModule defaultTab="users" />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            {/* Alias /schoolhub */}
             <Route
               path="/schoolhub"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <SchoolManagerModule defaultTab="overview" />
+                    <SchoolManagerModule defaultTab="users" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/schoolhub/schools"
               element={
@@ -124,7 +139,6 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/schoolhub/challans"
               element={
@@ -135,7 +149,16 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
+            <Route
+              path="/projects/school-hub/users/:subview"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <ProductUserManagement />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
             <Route
               path="/schoolhub/users/:subview"
               element={
@@ -146,35 +169,43 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/schoolhub/users"
-              element={<Navigate to="/schoolhub/users/all" replace />}
+              element={<Navigate to="/projects/school-hub" replace />}
             />
 
-            {/* ─── 2. BIZ MANAGER INTEGRATED SAAS ROUTES ─── */}
+            {/* ─── 4. BIZ MANAGER PROJECT WORKSPACE ─── */}
+            <Route
+              path="/projects/biz-manager"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <BizManagerModule defaultTab="users" />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            {/* Alias /bizmanager */}
             <Route
               path="/bizmanager"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <BizManagerModule defaultTab="invoices" />
+                    <BizManagerModule defaultTab="users" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/bizmanager/stores"
               element={
                 <ProtectedAdminRoute>
                   <AdminLayout>
-                    <BizManagerModule defaultTab="stores" />
+                    <BizManagerModule defaultTab="stock" />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/bizmanager/invoices"
               element={
@@ -185,7 +216,6 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/bizmanager/finance"
               element={
@@ -196,7 +226,16 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
+            <Route
+              path="/projects/biz-manager/users/:subview"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <ProductUserManagement />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
             <Route
               path="/bizmanager/users/:subview"
               element={
@@ -207,13 +246,12 @@ function App() {
                 </ProtectedAdminRoute>
               }
             />
-
             <Route
               path="/bizmanager/users"
-              element={<Navigate to="/bizmanager/users/all" replace />}
+              element={<Navigate to="/projects/biz-manager" replace />}
             />
 
-            {/* ─── 3. GOVERNANCE & SETTINGS (PROFILE, SECURITY, ADMIN USERS) ─── */}
+            {/* ─── 5. GOVERNANCE & SETTINGS ─── */}
             <Route
               path="/settings"
               element={
@@ -225,18 +263,14 @@ function App() {
               }
             />
 
-            {/* ─── LEGACY COMPATIBILITY REDIRECTS (PRESERVES EXISTING ENDPOINTS) ─── */}
+            {/* ─── 6. LEGACY COMPATIBILITY REDIRECTS ─── */}
             <Route
               path="/modules/schoolmanager"
-              element={<Navigate to="/schoolhub" replace />}
+              element={<Navigate to="/projects/school-hub" replace />}
             />
             <Route
               path="/modules/bizmanager"
-              element={<Navigate to="/bizmanager" replace />}
-            />
-            <Route
-              path="/users"
-              element={<Navigate to="/settings?tab=admins" replace />}
+              element={<Navigate to="/projects/biz-manager" replace />}
             />
             <Route
               path="/roles"
@@ -247,20 +281,40 @@ function App() {
               element={<Navigate to="/settings?tab=security" replace />}
             />
             <Route
+              path="/platforms/bizmanager"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <BizManagerModule defaultTab="users" />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/platforms/schoolhub"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <SchoolManagerModule defaultTab="users" />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
               path="/platforms"
-              element={<Navigate to="/" replace />}
+              element={<Navigate to="/dashboard" replace />}
             />
             <Route
               path="/subscriptions"
-              element={<Navigate to="/schoolhub/challans" replace />}
+              element={<Navigate to="/projects/school-hub" replace />}
             />
             <Route
               path="/services/mailerx"
-              element={<Navigate to="/" replace />}
+              element={<Navigate to="/dashboard" replace />}
             />
 
             {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </Router>
       </div>

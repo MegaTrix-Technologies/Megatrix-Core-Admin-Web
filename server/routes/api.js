@@ -5,10 +5,12 @@ import { roleController } from '../controllers/roleController.js';
 import { getAuditLogs, exportAuditLogs } from '../controllers/auditController.js';
 import { getOverviewMetrics } from '../controllers/overviewController.js';
 import { schoolManagerAdminController } from '../controllers/schoolManagerAdminController.js';
+import { credentialController } from '../controllers/credentialController.js';
 import {
   verifyAdminToken,
   requirePermission,
   preventSelfEscalation,
+  requireCredentialsAccess,
 } from '../middleware/auth.js';
 import {
   PERMISSIONS_REGISTRY,
@@ -115,6 +117,41 @@ router.get(
  * 6. LIVE METRICS & OVERVIEW
  * ========================================================= */
 router.get('/overview/metrics', verifyAdminToken, getOverviewMetrics);
+
+/* =========================================================
+ * 6.1. RESTRICTED PROJECT CREDENTIALS (AES-256-GCM)
+ * Strictly restricted to Superadmin & Full Access Admins
+ * ========================================================= */
+router.get(
+  '/credentials',
+  verifyAdminToken,
+  requireCredentialsAccess,
+  credentialController.listCredentials
+);
+router.post(
+  '/credentials/:id/reveal',
+  verifyAdminToken,
+  requireCredentialsAccess,
+  credentialController.revealCredential
+);
+router.post(
+  '/credentials',
+  verifyAdminToken,
+  requireCredentialsAccess,
+  credentialController.createCredential
+);
+router.put(
+  '/credentials/:id',
+  verifyAdminToken,
+  requireCredentialsAccess,
+  credentialController.updateCredential
+);
+router.delete(
+  '/credentials/:id',
+  verifyAdminToken,
+  requireCredentialsAccess,
+  credentialController.deleteCredential
+);
 
 /* =========================================================
  * 7. SCHOOL MANAGER GLOBAL GOVERNANCE MODULE

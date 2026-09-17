@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -50,4 +54,11 @@
   .font-tech {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
+}
+
+/* Ensure fixed backdrop overlays, dialogs, and modals always fill the entire viewport
+   preventing Tailwind space-y-* / space-x-* sibling selectors from injecting margin-top */
+.fixed.inset-0,
+[class*="fixed"][class*="inset-0"] {
+  margin: 0 !important;
 }

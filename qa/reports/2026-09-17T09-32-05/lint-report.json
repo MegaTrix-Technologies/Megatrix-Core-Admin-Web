@@ -1,0 +1,200 @@
+{
+  "runId": "2026-09-17T09-32-05",
+  "route": "/platforms/schoolhub",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 4,
+    "p1": 4,
+    "p2": 1,
+    "p3": 3,
+    "total": 12
+  },
+  "violations": [
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 917,
+        "y": 1157,
+        "w": 89,
+        "h": 38,
+        "area": 3390
+      },
+      "measured": "rgb(252, 211, 77)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-1.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 941,
+        "y": 1577,
+        "w": 65,
+        "h": 38,
+        "area": 2475
+      },
+      "measured": "rgb(252, 211, 77)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-2.png"
+    },
+    {
+      "id": "DL-03",
+      "sev": "P0",
+      "name": "Tinted surface detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 917,
+        "y": 1157,
+        "w": 89,
+        "h": 38,
+        "area": 3390
+      },
+      "measured": "rgba(245, 158, 11, 0.1) (saturation: 92%, area: 3390px²)",
+      "expected": "background saturation <= 8% for elements > 256px²",
+      "cropPath": "crops/DL-03-1.png"
+    },
+    {
+      "id": "DL-03",
+      "sev": "P0",
+      "name": "Tinted surface detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 941,
+        "y": 1577,
+        "w": 65,
+        "h": 38,
+        "area": 2475
+      },
+      "measured": "rgba(245, 158, 11, 0.1) (saturation: 92%, area: 2475px²)",
+      "expected": "background saturation <= 8% for elements > 256px²",
+      "cropPath": "crops/DL-03-2.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 917,
+        "y": 1157,
+        "w": 89,
+        "h": 38,
+        "area": 3390
+      },
+      "measured": "10px (\"Reset Required\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-1.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 941,
+        "y": 1577,
+        "w": 65,
+        "h": 38,
+        "area": 2475
+      },
+      "measured": "10px (\"Reset Required\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-2.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > div.flex:nth-of-type(1) > select.px-3:nth-of-type(1)",
+      "box": {
+        "x": 948,
+        "y": 524,
+        "w": 126,
+        "h": 36,
+        "area": 4536
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-1.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 917,
+        "y": 1157,
+        "w": 89,
+        "h": 38,
+        "area": 3390
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-2.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 941,
+        "y": 1577,
+        "w": 65,
+        "h": 38,
+        "area": 2475
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-3.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 917,
+        "y": 1157,
+        "w": 89,
+        "h": 38,
+        "area": 3390
+      },
+      "measured": "1.49:1 (\"Reset Required\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-1.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.px-1.5:nth-of-type(3)",
+      "box": {
+        "x": 941,
+        "y": 1577,
+        "w": 65,
+        "h": 38,
+        "area": 2475
+      },
+      "measured": "1.49:1 (\"Reset Required\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-2.png"
+    },
+    {
+      "id": "DL-12",
+      "sev": "P2",
+      "name": "Too many ALL-CAPS micro-labels",
+      "selector": "viewport",
+      "measured": "9 all-caps labels",
+      "expected": "<= 4 per viewport"
+    }
+  ],
+  "timestamp": "2026-09-17T09:32:09.481Z"
+}

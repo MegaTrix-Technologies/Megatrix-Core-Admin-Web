@@ -1,0 +1,4563 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>MegaTrix Design QA Report - 2026-09-16T21-02-02</title>
+  <style>
+    body { background: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 32px; }
+    .card { background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+    .score-badge { display: inline-block; font-size: 28px; font-weight: 800; padding: 8px 16px; border-radius: 6px; background: #ef4444; color: #000; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #1e1e1e; }
+    th { color: #9ca3af; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .P0 { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .P1 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .P2 { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .P3 { background: rgba(156, 163, 175, 0.2); color: #9ca3af; border: 1px solid rgba(156, 163, 175, 0.4); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>MegaTrix Design Quality Report</h1>
+    <p style="color: #9ca3af;">Run: <code>2026-09-16T21-02-02</code> &bull; Timestamp: <code>2026-09-16T21:02:14.818Z</code></p>
+    <div class="score-badge">SCORE: 0/100 (FAIL)</div>
+    <div style="margin-top: 16px; color: #9ca3af;">
+      Gate Threshold: <strong>Score &ge; 90, P0 = 0, P1 = 0</strong> &bull;
+      Active Counts: P0: <strong>24</strong> | P1: <strong>459</strong> | P2: <strong>37</strong> | P3: <strong>45</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Violations (565)</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Sev</th><th>Check</th><th>Measured</th><th>Expected</th></tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(229, 229, 229)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(37, 99, 235)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(147, 197, 253)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(252, 211, 77)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgba(253, 230, 138, 0.8)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.15)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(14, 165, 233, 0.15)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.15)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(212, 212, 212)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(212, 212, 212)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(212, 212, 212)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(212, 212, 212)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(212, 212, 212)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(251, 113, 133)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token background color</td>
+            <td style="color: #ef4444;"><code>rgba(244, 63, 94, 0.1)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-02</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Rainbow hues detected (exceeds allowed non-neutral hues)</td>
+            <td style="color: #ef4444;"><code>13 distinct hues on screen</code></td>
+            <td style="color: #9ca3af;"><= 2 non-neutral hues</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.1) (saturation: 91%, area: 9739px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgb(37, 99, 235) (saturation: 83%, area: 6990px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.1) (saturation: 91%, area: 4521px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(245, 158, 11, 0.1) (saturation: 92%, area: 89280px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.15) (saturation: 84%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(14, 165, 233, 0.15) (saturation: 89%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.15) (saturation: 91%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(245, 158, 11, 0.15) (saturation: 92%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.15) (saturation: 91%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.15) (saturation: 84%, area: 1024px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1) (saturation: 84%, area: 1670px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1) (saturation: 84%, area: 1011px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1) (saturation: 84%, area: 1011px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1) (saturation: 84%, area: 1011px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1) (saturation: 84%, area: 1011px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-03</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Tinted surface detected</td>
+            <td style="color: #ef4444;"><code>rgba(244, 63, 94, 0.1) (saturation: 89%, area: 1388px²)</code></td>
+            <td style="color: #9ca3af;">background saturation <= 8% for elements > 256px²</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(163, 163, 163)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 40px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(38, 38, 38)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 375px ("")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(96, 165, 250)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 567px ("Retail & Point of Sale Command Desk")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 36px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>30px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgb(52, 211, 153)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(59, 130, 246, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 36px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>30px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 36px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>30px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 36px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>30px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 343px ("Manage registered POS operators and acti")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(16, 185, 129, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal badge background fill</td>
+            <td style="color: #ef4444;"><code>rgba(244, 63, 94, 0.1)</code></td>
+            <td style="color: #9ca3af;">transparent or panel (#141414)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many badges in viewport</td>
+            <td style="color: #ef4444;"><code>74 badges</code></td>
+            <td style="color: #9ca3af;"><= 2 badges per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Enterprise")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Platform")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("System & Governance")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("MegaTrix Core Online")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("v1.0")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("Retail & Point of Sale Command")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("PKR 342,850")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("480")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("1,420")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("PKR 184,200")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("PKR 95,400")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>30px ("3")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>9px ("AES-256")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("usr_bm_01")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Active")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("usr_bm_02")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Active")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("usr_bm_03")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Active")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("usr_bm_04")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Active")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("usr_bm_05")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Restricted")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many distinct font sizes</td>
+            <td style="color: #ef4444;"><code>6 distinct sizes (14, 12, 11, 10, 30, 9)</code></td>
+            <td style="color: #9ca3af;"><= 5 distinct sizes per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many distinct font weights</td>
+            <td style="color: #ef4444;"><code>5 distinct weights (700, 600, 400, 500, 800)</code></td>
+            <td style="color: #9ca3af;"><= 3 distinct weights per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>7px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>7px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>7px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>1px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>1px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>15px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>17px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>11px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>11px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>11px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>11px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>5px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>3px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Pill radius on non-dot element</td>
+            <td style="color: #ef4444;"><code>border-radius: 9999px on 40x40px element</code></td>
+            <td style="color: #9ca3af;">Radius 9999px only on elements <= 10px or avatars</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Pill radius on non-dot element</td>
+            <td style="color: #ef4444;"><code>border-radius: 9999px on 32x32px element</code></td>
+            <td style="color: #9ca3af;">Radius 9999px only on elements <= 10px or avatars</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>24px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Pill radius on non-dot element</td>
+            <td style="color: #ef4444;"><code>border-radius: 9999px on 375x26px element</code></td>
+            <td style="color: #9ca3af;">Radius 9999px only on elements <= 10px or avatars</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>16px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>4px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>2px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(37, 99, 235, 0.25)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(37, 99, 235, 0.25)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgb(255, 255, 255)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-10</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal background gradient</td>
+            <td style="color: #ef4444;"><code>linear-gradient(to right, rgba(23, 37, 84, 0.4), rgb(10, 10, 10), rgb(10, 10, 10</code></td>
+            <td style="color: #9ca3af;">No gradients outside /login</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Platform")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("System & Governance")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("MegaTrix Core Online")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("v1.0")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Real-time synchronization acro")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>2.04:1 ("Tenant Namespace: BIZ-RETAIL-0")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Today's Sales")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Processed via POS")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Active Customers")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Walk-in & Regular")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Inventory SKUs")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Stock Items Tracked")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Khata Receivables")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Pending Customer Dues")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Cash In Hand")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Cash Drawer Register")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Terminals Online")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Active Checkout Counters")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Credentials")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.32:1 ("AES-256")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("POS Sales & Invoices")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Customer Khata")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Retail Activity")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Low Stock Alerts")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Manage registered POS operator")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Operator Name")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Role")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Assigned POS Terminal")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Contact Phone")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Status")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Actions")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("usr_bm_01")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.32:1 ("Active")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("usr_bm_02")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.32:1 ("Active")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("usr_bm_03")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.32:1 ("Active")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("usr_bm_04")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.32:1 ("Active")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("usr_bm_05")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.36:1 ("Restricted")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-12</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Card-kit monotony: identical style signature run > 6</td>
+            <td style="color: #ef4444;"><code>22 elements with signature [0px|0px solid rgb(229, 231, 235)|0,0,0,0|rgba(0, 0, 0, 0)]</code></td>
+            <td style="color: #9ca3af;"><= 6 identical cards without hierarchy</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-12</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Card-kit monotony: identical style signature run > 6</td>
+            <td style="color: #ef4444;"><code>30 elements with signature [0px|0px solid rgb(229, 231, 235)|14,16,14,16|rgba(0, 0, 0, 0)]</code></td>
+            <td style="color: #9ca3af;"><= 6 identical cards without hierarchy</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+{
+  "runId": "2026-09-16T20-54-43",
+  "route": "/platforms/bizmanager",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 5,
+    "p1": 50,
+    "p2": 4,
+    "p3": 5,
+    "total": 64
+  },
+  "violations": [
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 238,
+        "w": 384,
+        "h": 16,
+        "area": 6144
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-5.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 286,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-5.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 371,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "rgb(115, 115, 115)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-5.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 596,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "rgb(82, 82, 82)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-5.png"
+    },
+    {
+      "id": "DL-01",
+      "sev": "P1",
+      "name": "Off-token text color",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "rgba(82, 82, 82, 0.5)",
+      "expected": "Resolves to tokens.json (dE < 2)",
+      "cropPath": "crops/DL-01-5.png"
+    },
+    {
+      "id": "DL-02",
+      "sev": "P0",
+      "name": "Rainbow hues detected (exceeds allowed non-neutral hues)",
+      "selector": "viewport",
+      "measured": "13 distinct hues on screen",
+      "expected": "<= 2 non-neutral hues"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.relative:nth-of-type(1) > div.relative:nth-of-type(2) > div.text-center:nth-of-type(1) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 290,
+        "y": 470,
+        "w": 189,
+        "h": 16,
+        "area": 3017
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.bg-gradient-to-r:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 162,
+        "w": 141,
+        "h": 32,
+        "area": 4500
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.bg-gradient-to-r:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 162,
+        "w": 141,
+        "h": 32,
+        "area": 4500
+      },
+      "measured": "26px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.text-mx-blue:nth-of-type(2)",
+      "box": {
+        "x": 983,
+        "y": 162,
+        "w": 201,
+        "h": 32,
+        "area": 6428
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.text-mx-blue:nth-of-type(2)",
+      "box": {
+        "x": 983,
+        "y": 162,
+        "w": 201,
+        "h": 32,
+        "area": 6428
+      },
+      "measured": "26px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > h1.text-xl:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 206,
+        "w": 384,
+        "h": 28,
+        "area": 10752
+      },
+      "measured": "width 384px (\"Unified Command Center\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > h1.text-xl:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 206,
+        "w": 384,
+        "h": 28,
+        "area": 10752
+      },
+      "measured": "height 28px",
+      "expected": "height <= 26px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > h1.text-xl:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 206,
+        "w": 384,
+        "h": 28,
+        "area": 10752
+      },
+      "measured": "20px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 238,
+        "w": 384,
+        "h": 16,
+        "area": 6144
+      },
+      "measured": "width 384px (\"Centralized multi-SaaS governance & ecos\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 238,
+        "w": 384,
+        "h": 16,
+        "area": 6144
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 286,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "width 384px (\"Enter Email\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 371,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "width 384px (\"Password\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 932,
+        "y": 467,
+        "w": 162,
+        "h": 20,
+        "area": 3237
+      },
+      "measured": "14px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 596,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "width 384px (\"Restricted Access. All operations are mo\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 596,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "10px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "width 384px (\"© 2026 MegaTrix Technologies (Pvt) Ltd.\")",
+      "expected": "width <= 240px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "10px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-24.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "12 badges",
+      "expected": "<= 2 badges per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.bg-gradient-to-r:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 162,
+        "w": 141,
+        "h": 32,
+        "area": 4500
+      },
+      "measured": "26px (\"MegaTrix\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-30.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.text-mx-blue:nth-of-type(2)",
+      "box": {
+        "x": 983,
+        "y": 162,
+        "w": 201,
+        "h": 32,
+        "area": 6428
+      },
+      "measured": "26px (\"Technologies\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-30.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 596,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "10px (\"Restricted Access. All operati\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-30.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Off-scale font size",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "10px (\"© 2026 MegaTrix Technologies (\")",
+      "expected": "One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px",
+      "cropPath": "crops/DL-05-30.png"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font sizes",
+      "selector": "viewport",
+      "measured": "6 distinct sizes (12, 11, 26, 20, 14, 10)",
+      "expected": "<= 5 distinct sizes per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font weights",
+      "selector": "viewport",
+      "measured": "5 distinct weights (500, 400, 900, 800, 700)",
+      "expected": "<= 3 distinct weights per viewport"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 847,
+        "y": 322,
+        "w": 16,
+        "h": 16,
+        "area": 256
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Icon size off-system",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > path:nth-of-type(1)",
+      "box": {
+        "x": 848,
+        "y": 324,
+        "w": 13,
+        "h": 11,
+        "area": 142
+      },
+      "measured": "13px",
+      "expected": "Size in {14, 16, 18, 20}",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > path:nth-of-type(1)",
+      "box": {
+        "x": 848,
+        "y": 324,
+        "w": 13,
+        "h": 11,
+        "area": 142
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Icon size off-system",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > polyline:nth-of-type(1)",
+      "box": {
+        "x": 848,
+        "y": 326,
+        "w": 13,
+        "h": 5,
+        "area": 62
+      },
+      "measured": "13px",
+      "expected": "Size in {14, 16, 18, 20}",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > polyline:nth-of-type(1)",
+      "box": {
+        "x": 848,
+        "y": 326,
+        "w": 13,
+        "h": 5,
+        "area": 62
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 847,
+        "y": 406,
+        "w": 16,
+        "h": 16,
+        "area": 256
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Icon size off-system",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > rect:nth-of-type(1)",
+      "box": {
+        "x": 849,
+        "y": 413,
+        "w": 12,
+        "h": 7,
+        "area": 88
+      },
+      "measured": "12px",
+      "expected": "Size in {14, 16, 18, 20}",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > rect:nth-of-type(1)",
+      "box": {
+        "x": 849,
+        "y": 413,
+        "w": 12,
+        "h": 7,
+        "area": 88
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Icon size off-system",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > path:nth-of-type(1)",
+      "box": {
+        "x": 851,
+        "y": 407,
+        "w": 7,
+        "h": 6,
+        "area": 40
+      },
+      "measured": "7px",
+      "expected": "Size in {14, 16, 18, 20}",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > svg:nth-of-type(1) > path:nth-of-type(1)",
+      "box": {
+        "x": 851,
+        "y": 407,
+        "w": 7,
+        "h": 6,
+        "area": 40
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1) > svg:nth-of-type(1)",
+      "box": {
+        "x": 1101,
+        "y": 469,
+        "w": 16,
+        "h": 16,
+        "area": 256
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Icon size off-system",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1) > svg:nth-of-type(1) > polyline:nth-of-type(1)",
+      "box": {
+        "x": 1109,
+        "y": 472,
+        "w": 5,
+        "h": 9,
+        "area": 44
+      },
+      "measured": "9px",
+      "expected": "Size in {14, 16, 18, 20}",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P1",
+      "name": "Inconsistent icon stroke-width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1) > svg:nth-of-type(1) > polyline:nth-of-type(1)",
+      "box": {
+        "x": 1109,
+        "y": 472,
+        "w": 5,
+        "h": 9,
+        "area": 44
+      },
+      "measured": "stroke-width=\"2\"",
+      "expected": "stroke-width=\"1.5\"",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-06",
+      "sev": "P0",
+      "name": "Emoji detected in UI text",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "© 2026 MegaTrix Technologies (Pvt) Ltd.",
+      "expected": "Zero emoji codepoints in rendered text",
+      "cropPath": "crops/DL-06-44.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 309,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "8px",
+      "expected": "One of [0, 6, 10, 14, 9999]px",
+      "cropPath": "crops/DL-07-47.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 393,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "8px",
+      "expected": "One of [0, 6, 10, 14, 9999]px",
+      "cropPath": "crops/DL-07-47.png"
+    },
+    {
+      "id": "DL-07",
+      "sev": "P2",
+      "name": "Off-scale border radius",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 455,
+        "w": 384,
+        "h": 44,
+        "area": 16896
+      },
+      "measured": "8px",
+      "expected": "One of [0, 6, 10, 14, 9999]px",
+      "cropPath": "crops/DL-07-47.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.relative:nth-of-type(1) > div.relative:nth-of-type(2) > div.text-center:nth-of-type(1) > div.w-16:nth-of-type(1)",
+      "box": {
+        "x": 352,
+        "y": 494,
+        "w": 64,
+        "h": 1,
+        "area": 64
+      },
+      "measured": "62.2812px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-52.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 309,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-52.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > div.relative:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 309,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "10px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-52.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 393,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-52.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > div.relative:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 393,
+        "w": 384,
+        "h": 42,
+        "area": 16128
+      },
+      "measured": "10px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-52.png"
+    },
+    {
+      "id": "DL-09",
+      "sev": "P1",
+      "name": "Colored drop-shadow filter detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 162,
+        "w": 384,
+        "h": 32,
+        "area": 12288
+      },
+      "measured": "filter: drop-shadow(rgba(59, 130, 246, 0.35) 0px 0px 24px)",
+      "expected": "Black/transparent shadows only",
+      "cropPath": "crops/DL-09-55.png"
+    },
+    {
+      "id": "DL-09",
+      "sev": "P1",
+      "name": "Colored box-shadow glow detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 455,
+        "w": 384,
+        "h": 44,
+        "area": 16896
+      },
+      "measured": "box-shadow with rgba(255, 255, 255, 0.05)",
+      "expected": "Black/transparent shadows only",
+      "cropPath": "crops/DL-09-55.png"
+    },
+    {
+      "id": "DL-09",
+      "sev": "P1",
+      "name": "Colored box-shadow glow detected",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 455,
+        "w": 384,
+        "h": 44,
+        "area": 16896
+      },
+      "measured": "box-shadow with rgba(255, 255, 255, 0.05)",
+      "expected": "Black/transparent shadows only",
+      "cropPath": "crops/DL-09-55.png"
+    },
+    {
+      "id": "DL-10",
+      "sev": "P1",
+      "name": "Illegal background gradient",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.relative:nth-of-type(1) > div.relative:nth-of-type(2) > div.text-center:nth-of-type(1) > div.w-16:nth-of-type(1)",
+      "box": {
+        "x": 352,
+        "y": 494,
+        "w": 64,
+        "h": 1,
+        "area": 64
+      },
+      "measured": "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.2), rgba(0, 0,",
+      "expected": "No gradients outside /login",
+      "cropPath": "crops/DL-10-57.png"
+    },
+    {
+      "id": "DL-10",
+      "sev": "P1",
+      "name": "Illegal background gradient",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div.font-tech:nth-of-type(1) > h2.text-2xl:nth-of-type(1) > span.bg-gradient-to-r:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 162,
+        "w": 141,
+        "h": 32,
+        "area": 4500
+      },
+      "measured": "linear-gradient(to right, rgb(255, 255, 255), rgb(245, 245, 245), rgb(229, 229, ",
+      "expected": "No gradients outside /login",
+      "cropPath": "crops/DL-10-57.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(1) > div:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 238,
+        "w": 384,
+        "h": 16,
+        "area": 6144
+      },
+      "measured": "4.18:1 (\"Centralized multi-SaaS governa\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(1) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 286,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "4.18:1 (\"Enter Email\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > div.space-y-1.5:nth-of-type(2) > label.block:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 371,
+        "w": 384,
+        "h": 17,
+        "area": 6336
+      },
+      "measured": "4.18:1 (\"Password\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > form.space-y-5:nth-of-type(1) > button.w-full:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 932,
+        "y": 467,
+        "w": 162,
+        "h": 20,
+        "area": 3237
+      },
+      "measured": "1.06:1 (\"Access Command Center\")",
+      "expected": ">= 3:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(1)",
+      "box": {
+        "x": 833,
+        "y": 596,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "2.53:1 (\"Restricted Access. All operati\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.w-full:nth-of-type(2) > div.max-w-sm:nth-of-type(1) > div.space-y-3:nth-of-type(2) > p:nth-of-type(2)",
+      "box": {
+        "x": 833,
+        "y": 623,
+        "w": 384,
+        "h": 15,
+        "area": 5760
+      },
+      "measured": "2.53:1 (\"© 2026 MegaTrix Technologies (\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-63.png"
+    },
+    {
+      "id": "DL-12",
+      "sev": "P2",
+      "name": "Card-kit monotony: identical style signature run > 6",
+      "selector": "#root",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800,
+        "area": 1024000
+      },
+      "measured": "10 elements with signature [0px|0px solid rgb(229, 231, 235)|0,0,0,0|rgba(0, 0, 0, 0)]",
+      "expected": "<= 6 identical cards without hierarchy",
+      "cropPath": "crops/DL-12-64.png"
+    }
+  ],
+  "timestamp": "2026-09-16T20:55:13.406Z"
+}

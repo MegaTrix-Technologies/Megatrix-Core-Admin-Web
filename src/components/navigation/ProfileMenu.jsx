@@ -62,89 +62,94 @@ const ProfileMenu = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="User Profile & Settings"
+        aria-label="User Profile and Settings"
         aria-expanded={isOpen}
-        className="flex items-center gap-2 p-1 rounded-full hover:bg-mx-elevated text-left transition-colors cursor-pointer group focus:outline-none focus:ring-1 focus:ring-mx-blue"
+        className="flex items-center gap-2 p-1 rounded-sm hover:bg-mx-panel text-left transition-colors cursor-pointer group focus:outline-none focus:border focus:border-mx-blue border border-mx-border"
       >
-        <div className="w-8 h-8 rounded-full bg-neutral-800 border border-neutral-700 group-hover:border-neutral-500 flex items-center justify-center font-semibold text-white text-xs transition-colors relative">
+        <div className="w-8 h-8 rounded-sm bg-mx-panel border border-mx-border flex items-center justify-center font-semibold text-white text-xs transition-colors relative">
           <span>{userInitial}</span>
-          <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-black" />
+          <span className="absolute -bottom-1 -right-1 w-2 h-2 rounded-full bg-mx-positive" />
         </div>
       </button>
 
       {/* Profile Menu Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 bg-mx-surface border border-mx-border rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute right-0 mt-2 w-72 bg-mx-surface border border-mx-border rounded-md p-2 z-50 animate-in fade-in duration-150">
           {/* User Header Details */}
-          <div className="px-3 py-2.5 border-b border-mx-border mb-1">
+          <div className="px-3 py-2 border-b border-mx-border mb-1">
             <div className="flex items-center justify-between gap-2">
               <p className="text-xs font-bold text-white truncate">
                 {adminUser?.name || 'Administrator'}
               </p>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white/5 text-neutral-300 border border-white/10 uppercase tracking-wider shrink-0">
+              <span className="text-[11px] font-mono px-2 py-1 rounded-sm bg-mx-panel text-mx-subtle border border-mx-border uppercase tracking-wider shrink-0">
                 {roleDisplay}
               </span>
             </div>
-            <p className="text-[11px] text-neutral-400 truncate mt-0.5">
+            <p className="text-[11px] text-mx-subtle truncate mt-0.5">
               {adminUser?.email || 'admin@megatrix.tech'}
             </p>
           </div>
 
           {/* Account & Profile Actions */}
-          <div className="space-y-0.5 py-1">
+          <div className="space-y-1 py-1">
             <button
               type="button"
               onClick={() => handleNavigate('/settings?tab=profile')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-neutral-300 hover:text-white hover:bg-mx-elevated transition-colors text-left cursor-pointer"
+              aria-label="Manage admin profile"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
             >
-              <User className="w-3.5 h-3.5 text-neutral-400" />
-              <span>Profile & Account Details</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleNavigate('/settings?tab=profile')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-neutral-300 hover:text-white hover:bg-mx-elevated transition-colors text-left cursor-pointer"
-            >
-              <Settings className="w-3.5 h-3.5 text-neutral-400" />
-              <span>Profile Settings</span>
+              <User size={16} strokeWidth={1.5} className="text-mx-muted" />
+              <span>Admin Profile</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleNavigate('/settings?tab=security')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-neutral-300 hover:text-white hover:bg-mx-elevated transition-colors text-left cursor-pointer"
+              aria-label="Security and audit logs"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
             >
-              <Key className="w-3.5 h-3.5 text-neutral-400" />
-              <span>Security & Account Access</span>
+              <Key size={16} strokeWidth={1.5} className="text-mx-muted" />
+              <span>Security and API Keys</span>
             </button>
 
             {canManageAdmins && (
               <button
                 type="button"
                 onClick={() => handleNavigate('/settings?tab=admins')}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs text-neutral-300 hover:text-white hover:bg-mx-elevated transition-colors text-left cursor-pointer"
+                aria-label="Manage team admin users"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
               >
                 <div className="flex items-center gap-2.5">
-                  <Users className="w-3.5 h-3.5 text-mx-blue" />
-                  <span>Admin User Governance</span>
+                  <Shield size={16} strokeWidth={1.5} className="text-mx-muted" />
+                  <span>Admin Access Management</span>
                 </div>
-                <span className="text-[9px] font-bold text-mx-blue bg-mx-blue/10 px-1.5 py-0.5 rounded">
-                  Superadmin
+                <span className="text-[11px] font-mono px-1 rounded-sm bg-mx-panel text-mx-muted border border-mx-border">
+                  Root
                 </span>
               </button>
             )}
+
+            <button
+              type="button"
+              onClick={() => handleNavigate('/users')}
+              aria-label="Global cross-platform users"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
+            >
+              <Users size={16} strokeWidth={1.5} className="text-mx-muted" />
+              <span>Global Client Users</span>
+            </button>
           </div>
 
-          {/* Separated Logout Action */}
-          <div className="pt-1 mt-1 border-t border-mx-border">
+          {/* Sign Out Action */}
+          <div className="pt-1 border-t border-mx-border mt-1">
             <button
               type="button"
               onClick={handleLogout}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-rose-400 hover:bg-rose-500/10 transition-colors text-left cursor-pointer"
+              aria-label="Sign out of MegaTrix core"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-danger hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out of Command Center</span>
+              <LogOut size={16} strokeWidth={1.5} />
+              <span className="font-semibold">Sign Out</span>
             </button>
           </div>
         </div>

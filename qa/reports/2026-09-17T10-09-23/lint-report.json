@@ -1,0 +1,15 @@
+{
+  "runId": "2026-09-17T10-09-23",
+  "route": "/settings?tab=profile",
+  "score": 100,
+  "passedGate": true,
+  "counts": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": 0,
+    "total": 0
+  },
+  "violations": [],
+  "timestamp": "2026-09-17T10:09:28.571Z"
+}

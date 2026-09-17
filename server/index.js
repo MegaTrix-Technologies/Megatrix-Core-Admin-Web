@@ -9,6 +9,7 @@ import apiRouter from './routes/api.js';
 import { Role } from './models/Role.js';
 import { AdminUser } from './models/AdminUser.js';
 import { AuditLog } from './models/AuditLog.js';
+import { Credential } from './models/Credential.js';
 import { ALL_PERMISSION_KEYS } from './config/permissionsRegistry.js';
 
 const app = express();

@@ -1,0 +1,545 @@
+{
+  "runId": "2026-09-17T10-29-55",
+  "route": "/platforms/schoolhub",
+  "score": 55,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 1,
+    "p2": 1,
+    "p3": 34,
+    "total": 36
+  },
+  "violations": [
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "35 badges",
+      "expected": "<= 2 badges per viewport"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(1) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 794,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-1.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(2) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 899,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-2.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(3) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1004,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-3.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(4) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1101,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1198,
+        "w": 64,
+        "h": 20,
+        "area": 1284
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(6) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1287,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(7) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1360,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(8) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1433,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(9) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1506,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(10) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1579,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(11) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1652,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(12) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1725,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(13) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1798,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(14) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1871,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(15) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 1960,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(16) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2065,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(17) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2170,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(18) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2259,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(19) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2340,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(20) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2429,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(21) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2526,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(22) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2623,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(23) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2720,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(24) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2809,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(25) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 2914,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(26) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3035,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(27) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3140,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(28) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3253,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(29) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3366,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(30) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3471,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(31) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3576,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(32) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3681,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(33) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3786,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(4) > div.overflow-x-auto:nth-of-type(3) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(34) > td.py-3:nth-of-type(2) > span.px-2:nth-of-type(1)",
+      "box": {
+        "x": 511,
+        "y": 3891,
+        "w": 58,
+        "h": 20,
+        "area": 1152
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-12",
+      "sev": "P2",
+      "name": "Too many ALL-CAPS micro-labels",
+      "selector": "viewport",
+      "measured": "35 all-caps labels",
+      "expected": "<= 4 per viewport"
+    }
+  ],
+  "timestamp": "2026-09-17T10:30:01.622Z"
+}

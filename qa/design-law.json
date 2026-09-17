@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "MegaTrix Design Law",
+  "version": "1.0.0",
+  "tokensPath": "../../src/design/tokens.json",
+  "surfaces": {
+    "allowedBackgrounds": ["#000000", "#0a0a0a", "#141414", "transparent", "rgba(0, 0, 0, 0)"],
+    "maxSaturationThreshold": 0.08,
+    "maxSaturatedArea": 256,
+    "allowedGradients": ["/login"],
+    "shadowColorRegex": "^(rgba?\\(\\s*0\\s*,\\s*0\\s*,\\s*0(\\s*[,/]\\s*\\d*\\.?\\d+%?)?\\)|transparent|none)$"
+  },
+  "accentBudget": {
+    "primaryAccent": "#3b82f6",
+    "maxAccentPixelRatio": 0.04,
+    "maxSemanticPixelRatio": 0.015,
+    "maxDistinctNonNeutralHues": 2
+  },
+  "badges": {
+    "maxHeight": 26,
+    "maxWidth": 240,
+    "fontSize": 11,
+    "allowedBackgrounds": ["transparent", "#141414", "rgba(0, 0, 0, 0)"],
+    "maxPerViewport": 2
+  },
+  "icons": {
+    "allowedSource": "lucide-react",
+    "allowedSizes": [14, 16, 18, 20],
+    "requiredStrokeWidth": 1.5,
+    "requiredColor": "currentColor",
+    "allowEmoji": false,
+    "allowRasterIcons": false
+  },
+  "typography": {
+    "display": "Orbitron",
+    "ui": "Space Grotesk",
+    "mono": "JetBrains Mono",
+    "allowedSizes": [11, 12, 13, 14, 16, 20, 28, 40, 56],
+    "allowedWeights": [400, 500, 600, 700],
+    "maxDistinctSizesPerViewport": 5,
+    "maxDistinctWeightsPerViewport": 3,
+    "maxDistinctFamiliesPerViewport": 3,
+    "maxProseLineLengthChars": 80
+  },
+  "geometry": {
+    "allowedRadii": [0, 6, 10, 14, 9999],
+    "maxPillDimensionWithoutAvatar": 10,
+    "spacingGridMultiple": 4,
+    "maxIdenticalSiblingSignature": 6
+  },
+  "exceptions": {
+    "maxAllCapsEyebrows": 4,
+    "maxTrailingArrowsOnCTA": 1,
+    "allowMiddleDotMetaStrings": false,
+    "wordmarkAccentedWordAllowed": true
+  },
+  "copy": {
+    "bannedWords": [
+      "Submit",
+      "Click here",
+      "Powered by",
+      "Seamlessly",
+      "Robust",
+      "Cutting-edge",
+      "Leverage",
+      "Unleash"
+    ]
+  },
+  "scoring": {
+    "base": 100,
+    "penalties": {
+      "P0": 25,
+      "P1": 8,
+      "P2": 3,
+      "P3": 1
+    },
+    "passThreshold": 90,
+    "maxAllowedP0": 0,
+    "maxAllowedP1": 0
+  }
+}

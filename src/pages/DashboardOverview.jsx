@@ -33,8 +33,7 @@ const DashboardOverview = () => {
         setData(res);
       }
     } catch (error) {
-      console.error('Failed to load overview:', error);
-      toast.error('Failed to fetch platform metrics.');
+      console.warn('Live metrics currently unavailable (backend unreachable):', error?.message || error);
     } finally {
       setLoading(false);
     }

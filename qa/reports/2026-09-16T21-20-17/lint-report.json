@@ -1,0 +1,975 @@
+{
+  "runId": "2026-09-16T21-20-17",
+  "route": "/platforms/bizmanager",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 2,
+    "p1": 62,
+    "p2": 1,
+    "p3": 0,
+    "total": 65
+  },
+  "violations": [
+    {
+      "id": "DL-02",
+      "sev": "P0",
+      "name": "Rainbow hues detected (exceeds allowed non-neutral hues)",
+      "selector": "viewport",
+      "measured": "13 distinct hues on screen",
+      "expected": "<= 2 non-neutral hues"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(1) > a.flex:nth-of-type(1) > span.font-display:nth-of-type(1) > span.text-mx-blue:nth-of-type(1)",
+      "box": {
+        "x": 172,
+        "y": 20,
+        "w": 43,
+        "h": 16,
+        "area": 692
+      },
+      "measured": "14px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(2) > div.relative:nth-of-type(1) > button.flex:nth-of-type(1) > div.w-8:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1229,
+        "y": 20,
+        "w": 11,
+        "h": 16,
+        "area": 178
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-2.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(2) > div.relative:nth-of-type(1) > button.flex:nth-of-type(1) > div.w-8:nth-of-type(1) > span.absolute:nth-of-type(2)",
+      "box": {
+        "x": 1246,
+        "y": 39,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-3.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > header.h-14:nth-of-type(1) > div.flex:nth-of-type(2) > div.relative:nth-of-type(1) > button.flex:nth-of-type(1) > div.w-8:nth-of-type(1) > span.absolute:nth-of-type(2)",
+      "box": {
+        "x": 1246,
+        "y": 39,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > div.px-3:nth-of-type(1) > span:nth-of-type(2)",
+      "box": {
+        "x": 147,
+        "y": 76,
+        "w": 84,
+        "h": 27,
+        "area": 2226
+      },
+      "measured": "height 27px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.space-y-1:nth-of-type(1) > a.flex:nth-of-type(1) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 48,
+        "y": 153,
+        "w": 59,
+        "h": 16,
+        "area": 946
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.space-y-1:nth-of-type(1) > div.space-y-1:nth-of-type(2) > button.w-full:nth-of-type(1) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 48,
+        "y": 193,
+        "w": 43,
+        "h": 16,
+        "area": 691
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.space-y-1:nth-of-type(1) > div.space-y-1:nth-of-type(2) > div.ml-4:nth-of-type(1) > a.flex:nth-of-type(1) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 71,
+        "y": 231,
+        "w": 61,
+        "h": 16,
+        "area": 982
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.space-y-1:nth-of-type(1) > div.space-y-1:nth-of-type(2) > div.ml-4:nth-of-type(1) > a.flex:nth-of-type(2) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 71,
+        "y": 267,
+        "w": 66,
+        "h": 16,
+        "area": 1053
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.space-y-1:nth-of-type(1) > a.flex:nth-of-type(2) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 48,
+        "y": 305,
+        "w": 100,
+        "h": 16,
+        "area": 1605
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.flex:nth-of-type(1) > nav.space-y-4:nth-of-type(1) > div.pt-3:nth-of-type(2) > div.space-y-1:nth-of-type(2) > button.w-full:nth-of-type(1) > div.flex:nth-of-type(1) > span.truncate:nth-of-type(1)",
+      "box": {
+        "x": 48,
+        "y": 391,
+        "w": 44,
+        "h": 16,
+        "area": 706
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > div.hidden:nth-of-type(1) > aside.h-full:nth-of-type(1) > div.p-3:nth-of-type(2) > div.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 12,
+        "y": 776,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 949,
+        "y": 134,
+        "w": 82,
+        "h": 16,
+        "area": 1312
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 948,
+        "y": 182,
+        "w": 140,
+        "h": 16,
+        "area": 2247
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 313,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 313,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(1) > span:nth-of-type(2) > strong.text-white:nth-of-type(1)",
+      "box": {
+        "x": 380,
+        "y": 266,
+        "w": 238,
+        "h": 16,
+        "area": 3802
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(2) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 634,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(2) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 634,
+        "y": 270,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span.flex:nth-of-type(2) > span:nth-of-type(2) > strong.text-white:nth-of-type(1)",
+      "box": {
+        "x": 720,
+        "y": 266,
+        "w": 122,
+        "h": 16,
+        "area": 1959
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.mt-6:nth-of-type(2) > div.flex:nth-of-type(1) > span:nth-of-type(3) > strong.text-white:nth-of-type(1)",
+      "box": {
+        "x": 912,
+        "y": 266,
+        "w": 22,
+        "h": 16,
+        "area": 346
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.p-4:nth-of-type(2) > div.text-xs:nth-of-type(1) > p.font-bold:nth-of-type(1) > span.text-mx-blue:nth-of-type(1)",
+      "box": {
+        "x": 499,
+        "y": 353,
+        "w": 49,
+        "h": 16,
+        "area": 784
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 305,
+        "y": 607,
+        "w": 140,
+        "h": 16,
+        "area": 2241
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(2) > div.my-4:nth-of-type(2) > span.font-mono:nth-of-type(1)",
+      "box": {
+        "x": 630,
+        "y": 541,
+        "w": 48,
+        "h": 28,
+        "area": 1353
+      },
+      "measured": "height 28px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(2) > div.my-4:nth-of-type(2) > span.font-mono:nth-of-type(1)",
+      "box": {
+        "x": 630,
+        "y": 541,
+        "w": 48,
+        "h": 28,
+        "area": 1353
+      },
+      "measured": "28px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(2) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 630,
+        "y": 607,
+        "w": 104,
+        "h": 16,
+        "area": 1668
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(3) > div.my-4:nth-of-type(2) > span.font-mono:nth-of-type(1)",
+      "box": {
+        "x": 793,
+        "y": 541,
+        "w": 81,
+        "h": 28,
+        "area": 2254
+      },
+      "measured": "height 28px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(3) > div.my-4:nth-of-type(2) > span.font-mono:nth-of-type(1)",
+      "box": {
+        "x": 793,
+        "y": 541,
+        "w": 81,
+        "h": 28,
+        "area": 2254
+      },
+      "measured": "28px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(3) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 793,
+        "y": 607,
+        "w": 103,
+        "h": 16,
+        "area": 1649
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(4) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 956,
+        "y": 591,
+        "w": 113,
+        "h": 32,
+        "area": 3606
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(4) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 956,
+        "y": 591,
+        "w": 113,
+        "h": 32,
+        "area": 3606
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(3) > div.rounded-md:nth-of-type(5) > div.flex:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 1118,
+        "y": 607,
+        "w": 108,
+        "h": 16,
+        "area": 1736
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 328,
+        "y": 664,
+        "w": 131,
+        "h": 32,
+        "area": 4196
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 328,
+        "y": 664,
+        "w": 131,
+        "h": 32,
+        "area": 4196
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(2) > span:nth-of-type(1)",
+      "box": {
+        "x": 523,
+        "y": 672,
+        "w": 63,
+        "h": 16,
+        "area": 1010
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 650,
+        "y": 664,
+        "w": 128,
+        "h": 32,
+        "area": 4097
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(3) > span:nth-of-type(1)",
+      "box": {
+        "x": 650,
+        "y": 664,
+        "w": 128,
+        "h": 32,
+        "area": 4097
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(4) > span:nth-of-type(1)",
+      "box": {
+        "x": 842,
+        "y": 664,
+        "w": 90,
+        "h": 32,
+        "area": 2877
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(4) > span:nth-of-type(1)",
+      "box": {
+        "x": 842,
+        "y": 664,
+        "w": 90,
+        "h": 32,
+        "area": 2877
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(5) > span:nth-of-type(1)",
+      "box": {
+        "x": 996,
+        "y": 664,
+        "w": 78,
+        "h": 32,
+        "area": 2509
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(5) > span:nth-of-type(1)",
+      "box": {
+        "x": 996,
+        "y": 664,
+        "w": 78,
+        "h": 32,
+        "area": 2509
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge height exceeded",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(6) > span:nth-of-type(1)",
+      "box": {
+        "x": 1138,
+        "y": 664,
+        "w": 94,
+        "h": 32,
+        "area": 2998
+      },
+      "measured": "height 32px",
+      "expected": "height <= 26px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(4) > button.pb-3:nth-of-type(6) > span:nth-of-type(1)",
+      "box": {
+        "x": 1138,
+        "y": 664,
+        "w": 94,
+        "h": 32,
+        "area": 2998
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Oversized badge width",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.flex:nth-of-type(1) > div:nth-of-type(1) > h3.text-sm:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 329,
+        "y": 752,
+        "w": 252,
+        "h": 20,
+        "area": 5048
+      },
+      "measured": "width 252px (\"Retail Merchants, Cashiers and Outlets\")",
+      "expected": "width <= 240px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.flex:nth-of-type(1) > div:nth-of-type(1) > h3.text-sm:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 329,
+        "y": 752,
+        "w": 252,
+        "h": 20,
+        "area": 5048
+      },
+      "measured": "14px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(1) > td.py-3:nth-of-type(1) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 321,
+        "y": 880,
+        "w": 103,
+        "h": 16,
+        "area": 1645
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(1) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 893,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(1) > td.py-3:nth-of-type(6) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1098,
+        "y": 888,
+        "w": 82,
+        "h": 16,
+        "area": 1305
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(2) > td.py-3:nth-of-type(1) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 321,
+        "y": 941,
+        "w": 103,
+        "h": 16,
+        "area": 1645
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(2) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 954,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(2) > td.py-3:nth-of-type(6) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1098,
+        "y": 949,
+        "w": 82,
+        "h": 16,
+        "area": 1305
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(3) > td.py-3:nth-of-type(1) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 321,
+        "y": 1002,
+        "w": 103,
+        "h": 16,
+        "area": 1645
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(3) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1015,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(3) > td.py-3:nth-of-type(6) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1098,
+        "y": 1010,
+        "w": 82,
+        "h": 16,
+        "area": 1305
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(4) > td.py-3:nth-of-type(1) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 321,
+        "y": 1063,
+        "w": 103,
+        "h": 16,
+        "area": 1645
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(4) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1076,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(34, 197, 94)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(4) > td.py-3:nth-of-type(6) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1098,
+        "y": 1071,
+        "w": 82,
+        "h": 16,
+        "area": 1305
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(1) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 321,
+        "y": 1124,
+        "w": 103,
+        "h": 16,
+        "area": 1645
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Illegal badge background fill",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(5) > span.inline-flex:nth-of-type(1) > span.w-2:nth-of-type(1)",
+      "box": {
+        "x": 965,
+        "y": 1137,
+        "w": 8,
+        "h": 8,
+        "area": 64
+      },
+      "measured": "rgb(107, 114, 128)",
+      "expected": "transparent or panel (#141414)"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.bg-mx-surface:nth-of-type(5) > div.overflow-x-auto:nth-of-type(2) > table.w-full:nth-of-type(1) > tbody.divide-y:nth-of-type(1) > tr:nth-of-type(5) > td.py-3:nth-of-type(6) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 1098,
+        "y": 1132,
+        "w": 82,
+        "h": 16,
+        "area": 1305
+      },
+      "measured": "12px",
+      "expected": "11px"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "65 badges",
+      "expected": "<= 2 badges per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font weights",
+      "selector": "viewport",
+      "measured": "5 distinct weights (700, 600, 400, 500, 800)",
+      "expected": "<= 3 distinct weights per viewport"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P0",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.rounded-md:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > a.inline-flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 948,
+        "y": 182,
+        "w": 140,
+        "h": 16,
+        "area": 2247
+      },
+      "measured": "1.06:1 (\"Launch Biz Manager POS\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-1.png"
+    },
+    {
+      "id": "DL-12",
+      "sev": "P2",
+      "name": "Card-kit monotony: identical style signature run > 6",
+      "selector": "#root",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800,
+        "area": 1024000
+      },
+      "measured": "13 elements with signature [0px|0px solid rgb(229, 231, 235)|0,0,0,0|rgba(0, 0, 0, 0)]",
+      "expected": "<= 6 identical cards without hierarchy",
+      "cropPath": "crops/DL-12-1.png"
+    }
+  ],
+  "timestamp": "2026-09-16T21:20:32.752Z"
+}

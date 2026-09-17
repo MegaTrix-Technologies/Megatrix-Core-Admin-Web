@@ -1,0 +1,445 @@
+{
+  "runId": "2026-09-17T10-05-12",
+  "route": "/settings?tab=profile",
+  "score": 0,
+  "passedGate": false,
+  "counts": {
+    "p0": 0,
+    "p1": 14,
+    "p2": 0,
+    "p3": 15,
+    "total": 29
+  },
+  "violations": [
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 373,
+        "w": 90,
+        "h": 22,
+        "area": 1980
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-1.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Badge font size off-scale",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(2)",
+      "box": {
+        "x": 405,
+        "y": 373,
+        "w": 97,
+        "h": 22,
+        "area": 2138
+      },
+      "measured": "12px",
+      "expected": "11px",
+      "cropPath": "crops/DL-04-2.png"
+    },
+    {
+      "id": "DL-04",
+      "sev": "P1",
+      "name": "Too many badges in viewport",
+      "selector": "viewport",
+      "measured": "6 badges",
+      "expected": "<= 2 badges per viewport"
+    },
+    {
+      "id": "DL-05",
+      "sev": "P1",
+      "name": "Too many distinct font weights",
+      "selector": "viewport",
+      "measured": "4 distinct weights (700, 600, 400, 500)",
+      "expected": "<= 3 distinct weights per viewport"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(1)",
+      "box": {
+        "x": 840,
+        "y": 112,
+        "w": 81,
+        "h": 28,
+        "area": 2271
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-1.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(2)",
+      "box": {
+        "x": 927,
+        "y": 112,
+        "w": 146,
+        "h": 28,
+        "area": 4100
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-2.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3)",
+      "box": {
+        "x": 1080,
+        "y": 111,
+        "w": 163,
+        "h": 30,
+        "area": 4903
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px",
+      "cropPath": "crops/DL-08-3.png"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div.flex:nth-of-type(2) > button.flex:nth-of-type(3) > span:nth-of-type(2)",
+      "box": {
+        "x": 1191,
+        "y": 117,
+        "w": 40,
+        "h": 18,
+        "area": 727
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.min-w-0:nth-of-type(2) > div.flex:nth-of-type(1) > span:nth-of-type(1)",
+      "box": {
+        "x": 524,
+        "y": 232,
+        "w": 40,
+        "h": 19,
+        "area": 748
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > div.min-w-0:nth-of-type(2) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 369,
+        "y": 253,
+        "w": 196,
+        "h": 16,
+        "area": 3134
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span.text-white:nth-of-type(2)",
+      "box": {
+        "x": 309,
+        "y": 325,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 373,
+        "w": 90,
+        "h": 22,
+        "area": 1980
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(2)",
+      "box": {
+        "x": 405,
+        "y": 373,
+        "w": 97,
+        "h": 22,
+        "area": 2138
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div.pt-3:nth-of-type(4) > span.text-xs:nth-of-type(2)",
+      "box": {
+        "x": 309,
+        "y": 486,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "2px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(2) > div.space-y-1.5:nth-of-type(1) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 309,
+        "w": 283,
+        "h": 34,
+        "area": 9622
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.grid:nth-of-type(2) > div.space-y-1.5:nth-of-type(2) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 940,
+        "y": 309,
+        "w": 283,
+        "h": 34,
+        "area": 9622
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(3) > input.w-full:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 385,
+        "w": 582,
+        "h": 34,
+        "area": 19788
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(4) > div.relative:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 461,
+        "w": 582,
+        "h": 34,
+        "area": 19788
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-08",
+      "sev": "P3",
+      "name": "Off-grid spacing value",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(4) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 501,
+        "w": 582,
+        "h": 16,
+        "area": 9312
+      },
+      "measured": "6px",
+      "expected": "Multiple of 4px"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.flex:nth-of-type(1) > div:nth-of-type(1) > div.flex:nth-of-type(1) > span.text-mx-muted:nth-of-type(2)",
+      "box": {
+        "x": 339,
+        "y": 88,
+        "w": 6,
+        "h": 24,
+        "area": 150
+      },
+      "measured": "4.34:1 (\"/\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-1.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(1) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 307,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.10:1 (\"Account Classification\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-2.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(2) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 353,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.10:1 (\"Platform Jurisdiction\")",
+      "expected": ">= 4.5:1 WCAG AA",
+      "cropPath": "crops/DL-11-3.png"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div:nth-of-type(3) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 407,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.10:1 (\"Security Clearance\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(1) > div.space-y-3:nth-of-type(2) > div.pt-3:nth-of-type(4) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 468,
+        "w": 262,
+        "h": 16,
+        "area": 4192
+      },
+      "measured": "4.10:1 (\"Operator Identifier\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(2) > div.space-y-2:nth-of-type(2) > div.flex:nth-of-type(1) > span.text-mx-muted:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 592,
+        "w": 115,
+        "h": 16,
+        "area": 1843
+      },
+      "measured": "4.10:1 (\"Session Timeout:\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(2) > div.space-y-2:nth-of-type(2) > div.flex:nth-of-type(2) > span.text-mx-muted:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 625,
+        "w": 94,
+        "h": 16,
+        "area": 1498
+      },
+      "measured": "4.10:1 (\"IP Authority:\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(1) > div.bg-mx-surface:nth-of-type(2) > div.space-y-2:nth-of-type(2) > div.flex:nth-of-type(3) > span.text-mx-muted:nth-of-type(1)",
+      "box": {
+        "x": 309,
+        "y": 658,
+        "w": 79,
+        "h": 16,
+        "area": 1267
+      },
+      "measured": "4.10:1 (\"TLS Cipher:\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.flex:nth-of-type(1) > span.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 1086,
+        "y": 232,
+        "w": 137,
+        "h": 16,
+        "area": 2189
+      },
+      "measured": "4.10:1 (\"Profile Sync Active\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    },
+    {
+      "id": "DL-11",
+      "sev": "P1",
+      "name": "Insufficient text contrast ratio",
+      "selector": "#root > div.min-h-screen:nth-of-type(1) > div.min-h-screen:nth-of-type(2) > div.flex-1:nth-of-type(1) > main.flex-1:nth-of-type(1) > div.max-w-7xl:nth-of-type(1) > div.space-y-6:nth-of-type(1) > div.grid:nth-of-type(2) > div:nth-of-type(2) > form.bg-mx-surface:nth-of-type(1) > div.space-y-1.5:nth-of-type(4) > p.text-xs:nth-of-type(1)",
+      "box": {
+        "x": 641,
+        "y": 501,
+        "w": 582,
+        "h": 16,
+        "area": 9312
+      },
+      "measured": "4.10:1 (\"Root email address is bound to\")",
+      "expected": ">= 4.5:1 WCAG AA"
+    }
+  ],
+  "timestamp": "2026-09-17T10:05:18.007Z"
+}

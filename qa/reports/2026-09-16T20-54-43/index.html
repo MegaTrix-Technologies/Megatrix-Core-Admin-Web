@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>MegaTrix Design QA Report - 2026-09-16T20-54-43</title>
+  <style>
+    body { background: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 32px; }
+    .card { background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+    .score-badge { display: inline-block; font-size: 28px; font-weight: 800; padding: 8px 16px; border-radius: 6px; background: #ef4444; color: #000; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #1e1e1e; }
+    th { color: #9ca3af; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .P0 { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .P1 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .P2 { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .P3 { background: rgba(156, 163, 175, 0.2); color: #9ca3af; border: 1px solid rgba(156, 163, 175, 0.4); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>MegaTrix Design Quality Report</h1>
+    <p style="color: #9ca3af;">Run: <code>2026-09-16T20-54-43</code> &bull; Timestamp: <code>2026-09-16T20:59:03.539Z</code></p>
+    <div class="score-badge">SCORE: 0/100 (FAIL)</div>
+    <div style="margin-top: 16px; color: #9ca3af;">
+      Gate Threshold: <strong>Score &ge; 90, P0 = 0, P1 = 0</strong> &bull;
+      Active Counts: P0: <strong>5</strong> | P1: <strong>50</strong> | P2: <strong>4</strong> | P3: <strong>5</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Violations (64)</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Sev</th><th>Check</th><th>Measured</th><th>Expected</th></tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(115, 115, 115)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgb(82, 82, 82)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-01</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-token text color</td>
+            <td style="color: #ef4444;"><code>rgba(82, 82, 82, 0.5)</code></td>
+            <td style="color: #9ca3af;">Resolves to tokens.json (dE < 2)</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-02</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Rainbow hues detected (exceeds allowed non-neutral hues)</td>
+            <td style="color: #ef4444;"><code>13 distinct hues on screen</code></td>
+            <td style="color: #9ca3af;"><= 2 non-neutral hues</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>26px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 32px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>26px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("Unified Command Center")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge height exceeded</td>
+            <td style="color: #ef4444;"><code>height 28px</code></td>
+            <td style="color: #9ca3af;">height <= 26px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>20px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("Centralized multi-SaaS governance & ecos")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("Enter Email")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("Password")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>14px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("Restricted Access. All operations are mo")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Oversized badge width</td>
+            <td style="color: #ef4444;"><code>width 384px ("© 2026 MegaTrix Technologies (Pvt) Ltd.")</code></td>
+            <td style="color: #9ca3af;">width <= 240px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Badge font size off-scale</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">11px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-04</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many badges in viewport</td>
+            <td style="color: #ef4444;"><code>12 badges</code></td>
+            <td style="color: #9ca3af;"><= 2 badges per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>26px ("MegaTrix")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>26px ("Technologies")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("Restricted Access. All operati")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Off-scale font size</td>
+            <td style="color: #ef4444;"><code>10px ("© 2026 MegaTrix Technologies (")</code></td>
+            <td style="color: #9ca3af;">One of [11, 12, 13, 14, 16, 20, 28, 40, 56]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many distinct font sizes</td>
+            <td style="color: #ef4444;"><code>6 distinct sizes (12, 11, 26, 20, 14, 10)</code></td>
+            <td style="color: #9ca3af;"><= 5 distinct sizes per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-05</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Too many distinct font weights</td>
+            <td style="color: #ef4444;"><code>5 distinct weights (500, 400, 900, 800, 700)</code></td>
+            <td style="color: #9ca3af;"><= 3 distinct weights per viewport</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>13px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>12px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>7px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Icon size off-system</td>
+            <td style="color: #ef4444;"><code>9px</code></td>
+            <td style="color: #9ca3af;">Size in {14, 16, 18, 20}</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Inconsistent icon stroke-width</td>
+            <td style="color: #ef4444;"><code>stroke-width="2"</code></td>
+            <td style="color: #9ca3af;">stroke-width="1.5"</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-06</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Emoji detected in UI text</td>
+            <td style="color: #ef4444;"><code>© 2026 MegaTrix Technologies (Pvt) Ltd.</code></td>
+            <td style="color: #9ca3af;">Zero emoji codepoints in rendered text</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-07</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Off-scale border radius</td>
+            <td style="color: #ef4444;"><code>8px</code></td>
+            <td style="color: #9ca3af;">One of [0, 6, 10, 14, 9999]px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>62.2812px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>6px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-08</code></td>
+            <td><span class="badge P3">P3</span></td>
+            <td>Off-grid spacing value</td>
+            <td style="color: #ef4444;"><code>10px</code></td>
+            <td style="color: #9ca3af;">Multiple of 4px</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored drop-shadow filter detected</td>
+            <td style="color: #ef4444;"><code>filter: drop-shadow(rgba(59, 130, 246, 0.35) 0px 0px 24px)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-09</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Colored box-shadow glow detected</td>
+            <td style="color: #ef4444;"><code>box-shadow with rgba(255, 255, 255, 0.05)</code></td>
+            <td style="color: #9ca3af;">Black/transparent shadows only</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-10</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal background gradient</td>
+            <td style="color: #ef4444;"><code>linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.2), rgba(0, 0,</code></td>
+            <td style="color: #9ca3af;">No gradients outside /login</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-10</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Illegal background gradient</td>
+            <td style="color: #ef4444;"><code>linear-gradient(to right, rgb(255, 255, 255), rgb(245, 245, 245), rgb(229, 229, </code></td>
+            <td style="color: #9ca3af;">No gradients outside /login</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Centralized multi-SaaS governa")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Enter Email")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P1">P1</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>4.18:1 ("Password")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>1.06:1 ("Access Command Center")</code></td>
+            <td style="color: #9ca3af;">>= 3:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>2.53:1 ("Restricted Access. All operati")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-11</code></td>
+            <td><span class="badge P0">P0</span></td>
+            <td>Insufficient text contrast ratio</td>
+            <td style="color: #ef4444;"><code>2.53:1 ("© 2026 MegaTrix Technologies (")</code></td>
+            <td style="color: #9ca3af;">>= 4.5:1 WCAG AA</td>
+          </tr>
+        
+          <tr>
+            <td><code>DL-12</code></td>
+            <td><span class="badge P2">P2</span></td>
+            <td>Card-kit monotony: identical style signature run > 6</td>
+            <td style="color: #ef4444;"><code>10 elements with signature [0px|0px solid rgb(229, 231, 235)|0,0,0,0|rgba(0, 0, 0, 0)]</code></td>
+            <td style="color: #9ca3af;"><= 6 identical cards without hierarchy</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
