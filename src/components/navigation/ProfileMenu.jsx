@@ -116,28 +116,13 @@ const ProfileMenu = () => {
               <button
                 type="button"
                 onClick={() => handleNavigate('/settings?tab=admins')}
-                aria-label="Manage team admin users"
-                className="w-full flex items-center justify-between px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
+                aria-label="User Management"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
               >
-                <div className="flex items-center gap-2.5">
-                  <Shield size={16} strokeWidth={1.5} className="text-mx-muted" />
-                  <span>Admin Access Management</span>
-                </div>
-                <span className="text-[11px] font-mono px-1 rounded-sm bg-mx-panel text-mx-muted border border-mx-border">
-                  Root
-                </span>
+                <Users size={16} strokeWidth={1.5} className="text-mx-muted" />
+                <span>User Management</span>
               </button>
             )}
-
-            <button
-              type="button"
-              onClick={() => handleNavigate('/users')}
-              aria-label="Global cross-platform users"
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors text-left cursor-pointer min-h-[36px]"
-            >
-              <Users size={16} strokeWidth={1.5} className="text-mx-muted" />
-              <span>Global Client Users</span>
-            </button>
           </div>
 
           {/* Sign Out Action */}
