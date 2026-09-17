@@ -1499,6 +1499,8 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
       const res = await adminApi.initiateSpoof({
         platform: 'schoolmanager',
         targetUserId: targetId,
+        targetUserName: spoofTargetUser.name,
+        targetUserEmail: spoofTargetUser.email,
         reason: spoofReason.trim(),
       });
 
@@ -1512,7 +1514,7 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
       }
     } catch (err) {
       console.error('[SchoolManager Spoof] Error:', err);
-      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to communicate with SchoolHub server. Ensure port 5001 is running.';
+      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to initiate spoof session with SchoolHub.';
       toast.error(errMsg);
     } finally {
       setIsSpoofing(false);

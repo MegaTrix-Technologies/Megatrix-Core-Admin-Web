@@ -585,6 +585,8 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
       const res = await adminApi.initiateSpoof({
         platform: 'bizmanager',
         targetUserId: targetId,
+        targetUserName: spoofTargetUser.name,
+        targetUserEmail: spoofTargetUser.email,
         reason: spoofReason.trim(),
       });
 
@@ -598,7 +600,7 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
       }
     } catch (err) {
       console.error('[BizManager Spoof] Error:', err);
-      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to communicate with BizManager server. Ensure port 5000 is running.';
+      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to initiate spoof session with BizManager.';
       toast.error(errMsg);
     } finally {
       setIsSpoofing(false);
