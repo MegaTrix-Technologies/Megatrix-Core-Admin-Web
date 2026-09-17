@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import platformApi from '../../services/platformApi';
+import adminApi from '../../services/adminApi';
 
 const DEFAULT_PLANS = [
   {
@@ -271,6 +272,7 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
   const isFullAccess = adminUser?.accessLevel === 'full';
   const canViewCredentials = isSuperAdmin || isFullAccess;
   const canEditSubscriptions = isSuperAdmin || isFullAccess;
+  const canSpoof = isSuperAdmin || isFullAccess;
 
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [loading, setLoading] = useState(false);
@@ -296,6 +298,8 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
   const [userStatusFilter, setUserStatusFilter] = useState('all');
   const [selectedUserForDetail, setSelectedUserForDetail] = useState(null);
   const [spoofTargetUser, setSpoofTargetUser] = useState(null);
+  const [spoofReason, setSpoofReason] = useState('');
+  const [isSpoofing, setIsSpoofing] = useState(false);
   const [deleteConfirmUser, setDeleteConfirmUser] = useState(null);
 
   // Administrative Reset Password State
@@ -565,6 +569,39 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
           ? `Restricted account access for ${userToToggle.name}.`
           : `Reactivated account access for ${userToToggle.name}.`
       );
+    }
+  };
+
+  const handleLaunchSpoof = async () => {
+    if (!spoofTargetUser) return;
+    if (!spoofReason || spoofReason.trim().length < 10) {
+      toast.error('Please enter a valid justification (minimum 10 characters).');
+      return;
+    }
+
+    try {
+      setIsSpoofing(true);
+      const targetId = spoofTargetUser._id || spoofTargetUser.id;
+      const res = await adminApi.initiateSpoof({
+        platform: 'bizmanager',
+        targetUserId: targetId,
+        reason: spoofReason.trim(),
+      });
+
+      if (res.success && res.handoffUrl) {
+        toast.success(`Active spoof session launched for ${spoofTargetUser.name}. Opening new tab...`);
+        window.open(res.handoffUrl, '_blank');
+        setSpoofTargetUser(null);
+        setSpoofReason('');
+      } else {
+        toast.error(res.message || 'Failed to initiate spoof session.');
+      }
+    } catch (err) {
+      console.error('[BizManager Spoof] Error:', err);
+      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to communicate with BizManager server. Ensure port 5000 is running.';
+      toast.error(errMsg);
+    } finally {
+      setIsSpoofing(false);
     }
   };
 
@@ -1064,15 +1101,20 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
 
                       <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
                         <div className="inline-flex items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setSpoofTargetUser(u)}
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-mono text-white border border-mx-border transition-colors cursor-pointer min-h-[32px]"
-                            title="Spoof / Impersonate merchant account"
-                          >
-                            <UserCheck size={14} strokeWidth={1.5} />
-                            <span>Spoof</span>
-                          </button>
+                          {canSpoof && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSpoofTargetUser(u);
+                                setSpoofReason('');
+                              }}
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-mono text-white border border-mx-border transition-colors cursor-pointer min-h-[32px]"
+                              title="Spoof / Impersonate merchant account"
+                            >
+                              <UserCheck size={14} strokeWidth={1.5} />
+                              <span>Spoof</span>
+                            </button>
+                          )}
 
                           <button
                             type="button"
@@ -1819,47 +1861,109 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
       {/* ─── MODAL: ACCOUNT SPOOFING ─── */}
       {spoofTargetUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-mx-surface border border-mx-border rounded-md w-full max-w-md p-6 space-y-5 shadow-2xl">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-sm bg-mx-panel border border-mx-border flex items-center justify-center text-white shrink-0">
-                <UserCheck size={18} strokeWidth={1.5} />
+          <div className="bg-mx-surface border border-mx-border rounded-md w-full max-w-lg p-6 space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-mx-border">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-sm bg-mx-panel border border-mx-border flex items-center justify-center text-amber-400 shrink-0">
+                  <Shield size={18} strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                    Administrative Account Impersonation
+                  </h3>
+                  <p className="text-[11px] text-mx-subtle font-mono">
+                    BizManager Retail & POS Gateway
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-bold text-white">
-                  Account Spoofing Engine
-                </h3>
-                <p className="text-[11px] text-mx-subtle font-mono">
-                  Enterprise Impersonation Protocol
-                </p>
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSpoofTargetUser(null);
+                  setSpoofReason('');
+                }}
+                className="p-1 text-mx-subtle hover:text-white transition-colors"
+              >
+                <X size={16} strokeWidth={1.5} />
+              </button>
             </div>
 
             <div className="p-4 rounded-sm bg-mx-panel border border-mx-border space-y-2 text-xs text-white">
-              <p>
-                Target Merchant:{' '}
-                <strong className="text-white font-bold">{spoofTargetUser.name}</strong> ({spoofTargetUser.shopName})
-              </p>
-              <p>
-                Assigned Terminal:{' '}
-                <strong className="font-mono text-white">{spoofTargetUser.terminal}</strong>
-              </p>
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-mx-subtle block">Target Operator</span>
+                  <strong className="text-white font-bold">{spoofTargetUser.name}</strong>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">Shop / Business</span>
+                  <strong className="text-white font-mono">{spoofTargetUser.shopName || 'Retail Terminal'}</strong>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">Account Email / Phone</span>
+                  <span className="text-mx-subtle font-mono">{spoofTargetUser.email || spoofTargetUser.phone || 'N/A'}</span>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">Session Timeout</span>
+                  <span className="text-amber-400 font-mono font-bold">30 Minutes Auto-Expire</span>
+                </div>
+              </div>
+
               <div className="pt-2 border-t border-mx-border text-[11px] text-mx-subtle space-y-1">
-                <span className="font-semibold text-white flex items-center gap-1">
-                  <AlertTriangle size={14} /> Impersonation Provisioning in Progress:
-                </span>
-                <p>
-                  The automated account spoofing engine is currently in sandbox provisioning. When activated, Super Administrators will be able to assume this merchant's terminal session without credentials for real-time customer support.
+                <p className="flex items-center gap-1 text-amber-400 font-semibold">
+                  <AlertTriangle size={13} /> Strict Governance Notice:
+                </p>
+                <p className="leading-relaxed">
+                  An active single session will open in a new tab. All API transactions and navigation performed during this session will be attributed to your administrator account (<strong className="text-white">{adminUser?.email}</strong>) in the immutable security audit log.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-mx-border">
+            {/* Mandatory Justification */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-mono text-mx-subtle uppercase flex items-center justify-between">
+                <span>Support / Audit Justification (Mandatory)</span>
+                <span className={`text-[10px] ${spoofReason.trim().length >= 10 ? 'text-mx-positive' : 'text-amber-400'}`}>
+                  {spoofReason.trim().length} / 10 min chars
+                </span>
+              </label>
+              <textarea
+                value={spoofReason}
+                onChange={(e) => setSpoofReason(e.target.value)}
+                rows={3}
+                placeholder="e.g. Resolving POS invoice calculation discrepancies reported by merchant in Support Ticket #1089..."
+                className="w-full px-3 py-2 bg-mx-panel border border-mx-border rounded-sm text-xs text-white placeholder-mx-subtle/50 focus:outline-none focus:border-mx-blue transition-colors font-sans resize-none"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2 border-t border-mx-border">
               <button
                 type="button"
-                onClick={() => setSpoofTargetUser(null)}
-                className="px-4 py-2 rounded-sm bg-white hover:bg-white/90 text-black text-xs font-bold transition-all cursor-pointer min-h-[36px]"
+                onClick={() => {
+                  setSpoofTargetUser(null);
+                  setSpoofReason('');
+                }}
+                disabled={isSpoofing}
+                className="px-4 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-semibold text-mx-subtle hover:text-white border border-mx-border min-h-[36px] transition-colors cursor-pointer"
               >
-                Acknowledge
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleLaunchSpoof}
+                disabled={isSpoofing || spoofReason.trim().length < 10}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-white hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed text-black text-xs font-bold min-h-[36px] transition-all cursor-pointer shadow-lg shadow-white/5"
+              >
+                {isSpoofing ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" />
+                    <span>Authorizing Session...</span>
+                  </>
+                ) : (
+                  <>
+                    <ExternalLink size={14} strokeWidth={2} />
+                    <span>Launch Live Spoofed Session</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

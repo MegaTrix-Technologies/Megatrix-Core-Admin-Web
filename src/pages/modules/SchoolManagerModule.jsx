@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import platformApi from '../../services/platformApi';
+import adminApi from '../../services/adminApi';
 
 const DEFAULT_SCHOOL_PLANS = [
   {
@@ -1242,6 +1243,7 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
   const isFullAccess = adminUser?.accessLevel === 'full';
   const canViewCredentials = isSuperAdmin || isFullAccess;
   const canEditSubscriptions = isSuperAdmin || isFullAccess;
+  const canSpoof = isSuperAdmin || isFullAccess;
 
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [loading, setLoading] = useState(false);
@@ -1268,6 +1270,8 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
   const [userSchoolFilter, setUserSchoolFilter] = useState('all');
   const [selectedUserForDetail, setSelectedUserForDetail] = useState(null);
   const [spoofTargetUser, setSpoofTargetUser] = useState(null);
+  const [spoofReason, setSpoofReason] = useState('');
+  const [isSpoofing, setIsSpoofing] = useState(false);
   const [deleteConfirmUser, setDeleteConfirmUser] = useState(null);
 
   // Subscription Plans State
@@ -1479,6 +1483,39 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
       );
     } else {
       toast.info("Account status for " + userToToggle.name + " changed to " + newStatus + ".");
+    }
+  };
+
+  const handleLaunchSpoof = async () => {
+    if (!spoofTargetUser) return;
+    if (!spoofReason || spoofReason.trim().length < 10) {
+      toast.error('Please enter a valid justification (minimum 10 characters).');
+      return;
+    }
+
+    try {
+      setIsSpoofing(true);
+      const targetId = spoofTargetUser._id || spoofTargetUser.id;
+      const res = await adminApi.initiateSpoof({
+        platform: 'schoolmanager',
+        targetUserId: targetId,
+        reason: spoofReason.trim(),
+      });
+
+      if (res.success && res.handoffUrl) {
+        toast.success(`Active spoof session launched for ${spoofTargetUser.name}. Opening new tab...`);
+        window.open(res.handoffUrl, '_blank');
+        setSpoofTargetUser(null);
+        setSpoofReason('');
+      } else {
+        toast.error(res.message || 'Failed to initiate spoof session.');
+      }
+    } catch (err) {
+      console.error('[SchoolManager Spoof] Error:', err);
+      const errMsg = err.response?.data?.error || err.response?.data?.message || 'Failed to communicate with SchoolHub server. Ensure port 5001 is running.';
+      toast.error(errMsg);
+    } finally {
+      setIsSpoofing(false);
     }
   };
 
@@ -2072,15 +2109,20 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
                             <Lock size={14} strokeWidth={1.5} />
                           </button>
 
-                          <button
-                            type="button"
-                            onClick={() => setSpoofTargetUser(u)}
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-mono text-white border border-mx-border transition-colors cursor-pointer min-h-[32px]"
-                            title="Account Spoofing (Simulated)"
-                          >
-                            <UserCheck size={14} strokeWidth={1.5} />
-                            <span>Spoof</span>
-                          </button>
+                          {canSpoof && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSpoofTargetUser(u);
+                                setSpoofReason('');
+                              }}
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-mono text-white border border-mx-border transition-colors cursor-pointer min-h-[32px]"
+                              title="Account Spoofing / Impersonation"
+                            >
+                              <UserCheck size={14} strokeWidth={1.5} />
+                              <span>Spoof</span>
+                            </button>
+                          )}
 
                           <button
                             type="button"
@@ -2843,49 +2885,112 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
         </div>
       )}
 
-      {/* ─── MODAL: ACCOUNT SPOOFING SIMULATION ─── */}
+      {/* ─── MODAL: ACCOUNT SPOOFING ─── */}
       {spoofTargetUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
-          <div className="bg-mx-surface border border-mx-border rounded-md w-full max-w-lg p-6 space-y-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-mx-surface border border-mx-border rounded-md w-full max-w-lg p-6 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-mx-border">
-              <div className="flex items-center gap-2">
-                <Shield size={16} strokeWidth={1.5} className="text-mx-blue" />
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Administrative Account Impersonation
-                </h3>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-sm bg-mx-panel border border-mx-border flex items-center justify-center text-amber-400 shrink-0">
+                  <Shield size={18} strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                    Administrative Account Impersonation
+                  </h3>
+                  <p className="text-[11px] text-mx-subtle font-mono">
+                    SchoolHub Institutional Gateway
+                  </p>
+                </div>
               </div>
               <button
                 type="button"
-                onClick={() => setSpoofTargetUser(null)}
-                className="p-1 text-mx-subtle hover:text-white"
+                onClick={() => {
+                  setSpoofTargetUser(null);
+                  setSpoofReason('');
+                }}
+                className="p-1 text-mx-subtle hover:text-white transition-colors"
               >
                 <X size={16} strokeWidth={1.5} />
               </button>
             </div>
 
-            <p className="text-xs text-mx-subtle leading-relaxed">
-              You are initiating administrative single sign-on as{" "}
-              <strong className="text-white">{spoofTargetUser.name}</strong> ({spoofTargetUser.role}) under School ID{" "}
-              <strong className="text-white font-mono">{spoofTargetUser.schoolId}</strong>. All actions performed will be attributed to your Superadmin ID in the security audit trail.
-            </p>
+            <div className="p-4 rounded-sm bg-mx-panel border border-mx-border space-y-2 text-xs text-white">
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="text-mx-subtle block">Target Identity</span>
+                  <strong className="text-white font-bold">{spoofTargetUser.name}</strong>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">Institutional Role</span>
+                  <strong className="text-white font-mono">{spoofTargetUser.role}</strong>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">School / Campus</span>
+                  <span className="text-white font-mono">{spoofTargetUser.schoolName || spoofTargetUser.schoolId}</span>
+                </div>
+                <div>
+                  <span className="text-mx-subtle block">Session Timeout</span>
+                  <span className="text-amber-400 font-mono font-bold">30 Minutes Auto-Expire</span>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-mx-border text-[11px] text-mx-subtle space-y-1">
+                <p className="flex items-center gap-1 text-amber-400 font-semibold">
+                  <AlertTriangle size={13} /> Strict Governance Notice:
+                </p>
+                <p className="leading-relaxed">
+                  An active single session will open in a new tab. All API transactions and records viewed during this session will be attributed to your administrator account (<strong className="text-white">{adminUser?.email}</strong>) in the immutable security audit log.
+                </p>
+              </div>
+            </div>
+
+            {/* Mandatory Justification */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-mono text-mx-subtle uppercase flex items-center justify-between">
+                <span>Support / Audit Justification (Mandatory)</span>
+                <span className={`text-[10px] ${spoofReason.trim().length >= 10 ? 'text-mx-positive' : 'text-amber-400'}`}>
+                  {spoofReason.trim().length} / 10 min chars
+                </span>
+              </label>
+              <textarea
+                value={spoofReason}
+                onChange={(e) => setSpoofReason(e.target.value)}
+                rows={3}
+                placeholder="e.g. Investigating grade report submission failure reported by faculty member in Support Ticket #2204..."
+                className="w-full px-3 py-2 bg-mx-panel border border-mx-border rounded-sm text-xs text-white placeholder-mx-subtle/50 focus:outline-none focus:border-mx-blue transition-colors font-sans resize-none"
+              />
+            </div>
 
             <div className="flex items-center justify-end gap-3 pt-2 border-t border-mx-border">
               <button
                 type="button"
-                onClick={() => setSpoofTargetUser(null)}
-                className="px-4 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-semibold text-mx-subtle hover:text-white border border-mx-border min-h-[36px]"
+                onClick={() => {
+                  setSpoofTargetUser(null);
+                  setSpoofReason('');
+                }}
+                disabled={isSpoofing}
+                className="px-4 py-2 rounded-sm bg-mx-panel hover:bg-mx-surface text-xs font-semibold text-mx-subtle hover:text-white border border-mx-border min-h-[36px] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  toast.info("Simulating session spoofing into " + spoofTargetUser.schoolId + " as " + spoofTargetUser.name + ".");
-                  setSpoofTargetUser(null);
-                }}
-                className="px-4 py-2 rounded-sm bg-white hover:bg-white/90 text-black text-xs font-bold min-h-[36px]"
+                onClick={handleLaunchSpoof}
+                disabled={isSpoofing || spoofReason.trim().length < 10}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-white hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed text-black text-xs font-bold min-h-[36px] transition-all cursor-pointer shadow-lg shadow-white/5"
               >
-                Launch Spoofed Session
+                {isSpoofing ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin" />
+                    <span>Authorizing Session...</span>
+                  </>
+                ) : (
+                  <>
+                    <ExternalLink size={14} strokeWidth={2} />
+                    <span>Launch Live Spoofed Session</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { getAuditLogs, exportAuditLogs } from '../controllers/auditController.js
 import { getOverviewMetrics } from '../controllers/overviewController.js';
 import { schoolManagerAdminController } from '../controllers/schoolManagerAdminController.js';
 import { credentialController } from '../controllers/credentialController.js';
+import * as spoofController from '../controllers/spoofController.js';
 import {
   verifyAdminToken,
   requirePermission,
@@ -247,6 +248,12 @@ router.post(
   requirePermission('schoolmanager.schools.view'),
   schoolManagerAdminController.generateSSOLink
 );
+
+/* =========================================================
+ * 8. ACCOUNT IMPERSONATION (SPOOF) ENGINE
+ * ========================================================= */
+router.post('/spoof/initiate', verifyAdminToken, requireCredentialsAccess, spoofController.initiate);
+router.post('/spoof/terminate', verifyAdminToken, requireCredentialsAccess, spoofController.terminate);
 
 export default router;
 

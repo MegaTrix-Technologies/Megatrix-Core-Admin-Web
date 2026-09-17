@@ -289,6 +289,17 @@ export const adminApi = {
     return res.data;
   },
 
+  // 9. Account Impersonation (Spoof) Engine
+  initiateSpoof: async ({ platform, targetUserId, reason }) => {
+    const res = await apiClient.post('/spoof/initiate', { platform, targetUserId, reason });
+    return res.data;
+  },
+
+  terminateSpoof: async ({ spoofSessionId, platform, targetUserId }) => {
+    const res = await apiClient.post('/spoof/terminate', { spoofSessionId, platform, targetUserId });
+    return res.data;
+  },
+
   // Gateway mode helpers for UI compatibility
   getMode: () => 'live',
   setMode: () => {},
