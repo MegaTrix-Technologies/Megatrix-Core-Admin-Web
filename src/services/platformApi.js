@@ -5,7 +5,10 @@ const BIZMANAGER_BASE = (import.meta.env.VITE_BIZMANAGER_API_URL || 'https://biz
   .replace(/\/$/, '');
 
 // Ensure SCHOOLHUB_BASE is clean host root without trailing /api so endpoints like /api/admin-integration/... resolve correctly
-const rawSchoolBase = import.meta.env.VITE_SCHOOLMANAGER_API_URL || 'https://api-schoolhub.megatrixai.com';
+const configuredSchoolBase = import.meta.env.VITE_SCHOOLMANAGER_API_URL || '';
+const rawSchoolBase = (configuredSchoolBase && !configuredSchoolBase.includes('api-core'))
+  ? configuredSchoolBase
+  : 'https://api-schoolhub.megatrixai.com';
 const SCHOOLHUB_BASE = rawSchoolBase.replace(/\/api\/?$/, '').replace(/\/$/, '');
 const SERVICE_KEY = import.meta.env.VITE_MEGATRIX_SERVICE_KEY || 'megatrix_core_internal_service_key_2026';
 

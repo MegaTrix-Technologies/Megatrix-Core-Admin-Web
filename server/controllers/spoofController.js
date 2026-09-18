@@ -28,44 +28,75 @@ export const initiate = async (req, res) => {
     };
 
     if (platform === 'bizmanager') {
-      // BizManager is hosted solely on Vercel frontend without a separate backend API
-      const BIZMANAGER_JWT_SECRET =
-        process.env.BIZMANAGER_JWT_SECRET || 'bizzai-dev-jwt-secret-key-minimum-32-characters-long';
+      const bizApiBase = (
+        process.env.BIZMANAGER_API_URL || 'https://bizmanager.megatrixai.com'
+      ).replace(/\/api\/?$/, '').replace(/\/$/, '');
+      const serviceKey =
+        process.env.MEGATRIX_SERVICE_SECRET || 'megatrix_core_internal_service_key_2026';
       const bizAppUrl = (
         process.env.BIZMANAGER_APP_URL || 'https://bizmanager.megatrixai.com'
       ).replace(/\/$/, '');
 
-      const token = jwt.sign(
-        {
-          id: targetUserId,
+      try {
+        const response = await axios.post(
+          `${bizApiBase}/api/admin-integration/impersonate`,
+          {
+            targetUserId,
+            adminActorId: req.user._id,
+            adminEmail: req.user.email,
+            spoofSessionId,
+          },
+          {
+            headers: {
+              'x-megatrix-service-key': serviceKey,
+            },
+            timeout: 7000,
+          }
+        );
+
+        if (response.data?.portalUrl) {
+          handoffUrl = response.data.portalUrl;
+          if (response.data.userInfo) {
+            userInfo = response.data.userInfo;
+          }
+        }
+      } catch (bizErr) {
+        console.warn('[Spoof] Direct BizManager API impersonate failed, generating fallback signed token:', bizErr.message);
+        const BIZMANAGER_JWT_SECRET =
+          process.env.BIZMANAGER_JWT_SECRET || 'bizzai-dev-jwt-secret-key-minimum-32-characters-long';
+
+        const token = jwt.sign(
+          {
+            id: targetUserId,
+            _id: targetUserId,
+            userId: targetUserId,
+            name: targetUserName || 'BizManager Merchant',
+            email: targetUserEmail || '',
+            shopName: req.body.targetShopName || 'Retail Counter',
+            role: req.body.targetRole || 'owner',
+            isSpoof: true,
+            jti: crypto.randomBytes(16).toString('hex'),
+            iat: Math.floor(Date.now() / 1000),
+            ctx: {
+              ip: 'megatrix-admin-spoof',
+              ua: req.headers['user-agent']
+                ? crypto.createHash('sha256').update(req.headers['user-agent']).digest('hex').substring(0, 16)
+                : null,
+            },
+          },
+          BIZMANAGER_JWT_SECRET,
+          { expiresIn: '30m' }
+        );
+
+        handoffUrl = `${bizAppUrl}/impersonate?token=${encodeURIComponent(token)}&spoof=true&sid=${encodeURIComponent(spoofSessionId)}`;
+        userInfo = {
           _id: targetUserId,
-          userId: targetUserId,
           name: targetUserName || 'BizManager Merchant',
           email: targetUserEmail || '',
           shopName: req.body.targetShopName || 'Retail Counter',
           role: req.body.targetRole || 'owner',
-          isSpoof: true,
-          jti: crypto.randomBytes(16).toString('hex'),
-          iat: Math.floor(Date.now() / 1000),
-          ctx: {
-            ip: 'megatrix-admin-spoof',
-            ua: req.headers['user-agent']
-              ? crypto.createHash('sha256').update(req.headers['user-agent']).digest('hex').substring(0, 16)
-              : null,
-          },
-        },
-        BIZMANAGER_JWT_SECRET,
-        { expiresIn: '30m' }
-      );
-
-      handoffUrl = `${bizAppUrl}/impersonate?token=${encodeURIComponent(token)}&spoof=true&sid=${encodeURIComponent(spoofSessionId)}`;
-      userInfo = {
-        _id: targetUserId,
-        name: targetUserName || 'BizManager Merchant',
-        email: targetUserEmail || '',
-        shopName: req.body.targetShopName || 'Retail Counter',
-        role: req.body.targetRole || 'owner',
-      };
+        };
+      }
     } else {
       // SchoolHub / SchoolManager Integration
       const schoolApiBase = (
@@ -137,10 +168,18 @@ export const initiate = async (req, res) => {
         const SCHOOLHUB_REFRESH_SECRET =
           process.env.SCHOOLHUB_JWT_REFRESH_SECRET || 'school_mgr_super_secure_refresh_token_2025';
 
+        // Safeguard schoolId resolution for fallback
+        let effectiveSchoolId = targetSchoolId;
+        if (!effectiveSchoolId || effectiveSchoolId === '6aa86ac8b787e0c870aa4956') {
+          if (targetUserId === '6aa6831d879fa23ac5a1de74' || targetUserName?.includes('Tariq') || targetUserEmail?.includes('lga.edu.pk')) {
+            effectiveSchoolId = '6aa6831d879fa23ac5a1de73';
+          }
+        }
+
         const token = jwt.sign(
           {
             userId: targetUserId,
-            schoolId: targetSchoolId,
+            schoolId: effectiveSchoolId,
             role: targetRole,
             isSpoof: true,
             iat: Math.floor(Date.now() / 1000),

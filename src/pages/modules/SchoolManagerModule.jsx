@@ -1499,13 +1499,27 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
     try {
       setIsSpoofing(true);
       const targetId = spoofTargetUser._id || spoofTargetUser.id;
+      // Resolve authentic institutional schoolId
+      let resolvedSchoolId = spoofTargetUser.schoolMongoId;
+      if (!resolvedSchoolId && spoofTargetUser.schoolId) {
+        if (spoofTargetUser.schoolId === 'LGA001' || spoofTargetUser.schoolName?.includes('Lahore Grammar')) {
+          resolvedSchoolId = '6aa6831d879fa23ac5a1de73';
+        } else if (spoofTargetUser.schoolId === 'LHE005' || spoofTargetUser.schoolName?.includes('Test School System')) {
+          resolvedSchoolId = '6aa86ac8b787e0c870aa4956';
+        } else if (spoofTargetUser.schoolId === 'LHE004') {
+          resolvedSchoolId = '6aa7bdd7f81a4f3a928220b7';
+        } else if (spoofTargetUser.schoolId?.length === 24) {
+          resolvedSchoolId = spoofTargetUser.schoolId;
+        }
+      }
+
       const res = await adminApi.initiateSpoof({
         platform: 'schoolmanager',
         targetUserId: targetId,
         targetUserName: spoofTargetUser.name,
         targetUserEmail: spoofTargetUser.email,
         targetRole: spoofTargetUser.rawRole || spoofTargetUser.roleCategory || 'teacher',
-        targetSchoolId: spoofTargetUser.schoolMongoId || '6aa86ac8b787e0c870aa4956',
+        targetSchoolId: resolvedSchoolId || '6aa6831d879fa23ac5a1de73',
         reason: spoofReason.trim(),
       });
 
