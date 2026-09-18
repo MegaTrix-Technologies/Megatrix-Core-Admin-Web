@@ -38,12 +38,17 @@ export const initiate = async (req, res) => {
       const token = jwt.sign(
         {
           id: targetUserId,
+          _id: targetUserId,
           userId: targetUserId,
-          role: 'owner',
+          name: targetUserName || 'BizManager Merchant',
+          email: targetUserEmail || '',
+          shopName: req.body.targetShopName || 'Retail Counter',
+          role: req.body.targetRole || 'owner',
+          isSpoof: true,
           jti: crypto.randomBytes(16).toString('hex'),
           iat: Math.floor(Date.now() / 1000),
           ctx: {
-            ip: req.ip || req.connection?.remoteAddress || '127.0.0.1',
+            ip: 'megatrix-admin-spoof',
             ua: req.headers['user-agent']
               ? crypto.createHash('sha256').update(req.headers['user-agent']).digest('hex').substring(0, 16)
               : null,
@@ -58,7 +63,8 @@ export const initiate = async (req, res) => {
         _id: targetUserId,
         name: targetUserName || 'BizManager Merchant',
         email: targetUserEmail || '',
-        role: 'owner',
+        shopName: req.body.targetShopName || 'Retail Counter',
+        role: req.body.targetRole || 'owner',
       };
     } else {
       // SchoolHub / SchoolManager Integration
@@ -75,6 +81,9 @@ export const initiate = async (req, res) => {
       const schoolAppUrl = (
         process.env.SCHOOLMANAGER_APP_URL || 'https://schoolhub.megatrixai.com'
       ).replace(/\/$/, '');
+
+      const targetRole = req.body.targetRole || 'teacher';
+      const targetSchoolId = req.body.targetSchoolId || '6aa86ac8b787e0c870aa4956';
 
       try {
         const response = await axios.post(
@@ -99,6 +108,23 @@ export const initiate = async (req, res) => {
             /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,
             schoolAppUrl
           );
+          // Ensure refreshToken is present in handoffUrl
+          if (!handoffUrl.includes('refreshToken=')) {
+            const SCHOOLHUB_REFRESH_SECRET =
+              process.env.SCHOOLHUB_JWT_REFRESH_SECRET || 'school_mgr_super_secure_refresh_token_2025';
+            const rfToken = response.data?.refreshToken || jwt.sign(
+              {
+                userId: targetUserId,
+                schoolId: response.data?.userInfo?.schoolId || targetSchoolId,
+                role: response.data?.userInfo?.role || targetRole,
+                isSpoof: true,
+                iat: Math.floor(Date.now() / 1000),
+              },
+              SCHOOLHUB_REFRESH_SECRET,
+              { expiresIn: '7d' }
+            );
+            handoffUrl += `&refreshToken=${encodeURIComponent(rfToken)}`;
+          }
           if (response.data.userInfo) {
             userInfo = response.data.userInfo;
           }
@@ -108,16 +134,41 @@ export const initiate = async (req, res) => {
         // Resilient fallback: Direct token generation using SchoolHub's JWT secret
         const SCHOOLHUB_JWT_SECRET =
           process.env.SCHOOLHUB_JWT_SECRET || 'school_mgr_super_secure_jwt_secret_2025';
+        const SCHOOLHUB_REFRESH_SECRET =
+          process.env.SCHOOLHUB_JWT_REFRESH_SECRET || 'school_mgr_super_secure_refresh_token_2025';
+
         const token = jwt.sign(
           {
             userId: targetUserId,
-            role: 'admin',
+            schoolId: targetSchoolId,
+            role: targetRole,
+            isSpoof: true,
             iat: Math.floor(Date.now() / 1000),
           },
           SCHOOLHUB_JWT_SECRET,
           { expiresIn: '30m' }
         );
-        handoffUrl = `${schoolAppUrl}/impersonate?token=${encodeURIComponent(token)}&spoof=true&sid=${encodeURIComponent(spoofSessionId)}`;
+
+        const refreshToken = jwt.sign(
+          {
+            userId: targetUserId,
+            schoolId: targetSchoolId,
+            role: targetRole,
+            isSpoof: true,
+            iat: Math.floor(Date.now() / 1000),
+          },
+          SCHOOLHUB_REFRESH_SECRET,
+          { expiresIn: '7d' }
+        );
+
+        handoffUrl = `${schoolAppUrl}/impersonate?token=${encodeURIComponent(token)}&refreshToken=${encodeURIComponent(refreshToken)}&spoof=true&sid=${encodeURIComponent(spoofSessionId)}`;
+        userInfo = {
+          _id: targetUserId,
+          name: targetUserName || 'Faculty / Staff Member',
+          email: targetUserEmail || '',
+          role: targetRole,
+          schoolId: targetSchoolId,
+        };
       }
     }
 

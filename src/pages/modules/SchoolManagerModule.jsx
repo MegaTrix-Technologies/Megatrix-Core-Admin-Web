@@ -1352,6 +1352,9 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
             const isBlocked = u.status === 'blocked' || u.isActive === false;
             return {
               id: u._id,
+              _id: u._id,
+              rawRole: u.role || 'teacher',
+              schoolMongoId: (typeof u.schoolId === 'object' ? u.schoolId?._id : u.schoolId) || '6aa86ac8b787e0c870aa4956',
               name: u.name || 'Faculty / Staff Member',
               schoolId: u.schoolCode || (typeof u.schoolId === 'string' ? u.schoolId.slice(-6).toUpperCase() : 'SCH-01'),
               schoolName: u.schoolName || 'Assigned Campus',
@@ -1501,6 +1504,8 @@ const SchoolManagerModule = ({ defaultTab = 'users' }) => {
         targetUserId: targetId,
         targetUserName: spoofTargetUser.name,
         targetUserEmail: spoofTargetUser.email,
+        targetRole: spoofTargetUser.rawRole || spoofTargetUser.roleCategory || 'teacher',
+        targetSchoolId: spoofTargetUser.schoolMongoId || '6aa86ac8b787e0c870aa4956',
         reason: spoofReason.trim(),
       });
 

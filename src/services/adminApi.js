@@ -295,14 +295,8 @@ export const adminApi = {
   },
 
   // 9. Account Impersonation (Spoof) Engine
-  initiateSpoof: async ({ platform, targetUserId, reason, targetUserName, targetUserEmail }) => {
-    const res = await apiClient.post('/spoof/initiate', {
-      platform,
-      targetUserId,
-      reason,
-      targetUserName,
-      targetUserEmail,
-    });
+  initiateSpoof: async (params) => {
+    const res = await apiClient.post('/spoof/initiate', params);
     return res.data;
   },
 

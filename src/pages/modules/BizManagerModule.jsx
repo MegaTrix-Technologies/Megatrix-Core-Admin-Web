@@ -587,6 +587,8 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
         targetUserId: targetId,
         targetUserName: spoofTargetUser.name,
         targetUserEmail: spoofTargetUser.email,
+        targetShopName: spoofTargetUser.shopName,
+        targetRole: spoofTargetUser.role || 'owner',
         reason: spoofReason.trim(),
       });
 
