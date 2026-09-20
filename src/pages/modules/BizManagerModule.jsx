@@ -593,7 +593,8 @@ const BizManagerModule = ({ defaultTab = 'users' }) => {
       });
 
       if (res.success && res.handoffUrl) {
-        toast.success(`Active spoof session launched for ${spoofTargetUser.name}. Opening new tab...`);
+        const shopDesc = spoofTargetUser.shopName ? ` (${spoofTargetUser.shopName})` : '';
+        toast.success(`Active spoof session launched for ${spoofTargetUser.name}${shopDesc}. Opening new tab...`);
         window.open(res.handoffUrl, '_blank');
         setSpoofTargetUser(null);
         setSpoofReason('');

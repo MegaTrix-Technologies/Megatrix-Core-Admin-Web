@@ -29,12 +29,18 @@ export const initiate = async (req, res) => {
 
     if (platform === 'bizmanager') {
       const bizApiBase = (
-        process.env.BIZMANAGER_API_URL || 'https://bizmanager.megatrixai.com'
+        process.env.BIZMANAGER_API_URL ||
+        process.env.VITE_BIZMANAGER_API_URL ||
+        'http://localhost:5000'
       ).replace(/\/api\/?$/, '').replace(/\/$/, '');
       const serviceKey =
-        process.env.MEGATRIX_SERVICE_SECRET || 'megatrix_core_internal_service_key_2026';
+        process.env.MEGATRIX_SERVICE_SECRET ||
+        process.env.VITE_MEGATRIX_SERVICE_KEY ||
+        'megatrix_core_internal_service_key_2026';
       const bizAppUrl = (
-        process.env.BIZMANAGER_APP_URL || 'https://bizmanager.megatrixai.com'
+        process.env.BIZMANAGER_APP_URL ||
+        process.env.VITE_BIZMANAGER_APP_URL ||
+        'http://localhost:5173'
       ).replace(/\/$/, '');
 
       try {
@@ -45,6 +51,11 @@ export const initiate = async (req, res) => {
             adminActorId: req.user._id,
             adminEmail: req.user.email,
             spoofSessionId,
+            appUrl: bizAppUrl,
+            targetUserName,
+            targetUserEmail,
+            targetShopName: req.body.targetShopName,
+            targetRole: req.body.targetRole,
           },
           {
             headers: {
@@ -75,20 +86,32 @@ export const initiate = async (req, res) => {
             shopName: req.body.targetShopName || 'Retail Counter',
             role: req.body.targetRole || 'owner',
             isSpoof: true,
+            isImpersonated: true,
             jti: crypto.randomBytes(16).toString('hex'),
             iat: Math.floor(Date.now() / 1000),
             ctx: {
               ip: 'megatrix-admin-spoof',
               ua: req.headers['user-agent']
                 ? crypto.createHash('sha256').update(req.headers['user-agent']).digest('hex').substring(0, 16)
-                : null,
+                : 'MegaTrix Admin Core',
             },
           },
           BIZMANAGER_JWT_SECRET,
           { expiresIn: '30m' }
         );
 
-        handoffUrl = `${bizAppUrl}/impersonate?token=${encodeURIComponent(token)}&spoof=true&sid=${encodeURIComponent(spoofSessionId)}`;
+        const params = new URLSearchParams({
+          token,
+          spoof: 'true',
+          sid: spoofSessionId,
+          targetId: targetUserId,
+          targetName: targetUserName || 'BizManager Merchant',
+          targetShop: req.body.targetShopName || 'Retail Counter',
+          targetEmail: targetUserEmail || '',
+          targetRole: req.body.targetRole || 'owner',
+        });
+
+        handoffUrl = `${bizAppUrl}/impersonate?${params.toString()}`;
         userInfo = {
           _id: targetUserId,
           name: targetUserName || 'BizManager Merchant',
