@@ -1236,14 +1236,23 @@ const INITIAL_SCHOOL_ACTIVITY = [
 ];
 
 const SchoolManagerModule = ({ defaultTab = 'users' }) => {
-  const { adminUser, canAccessPlatform } = useAdminAuth();
+  const { adminUser, canAccessPlatform, hasPermission } = useAdminAuth();
   const canAccess = canAccessPlatform('schoolhub') || canAccessPlatform('schoolmanager');
 
   const isSuperAdmin = Boolean(adminUser?.isSuperAdmin);
   const isFullAccess = adminUser?.accessLevel === 'full';
-  const canViewCredentials = isSuperAdmin || isFullAccess;
-  const canEditSubscriptions = isSuperAdmin || isFullAccess;
-  const canSpoof = isSuperAdmin || isFullAccess;
+  const canViewCredentials =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && (hasPermission('schoolmanager:credentials:vault:view') || hasPermission('schoolhub:credentials:vault:view')));
+  const canEditSubscriptions =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && (hasPermission('schoolmanager:subscriptions:plans:modify') || hasPermission('schoolmanager:subscriptions:plans:assign') || hasPermission('schoolmanager:subscriptions:plans:view') || hasPermission('schoolhub:subscriptions:plans:modify')));
+  const canSpoof =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && (hasPermission('schoolmanager:users:directory:spoof') || hasPermission('schoolhub:users:directory:spoof') || hasPermission('schoolmanager:users:directory:view') || hasPermission('schoolhub:users:directory:view')));
 
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [loading, setLoading] = useState(false);

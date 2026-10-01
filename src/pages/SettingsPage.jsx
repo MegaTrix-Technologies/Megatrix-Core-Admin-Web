@@ -22,11 +22,46 @@ import {
   ExternalLink,
   Clock,
   Send,
+  Sliders,
 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import AddAdminUserModal from '../components/AddAdminUserModal';
 
-// Executive Administrator Seed Roster — Root SuperAdmin is never exposed in user lists
-const DEFAULT_ADMIN_ROSTER = [];
+// Executive Administrator Roster — Subordinate platform administrators
+export const DEFAULT_ADMIN_ROSTER = [
+  {
+    id: '6aabd8c838f27cdaf80ab2bd',
+    name: 'Abu Sufian',
+    email: 'abu.sufian@megatrixai.com',
+    phone: '+92 301 0915911',
+    role: 'Full Access Administrator',
+    scope: 'Global Core',
+    authMethod: 'TOTP Authenticator',
+    status: 'active',
+    lastActive: 'Today, 19:10',
+    createdAt: '2026-09-17',
+    isRoot: false,
+    accessLevel: 'full',
+    platformScopes: ['global', 'schoolmanager', 'bizmanager'],
+    permissions: ['*'],
+  },
+  {
+    id: '6aabd9a138f27cdaf80ab2c2',
+    name: 'Hashir Farooq',
+    email: 'hashir.farooq@megatrixai.com',
+    phone: '+92 308 1505859',
+    role: 'Full Access Administrator',
+    scope: 'Global Core',
+    authMethod: 'TOTP Authenticator',
+    status: 'active',
+    lastActive: 'Sep 18, 11:09',
+    createdAt: '2026-09-17',
+    isRoot: false,
+    accessLevel: 'full',
+    platformScopes: ['global', 'schoolmanager', 'bizmanager'],
+    permissions: ['*'],
+  },
+];
 
 // Governance Security Audit Log Events
 const AUDIT_EVENTS = [
@@ -182,16 +217,16 @@ function SettingsContent() {
       const saved = localStorage.getItem('megatrix_admin_roster');
       if (saved) {
         const parsed = JSON.parse(saved);
-        const cleaned = parsed.filter(
-          (u) =>
-            !u.isRoot &&
-            !u.isSuperAdmin &&
-            u.role !== 'Superadmin' &&
-            u.email !== 'admin.megatrix@gmail.com' &&
-            !['ADM-001', 'ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
-            !['Zohaib Rana', 'Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
-        );
-        return cleaned;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const cleaned = parsed.filter(
+            (u) =>
+              !u.isRoot &&
+              !u.isSuperAdmin &&
+              u.role !== 'Superadmin' &&
+              u.email !== 'admin.megatrix@gmail.com'
+          );
+          if (cleaned.length > 0) return cleaned;
+        }
       }
     } catch {
       // Ignore
@@ -206,15 +241,10 @@ function SettingsContent() {
 
   // Modals for Admins Tab
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-  const [submittingInvite, setSubmittingInvite] = useState(false);
-  const [newAdminName, setNewAdminName] = useState('');
-  const [newAdminEmail, setNewAdminEmail] = useState('');
-  const [newAdminPhone, setNewAdminPhone] = useState('');
-  const [newAdminRole, setNewAdminRole] = useState('Platform Director');
-  const [newAdminScope, setNewAdminScope] = useState('School Hub');
-  const [newAdminAccessLevel, setNewAdminAccessLevel] = useState('full');
+  const [editingAdmin, setEditingAdmin] = useState(null);
+  const [availableRoles, setAvailableRoles] = useState([]);
 
-  // Slack-Style Shareable Invitation Modal
+  // Shareable Invitation Link Modal
   const [isShareLinkModalOpen, setIsShareLinkModalOpen] = useState(false);
   const [invitationSuccessData, setInvitationSuccessData] = useState(null);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -239,56 +269,60 @@ function SettingsContent() {
     setLoadingAdmins(true);
     try {
       const res = await adminApi.getUsers();
-      if (res?.success && Array.isArray(res.users)) {
+      if (res?.success && Array.isArray(res.users) && res.users.length > 0) {
         // Root SuperAdmin is never exposed in user management lists
         const visibleUsers = res.users.filter(
           (u) => !u.isSuperAdmin && u.email !== 'admin.megatrix@gmail.com'
         );
-        const mapped = visibleUsers.map((u, idx) => {
-          let roleTitle = 'Platform Administrator';
-          if (u.isSuperAdmin) roleTitle = 'Superadmin';
-          else if (u.roles?.[0]?.name) roleTitle = u.roles[0].name;
-          else if (u.accessLevel === 'full') roleTitle = 'Full Access Administrator';
+        if (visibleUsers.length > 0) {
+          const mapped = visibleUsers.map((u, idx) => {
+            let roleTitle = u.systemRole || 'Platform Administrator';
+            if (u.isSuperAdmin) roleTitle = 'Superadmin';
+            else if (u.roles?.[0]?.name) roleTitle = u.roles[0].name;
+            else if (u.accessLevel === 'full') roleTitle = 'Full Access Administrator';
 
-          let scopeTitle = 'Global Core';
-          if (u.platformScopes?.includes('global')) scopeTitle = 'Global Core';
-          else if (u.platformScopes?.length) {
-            scopeTitle = u.platformScopes
-              .map((s) => (s === 'bizmanager' ? 'Biz Manager' : s === 'schoolmanager' ? 'School Hub' : s))
-              .join(', ');
-          }
+            let scopeTitle = 'Global Core';
+            if (u.platformScopes?.includes('global')) scopeTitle = 'Global Core';
+            else if (u.platformScopes?.length) {
+              scopeTitle = u.platformScopes
+                .map((s) => (s === 'bizmanager' ? 'Biz Manager' : s === 'schoolmanager' || s === 'schoolhub' ? 'School Manager' : s))
+                .join(', ');
+            }
 
-          let lastActiveText = 'Never';
-          if (u.lastLoginAt) {
-            lastActiveText = new Date(u.lastLoginAt).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-            });
-          } else if (u.status === 'invited') {
-            lastActiveText = 'Pending Activation';
-          }
+            let lastActiveText = 'Never';
+            if (u.lastLoginAt) {
+              lastActiveText = new Date(u.lastLoginAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              });
+            } else if (u.status === 'invited') {
+              lastActiveText = 'Pending Activation';
+            }
 
-          return {
-            id: u._id || `ADM-${String(idx + 1).padStart(3, '0')}`,
-            name: u.name,
-            email: u.email,
-            phone: u.phone || '—',
-            role: roleTitle,
-            scope: scopeTitle,
-            authMethod: u.isSuperAdmin ? 'FIDO2 Hardware Key' : 'TOTP Authenticator',
-            status: u.status || 'active',
-            lastActive: lastActiveText,
-            createdAt: u.createdAt ? u.createdAt.split('T')[0] : '2025-01-10',
-            isRoot: !!u.isSuperAdmin,
-            accessLevel: u.accessLevel || 'partial',
-            rawUser: u,
-          };
-        });
-        setAdminRoster(mapped);
-        localStorage.setItem('megatrix_admin_roster', JSON.stringify(mapped));
-        return;
+            return {
+              id: u._id || `ADM-${String(idx + 1).padStart(3, '0')}`,
+              name: u.name,
+              email: u.email,
+              phone: u.phone || '—',
+              role: roleTitle,
+              scope: scopeTitle,
+              authMethod: u.isSuperAdmin ? 'FIDO2 Hardware Key' : 'TOTP Authenticator',
+              status: u.status || 'active',
+              lastActive: lastActiveText,
+              createdAt: u.createdAt ? u.createdAt.split('T')[0] : '2026-08-15',
+              isRoot: !!u.isSuperAdmin,
+              accessLevel: u.accessLevel || 'partial',
+              platformScopes: u.platformScopes || [],
+              permissions: u.permissions || [],
+              rawUser: u,
+            };
+          });
+          setAdminRoster(mapped);
+          localStorage.setItem('megatrix_admin_roster', JSON.stringify(mapped));
+          return;
+        }
       }
     } catch (err) {
       console.warn('[SettingsPage] Live user query failed, falling back to local roster:', err.message);
@@ -296,30 +330,44 @@ function SettingsContent() {
       setLoadingAdmins(false);
     }
 
-    // Fallback to local storage (sanitized)
+    // Fallback to local storage or canonical DEFAULT_ADMIN_ROSTER
     try {
       const saved = localStorage.getItem('megatrix_admin_roster');
       if (saved) {
         const parsed = JSON.parse(saved);
-        const cleaned = parsed.filter(
-          (u) =>
-            !u.isRoot &&
-            !u.isSuperAdmin &&
-            u.role !== 'Superadmin' &&
-            u.email !== 'admin.megatrix@gmail.com' &&
-            !['ADM-001', 'ADM-002', 'ADM-003', 'ADM-004', 'ADM-005'].includes(u.id) &&
-            !['Zohaib Rana', 'Ayesha Khan', 'Bilal Ahmed', 'Hamza Tariq', 'Sana Malik'].includes(u.name)
-        );
-        setAdminRoster(cleaned);
-        localStorage.setItem('megatrix_admin_roster', JSON.stringify(cleaned));
-        return;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const cleaned = parsed.filter(
+            (u) =>
+              !u.isRoot &&
+              !u.isSuperAdmin &&
+              u.role !== 'Superadmin' &&
+              u.email !== 'admin.megatrix@gmail.com'
+          );
+          if (cleaned.length > 0) {
+            setAdminRoster(cleaned);
+            return;
+          }
+        }
       }
     } catch {
       // Ignore
     }
-    setAdminRoster([]);
+
+    // Fallback to default roster
+    setAdminRoster(DEFAULT_ADMIN_ROSTER);
     try {
-      localStorage.setItem('megatrix_admin_roster', JSON.stringify([]));
+      localStorage.setItem('megatrix_admin_roster', JSON.stringify(DEFAULT_ADMIN_ROSTER));
+    } catch {
+      // Ignore
+    }
+  }, []);
+
+  const loadRoles = useCallback(async () => {
+    try {
+      const res = await adminApi.getRoles();
+      if (res?.success && Array.isArray(res.roles)) {
+        setAvailableRoles(res.roles);
+      }
     } catch {
       // Ignore
     }
@@ -327,7 +375,8 @@ function SettingsContent() {
 
   useEffect(() => {
     loadAdminUsers();
-  }, [loadAdminUsers]);
+    loadRoles();
+  }, [loadAdminUsers, loadRoles]);
 
   // Save Roster to Local Storage
   const persistRoster = (updated) => {
@@ -458,62 +507,29 @@ function SettingsContent() {
 
   // Admin Roster Actions
   const handleOpenInviteModal = () => {
-    setNewAdminName('');
-    setNewAdminEmail('');
-    setNewAdminPhone('');
-    setNewAdminRole('Platform Director');
-    setNewAdminScope('School Hub');
-    setNewAdminAccessLevel('full');
+    setEditingAdmin(null);
     setIsInviteModalOpen(true);
   };
 
-  const handleCreateAdmin = async (e) => {
-    e.preventDefault();
-    if (!newAdminName.trim() || !newAdminEmail.trim()) {
-      toast.error('Name and corporate email are required.');
+  const handleOpenEditAdminModal = (adm) => {
+    setEditingAdmin(adm.rawUser || adm);
+    setIsInviteModalOpen(true);
+  };
+
+  const handleInviteSuccess = async (data) => {
+    if (data.isEdit) {
+      await loadAdminUsers();
       return;
     }
-
-    setSubmittingInvite(true);
-    try {
-      const payload = {
-        name: newAdminName.trim(),
-        email: newAdminEmail.trim().toLowerCase(),
-        phone: newAdminPhone.trim() || '',
-        accessLevel: newAdminAccessLevel,
-        platformScopes:
-          newAdminScope === 'Global Core'
-            ? ['global']
-            : newAdminScope === 'School Hub'
-            ? ['schoolmanager']
-            : ['bizmanager'],
-        roles: [],
-      };
-
-      const res = await adminApi.inviteUser(payload);
-      if (res?.success) {
-        setIsInviteModalOpen(false);
-        setInvitationSuccessData({
-          name: newAdminName.trim(),
-          email: newAdminEmail.trim().toLowerCase(),
-          invitationUrl: res.invitationUrl,
-          accessLevel: newAdminAccessLevel,
-          emailSent: res.emailSent !== false,
-        });
-        setIsShareLinkModalOpen(true);
-        setNewAdminName('');
-        setNewAdminEmail('');
-        setNewAdminPhone('');
-        await loadAdminUsers();
-        toast.success(`Invitation dispatched to ${payload.email}!`);
-      } else {
-        toast.error(res?.message || 'Failed to dispatch invitation.');
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to dispatch invitation.');
-    } finally {
-      setSubmittingInvite(false);
-    }
+    setInvitationSuccessData({
+      name: data.name,
+      email: data.email,
+      invitationUrl: data.invitationUrl,
+      accessLevel: data.accessLevel,
+      emailSent: true,
+    });
+    setIsShareLinkModalOpen(true);
+    await loadAdminUsers();
   };
 
   const handleCopyInvitationLink = (customUrl) => {
@@ -1234,9 +1250,19 @@ function SettingsContent() {
                           <div className="flex items-center justify-end gap-2">
                             <button
                               type="button"
+                              onClick={() => handleOpenEditAdminModal(adm)}
+                              title="Modify Project Access & Capabilities"
+                              className="h-8 px-2.5 py-1 rounded-sm border border-mx-border text-xs text-mx-blue hover:text-white hover:bg-mx-panel transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                            >
+                              <Sliders size={12} />
+                              <span>Policy</span>
+                            </button>
+
+                            <button
+                              type="button"
                               onClick={() => handleOpenResetPassword(adm)}
                               title="Rotate Credentials"
-                              className="h-8 px-3 py-1 rounded-sm border border-mx-border text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors cursor-pointer"
+                              className="h-8 px-2.5 py-1 rounded-sm border border-mx-border text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors cursor-pointer"
                             >
                               Reset
                             </button>
@@ -1245,7 +1271,7 @@ function SettingsContent() {
                               <button
                                 type="button"
                                 onClick={() => handleToggleAdminStatus(adm)}
-                                className={`h-8 px-3 py-1 rounded-sm border border-mx-border text-xs transition-colors cursor-pointer ${
+                                className={`h-8 px-2.5 py-1 rounded-sm border border-mx-border text-xs transition-colors cursor-pointer ${
                                   adm.status === 'active'
                                     ? 'text-mx-subtle hover:text-white hover:bg-mx-panel'
                                     : 'text-mx-positive hover:bg-mx-panel'
@@ -1267,148 +1293,21 @@ function SettingsContent() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-       * MODAL 1: INVITE OPERATOR / ADMINISTRATOR
+       * MODAL 1: ADD / INVITE / EDIT ADMINISTRATOR
        * ───────────────────────────────────────────────────────────── */}
-      {isInviteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-mx-surface border border-mx-border rounded-sm w-full max-w-lg overflow-hidden animate-fade-in shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b border-mx-border bg-mx-panel">
-              <div className="flex items-center gap-2">
-                <UserPlus size={16} strokeWidth={1.5} className="text-white" />
-                <h3 className="text-sm font-semibold text-white">Invite Platform Administrator</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsInviteModalOpen(false)}
-                className="text-mx-subtle hover:text-white cursor-pointer"
-              >
-                <X size={16} strokeWidth={1.5} />
-              </button>
-            </div>
-
-            <form onSubmit={handleCreateAdmin} className="p-6 space-y-4">
-              <div className="space-y-2">
-                <label className="block text-xs font-semibold text-mx-subtle">
-                  Full Legal Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Asim Raza"
-                  value={newAdminName}
-                  onChange={(e) => setNewAdminName(e.target.value)}
-                  className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-mx-subtle">
-                    Corporate Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="operator@megatrix.tech"
-                    value={newAdminEmail}
-                    onChange={(e) => setNewAdminEmail(e.target.value)}
-                    className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors font-mono"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-mx-subtle">
-                    Direct Phone Number
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="+92 300 1234567"
-                    value={newAdminPhone}
-                    onChange={(e) => setNewAdminPhone(e.target.value)}
-                    className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors font-mono"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-mx-subtle">
-                    System Role
-                  </label>
-                  <select
-                    value={newAdminRole}
-                    onChange={(e) => setNewAdminRole(e.target.value)}
-                    className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors cursor-pointer"
-                  >
-                    <option value="Platform Director">Platform Director</option>
-                    <option value="Operations Lead">Operations Lead</option>
-                    <option value="Security Engineer">Security Engineer</option>
-                    <option value="Compliance Auditor">Compliance Auditor</option>
-                    <option value="Superadmin">Superadmin</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-mx-subtle">
-                    Platform Jurisdiction
-                  </label>
-                  <select
-                    value={newAdminScope}
-                    onChange={(e) => setNewAdminScope(e.target.value)}
-                    className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors cursor-pointer"
-                  >
-                    <option value="Global Core">Global Core (All Workspaces)</option>
-                    <option value="School Hub">School Hub</option>
-                    <option value="Biz Manager">Biz Manager</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-xs font-semibold text-mx-subtle">
-                  Authority Level
-                </label>
-                <select
-                  value={newAdminAccessLevel}
-                  onChange={(e) => setNewAdminAccessLevel(e.target.value)}
-                  className="h-10 w-full px-3 py-2 bg-mx-panel border border-mx-border focus:border-mx-blue rounded-sm text-xs text-white focus:outline-none transition-colors cursor-pointer"
-                >
-                  <option value="full">Full Access (Root Executive & Cross-Platform Management)</option>
-                  <option value="partial">Granular Access (Jurisdiction-Restricted Scope)</option>
-                </select>
-              </div>
-
-              <div className="p-3 bg-mx-panel border border-mx-border rounded-sm space-y-1">
-                <span className="text-xs font-semibold text-white block">Slack-Style Invitation Dispatch:</span>
-                <p className="text-xs text-mx-subtle leading-relaxed">
-                  An email invitation will be relayed via Brevo SMTP. In addition, an immediately copyable, confidential activation link will be generated for direct sharing.
-                </p>
-              </div>
-
-              <div className="flex justify-end gap-3 pt-3 border-t border-mx-border">
-                <button
-                  type="button"
-                  onClick={() => setIsInviteModalOpen(false)}
-                  className="h-9 px-4 py-2 rounded-sm border border-mx-border text-xs text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submittingInvite}
-                  className="h-9 inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-white hover:bg-neutral-200 text-black text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
-                >
-                  <UserPlus size={14} strokeWidth={1.5} />
-                  <span>{submittingInvite ? 'Dispatching Invitation...' : 'Dispatch Invitation'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      <AddAdminUserModal
+        isOpen={isInviteModalOpen || Boolean(editingAdmin)}
+        editUser={editingAdmin}
+        availableRoles={availableRoles}
+        onClose={() => {
+          setIsInviteModalOpen(false);
+          setEditingAdmin(null);
+        }}
+        onSuccess={handleInviteSuccess}
+      />
 
       {/* ─────────────────────────────────────────────────────────────
-       * MODAL 2: SLACK-STYLE INVITATION SENT & SHAREABLE LINK
+       * MODAL 2: INVITATION SENT & SHAREABLE LINK
        * ───────────────────────────────────────────────────────────── */}
       {isShareLinkModalOpen && invitationSuccessData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
@@ -1444,13 +1343,13 @@ function SettingsContent() {
                 </p>
               </div>
 
-              {/* Slack-Style Copyable Confidential Link */}
+              {/* Copyable Confidential Invitation Link */}
               <div className="space-y-2">
                 <label className="block text-xs font-semibold text-mx-subtle">
                   Shareable Confidential Invitation Link
                 </label>
                 <p className="text-[11px] text-mx-subtle leading-relaxed">
-                  You can also copy this direct link and send it to the invitee via Slack or messaging channels. The recipient will set their own master password upon opening:
+                  You can also copy this direct link and send it to the invitee. The recipient will set their own master password upon opening:
                 </p>
                 <div className="flex items-center gap-2">
                   <input

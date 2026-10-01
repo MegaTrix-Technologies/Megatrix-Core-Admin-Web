@@ -37,6 +37,23 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Express Error Handler Middleware
+app.use((err, req, res, next) => {
+  console.error('[Express Error Handler]:', err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+  });
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('[Unhandled Rejection at Promise]:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('[Uncaught Exception]:', err);
+});
+
 /**
  * Bootstrap Default Roles & Superadmin
  */

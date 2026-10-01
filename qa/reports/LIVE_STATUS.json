@@ -1,16 +1,16 @@
 {
-  "runId": "2026-09-17T11-49-02",
-  "phase": "playwright",
-  "step": 29,
-  "total": 48,
-  "current": "[tablet-768] PW-02: Interactive hit targets meet minimum 40x40 touch target size",
+  "runId": "2026-10-01T20-02-35",
+  "phase": "lint",
+  "step": 13,
+  "total": 13,
+  "current": "DL-13 Copy & tone",
   "score": 100,
   "p0": 0,
   "p1": 0,
   "p2": 0,
   "p3": 0,
-  "lastShot": "qa/reports/2026-09-17T11-49-02/shots/bizmanager-1280.png",
-  "updatedAt": "2026-09-17T11:50:33.409Z",
+  "lastShot": "qa/reports/2026-10-01T20-02-35/shots/bizmanager-1280.png",
+  "updatedAt": "2026-10-01T20:02:39.414Z",
   "steps": [
     {
       "id": "DL-01",
@@ -103,8 +103,5 @@
       "violations": [],
       "sev": null
     }
-  ],
-  "passed": 24,
-  "failed": 4,
-  "skipped": 0
+  ]
 }

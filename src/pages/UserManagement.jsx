@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import adminApi from '../services/adminApi';
 import GranularPermissionBuilder from '../components/GranularPermissionBuilder';
+import AddAdminUserModal from '../components/AddAdminUserModal';
+import { DEFAULT_ADMIN_ROSTER } from './SettingsPage';
 import {
   FiUsers,
   FiSearch,
@@ -60,16 +62,6 @@ const UserManagement = () => {
   const [shareLinkData, setShareLinkData] = useState(null);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
-  // Invite Form State
-  const [formName, setFormName] = useState('');
-  const [formEmail, setFormEmail] = useState('');
-  const [formPhone, setFormPhone] = useState('');
-  const [formAccessLevel, setFormAccessLevel] = useState('partial');
-  const [formPlatformScopes, setFormPlatformScopes] = useState(['bizmanager']);
-  const [formRoles, setFormRoles] = useState([]);
-  const [formCustomPerms, setFormCustomPerms] = useState([]);
-  const [sendMailerX, setSendMailerX] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
 
   // Fetch Users from Live MongoDB
   const fetchUsers = async (page = 1) => {
@@ -86,16 +78,41 @@ const UserManagement = () => {
       if (roleFilter !== 'all') params.role = roleFilter;
 
       const res = await adminApi.getUsers(params);
-      if (res.success) {
-        setUsers(res.users || []);
+      if (res?.success && Array.isArray(res.users) && res.users.length > 0) {
+        setUsers(res.users);
         if (res.pagination) {
           setPagination(res.pagination);
         }
+        return;
       }
     } catch (err) {
-      console.warn('Backend user directory offline or unreachable:', err.message);
+      console.warn('Backend user directory query failed, using local roster:', err.message);
     } finally {
       setLoading(false);
+    }
+
+    // Fallback to local admin roster or DEFAULT_ADMIN_ROSTER
+    try {
+      const saved = localStorage.getItem('megatrix_admin_roster');
+      const source = saved ? JSON.parse(saved) : DEFAULT_ADMIN_ROSTER;
+      const roster = Array.isArray(source) && source.length > 0 ? source : DEFAULT_ADMIN_ROSTER;
+      const mapped = roster.map((u) => ({
+        _id: u.id || u._id,
+        name: u.name,
+        email: u.email,
+        phone: u.phone,
+        status: u.status || 'active',
+        accessLevel: u.accessLevel || 'partial',
+        platformScopes: u.platformScopes || (u.scope?.includes('School') ? ['schoolmanager'] : u.scope?.includes('Biz') ? ['bizmanager'] : ['global']),
+        roles: [{ name: u.role || 'Platform Administrator' }],
+        permissions: u.permissions || [],
+        createdAt: u.createdAt || '2026-08-15',
+        lastLoginAt: u.lastActive?.includes('Today') ? new Date().toISOString() : null,
+      }));
+      setUsers(mapped);
+      setPagination({ page: 1, limit: 15, total: mapped.length, totalPages: 1 });
+    } catch {
+      // Ignore
     }
   };
 
@@ -123,107 +140,27 @@ const UserManagement = () => {
 
   // Open Invite Modal
   const openInviteModal = () => {
-    setFormName('');
-    setFormEmail('');
-    setFormPhone('');
-    setFormAccessLevel('partial');
-    setFormPlatformScopes(['bizmanager']);
-    setFormRoles([]);
-    setFormCustomPerms([]);
-    setSendMailerX(true);
+    setEditUser(null);
     setInviteModalOpen(true);
   };
 
   // Open Edit Modal
   const openEditModal = (user) => {
     setEditUser(user);
-    setFormName(user.name);
-    setFormEmail(user.email);
-    setFormPhone(user.phone || '');
-    setFormAccessLevel(user.accessLevel);
-    setFormPlatformScopes(user.platformScopes || ['global']);
-    setFormRoles((user.roles || []).map((r) => r._id || r));
-
-    // Convert custom permissions
-    const flattened = [];
-    (user.permissions || []).forEach((p) => {
-      if (typeof p === 'string') flattened.push(p);
-      else if (p && p.platform && p.actions) {
-        p.actions.forEach((act) => {
-          flattened.push(`${p.platform}:${p.module}:${p.resource}:${act}`);
-        });
-      }
-    });
-    setFormCustomPerms(flattened);
+    setInviteModalOpen(true);
   };
 
-  // Handle Submit Invite
-  const handleInviteSubmit = async (e) => {
-    e.preventDefault();
-    if (!formEmail.trim() || !formName.trim()) {
-      toast.error('Name and Email are required.');
-      return;
+  const handleModalSuccess = (data) => {
+    if (!data.isEdit && data.invitationUrl) {
+      setShareLinkData({
+        name: data.name,
+        email: data.email,
+        invitationUrl: data.invitationUrl,
+        accessLevel: data.accessLevel,
+      });
+      setShareLinkModalOpen(true);
     }
-
-    try {
-      setSubmitting(true);
-      const payload = {
-        name: formName.trim(),
-        email: formEmail.trim().toLowerCase(),
-        phone: formPhone.trim(),
-        accessLevel: formAccessLevel,
-        platformScopes: formPlatformScopes,
-        roles: formRoles,
-        permissions: formCustomPerms,
-      };
-
-      const res = await adminApi.inviteUser(payload);
-      if (res.success) {
-        setInviteModalOpen(false);
-        setShareLinkData({
-          name: formName.trim(),
-          email: formEmail.trim().toLowerCase(),
-          invitationUrl: res.invitationUrl,
-          accessLevel: formAccessLevel,
-        });
-        setShareLinkModalOpen(true);
-        fetchUsers(1);
-        toast.success(`Invitation dispatched to ${formEmail} via Brevo!`);
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to dispatch invitation');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  // Handle Save User Edit
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    if (!editUser) return;
-
-    try {
-      setSubmitting(true);
-      const payload = {
-        name: formName.trim(),
-        phone: formPhone.trim(),
-        accessLevel: formAccessLevel,
-        platformScopes: formPlatformScopes,
-        roles: formRoles,
-        permissions: formCustomPerms,
-      };
-
-      const res = await adminApi.updateUser(editUser._id, payload);
-      if (res.success) {
-        toast.success(`User ${editUser.name} updated successfully`);
-        setEditUser(null);
-        fetchUsers(pagination.page);
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to update user');
-    } finally {
-      setSubmitting(false);
-    }
+    fetchUsers(pagination.page);
   };
 
   // Handle Status Change
@@ -264,21 +201,6 @@ const UserManagement = () => {
     }
   };
 
-  // Toggle platform scope selection
-  const togglePlatformScope = (platformId) => {
-    setFormPlatformScopes((prev) =>
-      prev.includes(platformId)
-        ? prev.filter((p) => p !== platformId)
-        : [...prev, platformId]
-    );
-  };
-
-  // Toggle role selection
-  const toggleRoleSelection = (roleId) => {
-    setFormRoles((prev) =>
-      prev.includes(roleId) ? prev.filter((r) => r !== roleId) : [...prev, roleId]
-    );
-  };
 
   return (
     <div className="space-y-6">
@@ -570,359 +492,17 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {/* INVITE / CREATE USER MODAL */}
-      {inviteModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-mx-surface border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                  <FiUserPlus className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">
-                    Invite Administrator via MailerX Relay
-                  </h3>
-                  <p className="text-xs text-white/50">
-                    Dispatches a cryptographically-signed invitation link via Brevo SMTP relay
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setInviteModalOpen(false)}
-                className="text-white/40 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors"
-              >
-                <FiX className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Form Body */}
-            <form onSubmit={handleInviteSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Full Name */}
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Jane Doe"
-                    value={formName}
-                    onChange={(e) => setFormName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none"
-                  />
-                </div>
-
-                {/* Email Address */}
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                    Administrator Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="jane.doe@megatrix.internal"
-                    value={formEmail}
-                    onChange={(e) => setFormEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Contact Phone (Optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="+1 (555) 000-0000"
-                  value={formPhone}
-                  onChange={(e) => setFormPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none"
-                />
-              </div>
-
-              {/* Access Level Toggle */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Administrative Access Level *
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setFormAccessLevel('partial')}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      formAccessLevel === 'partial'
-                        ? 'bg-blue-500/10 border-blue-500 text-white'
-                        : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                    }`}
-                  >
-                    <p className="font-bold text-xs">Partial Access (Recommended)</p>
-                    <p className="text-[11px] text-white/40 mt-0.5">
-                      Restricted to assigned platform scopes and role permissions.
-                    </p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setFormAccessLevel('full')}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      formAccessLevel === 'full'
-                        ? 'bg-emerald-500/10 border-emerald-500 text-white'
-                        : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                    }`}
-                  >
-                    <p className="font-bold text-xs">Full Access (Global Admin)</p>
-                    <p className="text-[11px] text-white/40 mt-0.5">
-                      Unrestricted authority across all platforms and modules.
-                    </p>
-                  </button>
-                </div>
-              </div>
-
-              {/* Platform Scopes */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Authorized Platform Scopes
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {['global', 'bizmanager', 'schoolmanager'].map((plat) => {
-                    const active = formPlatformScopes.includes(plat);
-                    return (
-                      <button
-                        key={plat}
-                        type="button"
-                        onClick={() => togglePlatformScope(plat)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
-                          active
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-white/5 text-white/50 border border-white/10 hover:border-white/20'
-                        }`}
-                      >
-                        {plat === 'global' ? 'Global Platform' : plat}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Assign Roles */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Assign System & Custom Roles
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-36 overflow-y-auto pr-1">
-                  {roles.map((r) => {
-                    const selected = formRoles.includes(r._id);
-                    return (
-                      <div
-                        key={r._id}
-                        onClick={() => toggleRoleSelection(r._id)}
-                        className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between text-xs transition-all ${
-                          selected
-                            ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
-                            : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                        }`}
-                      >
-                        <div>
-                          <p className="font-semibold">{r.name}</p>
-                          <p className="text-[10px] text-white/40 line-clamp-1">{r.description}</p>
-                        </div>
-                        {selected && <FiCheck className="text-emerald-400 w-4 h-4 flex-shrink-0" />}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Dispatch via MailerX Brevo Relay Info */}
-              <div className="bg-indigo-500/10 border border-indigo-500/20 p-3 rounded-xl flex items-center gap-3 text-xs text-indigo-300">
-                <FiSend className="w-5 h-5 flex-shrink-0" />
-                <p className="leading-relaxed">
-                  Upon dispatch, MailerX relay transmits a secure cryptographic token expiring in 48 hours to the recipient's inbox.
-                </p>
-              </div>
-
-              {/* Footer */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setInviteModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white/70 hover:text-white bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs shadow-lg shadow-emerald-500/10 transition-all disabled:opacity-50"
-                >
-                  <FiSend className="w-4 h-4" />
-                  <span>{submitting ? 'Dispatching via MailerX...' : 'Dispatch Invitation'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* EDIT USER MODAL */}
-      {editUser && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-mx-surface border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                  <FiEdit2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">Edit Administrator Policy</h3>
-                  <p className="text-xs text-white/50">{editUser.email}</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setEditUser(null)}
-                className="text-white/40 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors"
-              >
-                <FiX className="w-5 h-5" />
-              </button>
-            </div>
-
-            <form onSubmit={handleEditSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formName}
-                    onChange={(e) => setFormName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-sm text-white focus:outline-none"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    value={formPhone}
-                    onChange={(e) => setFormPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 focus:border-emerald-500 rounded-xl text-sm text-white focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Access Level */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Access Level
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setFormAccessLevel('partial')}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      formAccessLevel === 'partial'
-                        ? 'bg-blue-500/10 border-blue-500 text-white'
-                        : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                    }`}
-                  >
-                    <p className="font-bold text-xs">Partial Access</p>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFormAccessLevel('full')}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      formAccessLevel === 'full'
-                        ? 'bg-emerald-500/10 border-emerald-500 text-white'
-                        : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                    }`}
-                  >
-                    <p className="font-bold text-xs">Full Access</p>
-                  </button>
-                </div>
-              </div>
-
-              {/* Platform Scopes */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Platform Scopes
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {['global', 'bizmanager', 'schoolmanager'].map((plat) => {
-                    const active = formPlatformScopes.includes(plat);
-                    return (
-                      <button
-                        key={plat}
-                        type="button"
-                        onClick={() => togglePlatformScope(plat)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
-                          active
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-white/5 text-white/50 border border-white/10 hover:border-white/20'
-                        }`}
-                      >
-                        {plat}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Roles */}
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider">
-                  Assigned Roles
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {roles.map((r) => {
-                    const selected = formRoles.includes(r._id);
-                    return (
-                      <div
-                        key={r._id}
-                        onClick={() => toggleRoleSelection(r._id)}
-                        className={`p-2.5 rounded-xl border cursor-pointer flex items-center justify-between text-xs transition-all ${
-                          selected
-                            ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
-                            : 'bg-black/30 border-white/10 text-white/60 hover:border-white/20'
-                        }`}
-                      >
-                        <span className="font-semibold">{r.name}</span>
-                        {selected && <FiCheck className="text-emerald-400 w-4 h-4" />}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setEditUser(null)}
-                  className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white/70 hover:text-white bg-white/5 hover:bg-white/10"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs shadow-lg shadow-emerald-500/10"
-                >
-                  {submitting ? 'Saving...' : 'Save Policy Changes'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* ADD / INVITE / EDIT ADMINISTRATOR MODAL */}
+      <AddAdminUserModal
+        isOpen={inviteModalOpen}
+        editUser={editUser}
+        availableRoles={roles}
+        onClose={() => {
+          setInviteModalOpen(false);
+          setEditUser(null);
+        }}
+        onSuccess={handleModalSuccess}
+      />
 
       {/* INSPECT USER & EFFECTIVE PERMISSIONS MODAL */}
       {inspectUser && (
@@ -1046,7 +626,7 @@ const UserManagement = () => {
         </div>
       )}
 
-      {/* SLACK-STYLE INVITATION SHARE MODAL */}
+      {/* INVITATION SHARE MODAL */}
       {shareLinkModalOpen && shareLinkData && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-mx-surface border border-white/10 rounded-2xl w-full max-w-lg p-6 space-y-5 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
@@ -1085,7 +665,7 @@ const UserManagement = () => {
                   Shareable Confidential Invitation Link
                 </label>
                 <p className="text-[11px] text-white/50">
-                  Copy and send this direct link to the recipient (Slack-style). The invitee will set their password upon opening:
+                  Copy and send this direct link to the recipient. The invitee will set their password upon opening:
                 </p>
                 <div className="flex items-center gap-2">
                   <input

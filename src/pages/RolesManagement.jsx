@@ -152,7 +152,7 @@ const RolesManagement = () => {
             </span>
           </div>
           <p className="text-xs text-white/50 mt-1">
-            Meta Business Manager-style Granular RBAC Engine across all MegaTrix platforms
+            Granular Multi-Platform RBAC Policy Engine across all MegaTrix workspaces
           </p>
         </div>
 

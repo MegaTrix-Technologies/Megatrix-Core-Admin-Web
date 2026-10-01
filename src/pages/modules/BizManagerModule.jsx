@@ -265,14 +265,23 @@ const INITIAL_AUDIT_LOGS = [
 ];
 
 const BizManagerModule = ({ defaultTab = 'users' }) => {
-  const { adminUser, canAccessPlatform } = useAdminAuth();
+  const { adminUser, canAccessPlatform, hasPermission } = useAdminAuth();
   const canAccess = canAccessPlatform('bizmanager');
 
   const isSuperAdmin = Boolean(adminUser?.isSuperAdmin);
   const isFullAccess = adminUser?.accessLevel === 'full';
-  const canViewCredentials = isSuperAdmin || isFullAccess;
-  const canEditSubscriptions = isSuperAdmin || isFullAccess;
-  const canSpoof = isSuperAdmin || isFullAccess;
+  const canViewCredentials =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && hasPermission('bizmanager:credentials:vault:view'));
+  const canEditSubscriptions =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && (hasPermission('bizmanager:subscriptions:plans:modify') || hasPermission('bizmanager:subscriptions:plans:assign') || hasPermission('bizmanager:subscriptions:plans:view')));
+  const canSpoof =
+    isSuperAdmin ||
+    isFullAccess ||
+    (hasPermission && (hasPermission('bizmanager:users:directory:spoof') || hasPermission('bizmanager:users:directory:view')));
 
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [loading, setLoading] = useState(false);

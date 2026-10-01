@@ -43,6 +43,72 @@ export const PERMISSION_REGISTRY = {
           },
         },
       },
+      accounts: {
+        id: 'accounts',
+        name: 'Global Accounts & Financial Command Center',
+        resources: {
+          overview: {
+            id: 'overview',
+            name: 'Financial Overview & KPIs',
+            actions: ['view'],
+          },
+          sales: {
+            id: 'sales',
+            name: 'Global Sales Ledger',
+            actions: ['view', 'export'],
+          },
+          projects: {
+            id: 'projects',
+            name: 'Project Financials',
+            actions: ['view', 'export'],
+          },
+          commissions: {
+            id: 'commissions',
+            name: 'Agent Commissions',
+            actions: ['view', 'export'],
+          },
+          receivables: {
+            id: 'receivables',
+            name: 'Accounts Receivable & Aging',
+            actions: ['view', 'export'],
+          },
+          inflows: {
+            id: 'inflows',
+            name: 'Inflows & Capital Injections',
+            actions: ['view', 'export'],
+          },
+          expenses: {
+            id: 'expenses',
+            name: 'Operating Expenses',
+            actions: ['view', 'create', 'edit', 'delete', 'export'],
+          },
+          pnl: {
+            id: 'pnl',
+            name: 'Profit & Loss Statements',
+            actions: ['view', 'export'],
+          },
+          cash_flow: {
+            id: 'cash_flow',
+            name: 'Cash Flow Statements',
+            actions: ['view', 'export'],
+          },
+          reconciliation: {
+            id: 'reconciliation',
+            name: 'Reconciliation & Discrepancies',
+            actions: ['view', 'adjust'],
+          },
+          sync: {
+            id: 'sync',
+            name: 'CRM Data Synchronization',
+            actions: ['execute', 'view'],
+          },
+          reports: {
+            id: 'reports',
+            name: 'Executive Reports & Dossiers',
+            actions: ['view', 'export'],
+          },
+        },
+      },
       settings: {
         id: 'settings',
         name: 'System Settings',
@@ -57,11 +123,112 @@ export const PERMISSION_REGISTRY = {
     },
   },
 
+  leadhunter: {
+    id: 'leadhunter',
+    name: 'LeadHunter (LeadEngine & CRM)',
+    description: 'B2B GMB extraction, calling pipeline, sales contracts, and operational CRM accounting',
+    modules: {
+      sales: {
+        id: 'sales',
+        name: 'Sales & Contracts',
+        resources: {
+          deals: {
+            id: 'deals',
+            name: 'Deals & Revenue',
+            actions: ['view', 'export'],
+          },
+        },
+      },
+      commissions: {
+        id: 'commissions',
+        name: 'Agent Commissions',
+        resources: {
+          payouts: {
+            id: 'payouts',
+            name: 'Commission Payouts',
+            actions: ['view', 'export'],
+          },
+        },
+      },
+      finances: {
+        id: 'finances',
+        name: 'CRM Accounting',
+        resources: {
+          telemetry: {
+            id: 'telemetry',
+            name: 'Accounts Telemetry',
+            actions: ['view', 'sync'],
+          },
+        },
+      },
+    },
+  },
+
   bizmanager: {
     id: 'bizmanager',
     name: 'Biz Manager (Retail POS & ERP)',
     description: 'Retail point of sale, barcode billing, khata ledgers, and inventory',
     modules: {
+      users: {
+        id: 'users',
+        name: 'User Management & Spoofing',
+        resources: {
+          directory: {
+            id: 'directory',
+            name: 'User Directory & Session Impersonation',
+            actions: ['view', 'create', 'edit', 'block', 'reactivate', 'delete', 'spoof', 'export'],
+          },
+        },
+      },
+      subscriptions: {
+        id: 'subscriptions',
+        name: 'Subscription Management',
+        resources: {
+          plans: {
+            id: 'plans',
+            name: 'Store Plans & Billing Limits',
+            actions: ['view', 'assign', 'extend', 'modify', 'cancel'],
+          },
+        },
+      },
+      passwords: {
+        id: 'passwords',
+        name: 'Reset Password',
+        resources: {
+          reset: {
+            id: 'reset',
+            name: 'Merchant Password Reset & Rotation',
+            actions: ['view', 'rotate', 'generate_temp', 'force_change'],
+          },
+        },
+      },
+      activity: {
+        id: 'activity',
+        name: 'User Activity & Audit Monitoring',
+        resources: {
+          stream: {
+            id: 'stream',
+            name: 'Audit Stream & Session Logs',
+            actions: ['view', 'export', 'filter'],
+          },
+          logs: {
+            id: 'logs',
+            name: 'POS Operations Trail',
+            actions: ['view', 'export'],
+          },
+        },
+      },
+      credentials: {
+        id: 'credentials',
+        name: 'Project Credentials Vault',
+        resources: {
+          vault: {
+            id: 'vault',
+            name: 'Cryptographic Database & API Secrets',
+            actions: ['view', 'reveal', 'manage'],
+          },
+        },
+      },
       sales: {
         id: 'sales',
         name: 'Sales & POS Terminal',
@@ -114,6 +281,66 @@ export const PERMISSION_REGISTRY = {
     name: 'School Manager (Educational ERP)',
     description: 'Institutional multi-campus management, 4-role portals, and 3-copy fee challans',
     modules: {
+      users: {
+        id: 'users',
+        name: 'User Management & Spoofing',
+        resources: {
+          directory: {
+            id: 'directory',
+            name: 'Cross-School User Directory & Session Impersonation',
+            actions: ['view', 'create', 'edit', 'block', 'reactivate', 'reset_password', 'delete', 'spoof', 'export'],
+          },
+        },
+      },
+      subscriptions: {
+        id: 'subscriptions',
+        name: 'Subscription Management',
+        resources: {
+          plans: {
+            id: 'plans',
+            name: 'Institutional Plans & Quotas',
+            actions: ['view', 'assign', 'extend', 'modify', 'cancel'],
+          },
+        },
+      },
+      passwords: {
+        id: 'passwords',
+        name: 'Reset Password',
+        resources: {
+          reset: {
+            id: 'reset',
+            name: 'Tenant Password Reset & Rotation',
+            actions: ['view', 'rotate', 'generate_temp', 'force_change'],
+          },
+        },
+      },
+      activity: {
+        id: 'activity',
+        name: 'User Activity & Audit Monitoring',
+        resources: {
+          stream: {
+            id: 'stream',
+            name: 'Cross-School Security & Operations Trail',
+            actions: ['view', 'export', 'filter'],
+          },
+          logs: {
+            id: 'logs',
+            name: 'Institutional Action Trail',
+            actions: ['view', 'export'],
+          },
+        },
+      },
+      credentials: {
+        id: 'credentials',
+        name: 'Project Credentials Vault',
+        resources: {
+          vault: {
+            id: 'vault',
+            name: 'Cryptographic Database & API Secrets',
+            actions: ['view', 'reveal', 'manage'],
+          },
+        },
+      },
       schools: {
         id: 'schools',
         name: 'School & Tenant Lifecycle',
@@ -122,28 +349,6 @@ export const PERMISSION_REGISTRY = {
             id: 'directory',
             name: 'Institutional Directory & Tenancy',
             actions: ['view', 'create', 'edit', 'block', 'reactivate', 'delete', 'export'],
-          },
-        },
-      },
-      users: {
-        id: 'users',
-        name: 'Global School Users',
-        resources: {
-          directory: {
-            id: 'directory',
-            name: 'Cross-School User Directory',
-            actions: ['view', 'create', 'edit', 'block', 'reactivate', 'reset_password', 'export'],
-          },
-        },
-      },
-      activity: {
-        id: 'activity',
-        name: 'Activity & Audit Monitoring',
-        resources: {
-          logs: {
-            id: 'logs',
-            name: 'Cross-School Security & Operations Trail',
-            actions: ['view', 'export'],
           },
         },
       },

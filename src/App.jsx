@@ -13,6 +13,7 @@ import BizManagerModule from './pages/modules/BizManagerModule';
 import SchoolManagerModule from './pages/modules/SchoolManagerModule';
 import ProductUserManagement from './pages/ProductUserManagement';
 import SettingsPage from './pages/SettingsPage';
+import AccountsCommandCenter from './pages/accounts/AccountsCommandCenter';
 
 // Protected Admin Route Guard
 const ProtectedAdminRoute = ({ children }) => {
@@ -90,6 +91,28 @@ function App() {
                 <ProtectedAdminRoute>
                   <AdminLayout>
                     <PlatformDashboard />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+
+            {/* ─── 1.1 GLOBAL ACCOUNTS & FINANCIAL COMMAND CENTER ─── */}
+            <Route
+              path="/accounts"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <AccountsCommandCenter />
+                  </AdminLayout>
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/accounts/*"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout>
+                    <AccountsCommandCenter />
                   </AdminLayout>
                 </ProtectedAdminRoute>
               }

@@ -17,6 +17,7 @@ import {
   PERMISSIONS_REGISTRY,
   ALL_PERMISSION_KEYS,
 } from '../config/permissionsRegistry.js';
+import accountsRoutes from './accountsRoutes.js';
 
 const router = express.Router();
 
@@ -255,6 +256,11 @@ router.post(
  * ========================================================= */
 router.post('/spoof/initiate', verifyAdminToken, requireCredentialsAccess, spoofController.initiate);
 router.post('/spoof/terminate', verifyAdminToken, requireCredentialsAccess, spoofController.terminate);
+
+/* =========================================================
+ * 9. GLOBAL ACCOUNTS & FINANCIAL COMMAND CENTER
+ * ========================================================= */
+router.use('/accounts', accountsRoutes);
 
 export default router;
 

@@ -252,7 +252,7 @@ const DEFAULT_REGISTRY = {
 
 /**
  * GranularPermissionBuilder
- * Meta Business Manager-style permission hierarchy selector.
+ * Granular multi-platform permission hierarchy selector.
  * 
  * Props:
  * - selectedPermissions: Array of strings ("platform:module:resource:action")

@@ -305,10 +305,95 @@ export const adminApi = {
     return res.data;
   },
 
+  // 10. Global Accounts & Financial Command Center
+  accounts: {
+    getOverview: async (params = {}) => {
+      const res = await apiClient.get('/accounts/overview', { params });
+      return res.data;
+    },
+    getSalesLedger: async (params = {}) => {
+      const res = await apiClient.get('/accounts/sales', { params });
+      return res.data;
+    },
+    getSaleDetail: async (id) => {
+      const res = await apiClient.get(`/accounts/sales/${id}`);
+      return res.data;
+    },
+    getProjects: async (params = {}) => {
+      const res = await apiClient.get('/accounts/projects', { params });
+      return res.data;
+    },
+    getCommissions: async (params = {}) => {
+      const res = await apiClient.get('/accounts/commissions', { params });
+      return res.data;
+    },
+    getReceivables: async (params = {}) => {
+      const res = await apiClient.get('/accounts/receivables', { params });
+      return res.data;
+    },
+    getInflows: async (params = {}) => {
+      const res = await apiClient.get('/accounts/inflows', { params });
+      return res.data;
+    },
+    getExpenses: async (params = {}) => {
+      const res = await apiClient.get('/accounts/expenses', { params });
+      return res.data;
+    },
+    createCoreExpense: async (data) => {
+      const res = await apiClient.post('/accounts/expenses/core', data);
+      return res.data;
+    },
+    updateCoreExpense: async (id, data) => {
+      const res = await apiClient.put(`/accounts/expenses/core/${id}`, data);
+      return res.data;
+    },
+    deleteCoreExpense: async (id) => {
+      const res = await apiClient.delete(`/accounts/expenses/core/${id}`);
+      return res.data;
+    },
+    getProfitLoss: async (params = {}) => {
+      const res = await apiClient.get('/accounts/pnl', { params });
+      return res.data;
+    },
+    getCashFlow: async (params = {}) => {
+      const res = await apiClient.get('/accounts/cash-flow', { params });
+      return res.data;
+    },
+    getReconciliation: async (params = {}) => {
+      const res = await apiClient.get('/accounts/reconciliation', { params });
+      return res.data;
+    },
+    getAdjustments: async (params = {}) => {
+      const res = await apiClient.get('/accounts/adjustments', { params });
+      return res.data;
+    },
+    createAdjustment: async (data) => {
+      const res = await apiClient.post('/accounts/adjustments', data);
+      return res.data;
+    },
+    triggerSync: async () => {
+      const res = await apiClient.post('/accounts/sync');
+      return res.data;
+    },
+    getSyncLogs: async () => {
+      const res = await apiClient.get('/accounts/sync/logs');
+      return res.data;
+    },
+    exportExcel: async (params = {}) => {
+      const res = await apiClient.get('/accounts/export/excel', { params, responseType: 'blob' });
+      return res.data;
+    },
+    exportPdf: async (params = {}) => {
+      const res = await apiClient.get('/accounts/export/pdf', { params, responseType: 'blob' });
+      return res.data;
+    },
+  },
+
   // Gateway mode helpers for UI compatibility
   getMode: () => 'live',
   setMode: () => {},
   checkLiveGateway: async () => ({ online: true }),
 };
 
+export const accountsApi = adminApi.accounts;
 export default adminApi;

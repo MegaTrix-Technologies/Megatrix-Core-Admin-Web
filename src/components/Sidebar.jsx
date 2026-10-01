@@ -12,6 +12,7 @@ import {
   Shield,
   Key,
   User,
+  Wallet,
 } from 'lucide-react';
 
 const Sidebar = ({
@@ -25,6 +26,12 @@ const Sidebar = ({
   const canAccessSchoolHub =
     canAccessPlatform('schoolhub') || canAccessPlatform('schoolmanager');
   const canAccessBizManager = canAccessPlatform('bizmanager');
+
+  const canAccessAccounts =
+    adminUser?.isSuperAdmin ||
+    adminUser?.accessLevel === 'full' ||
+    hasPermission('global.accounts.overview.view') ||
+    hasPermission('global:accounts:overview:view');
 
   const canManageUsers =
     adminUser?.isSuperAdmin ||
@@ -73,6 +80,15 @@ const Sidebar = ({
               isCollapsed={isCollapsed && !isMobile}
               onClick={onCloseMobile}
               exact={true}
+            />
+
+            {/* Accounts Command Center */}
+            <NavItem
+              to="/accounts"
+              icon={Wallet}
+              label="Accounts Center"
+              isCollapsed={isCollapsed && !isMobile}
+              onClick={onCloseMobile}
             />
 
             {/* Projects Navigation */}
