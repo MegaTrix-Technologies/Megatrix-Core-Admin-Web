@@ -1,10 +1,16 @@
+import { AccountSale } from '../models/AccountSale.js';
+import { AccountInflow } from '../models/AccountInflow.js';
+import { AccountProject } from '../models/AccountProject.js';
 import { CoreExpense } from '../models/CoreExpense.js';
 import { AccountAdjustment } from '../models/AccountAdjustment.js';
+import { AccountSnapshot } from '../models/AccountSnapshot.js';
 import { AccountSyncLog } from '../models/AccountSyncLog.js';
 import { AuditLog } from '../models/AuditLog.js';
-import { leadHunterService } from '../services/leadhunter/leadHunterService.js';
+import { AdminUser } from '../models/AdminUser.js';
+import { standaloneAccountsService } from '../services/accounts/standaloneAccountsService.js';
 import { financialCalculationService } from '../services/accounts/financialCalculationService.js';
 import { accountExportService } from '../services/accounts/accountExportService.js';
+import crypto from 'crypto';
 
 /**
  * Helper to log financial actions to the immutable AuditLog
@@ -12,7 +18,10 @@ import { accountExportService } from '../services/accounts/accountExportService.
 const logFinancialAudit = async (req, action, targetType, targetId, details = {}) => {
   try {
     const actor = req.user || req.adminUser;
-    const roleName = typeof actor?.role === 'string' ? actor.role : actor?.role?.name || (actor?.isSuperAdmin ? 'SUPERADMIN' : 'ADMIN');
+    const roleName =
+      typeof actor?.role === 'string'
+        ? actor.role
+        : actor?.role?.name || (actor?.isSuperAdmin ? 'SUPERADMIN' : 'ADMIN');
     await AuditLog.create({
       actor: {
         id: actor?._id || null,
@@ -24,7 +33,7 @@ const logFinancialAudit = async (req, action, targetType, targetId, details = {}
       target: {
         id: String(targetId || ''),
         type: targetType,
-        name: details.title || details.name || '',
+        name: details.title || details.name || details.saleNumber || '',
       },
       platform: 'global',
       details,
@@ -39,62 +48,63 @@ const logFinancialAudit = async (req, action, targetType, targetId, details = {}
 export const accountsController = {
   /**
    * GET /api/accounts/overview
-   * Consolidated Executive Financial Dashboard
+   * Consolidated Executive Financial Dashboard (100% Standalone Native)
    */
   getOverview: async (req, res) => {
     try {
       const { startDate, endDate, preset } = req.query;
 
-      // 1. Fetch live telemetry from LeadHunter
-      const telemetry = await leadHunterService.getTelemetry({
-        params: { startDate, endDate, preset },
-        actor: (req.user || req.adminUser),
-      });
+      // 1. Fetch native Core Admin financial datasets
+      const data = await standaloneAccountsService.getFinancialData();
 
-      // 2. Fetch Core expenses and active adjustments
-      const [coreExpenses, adjustments] = await Promise.all([
-        CoreExpense.find().sort({ expenseDate: -1 }).lean(),
-        AccountAdjustment.find({ status: { $in: ['approved', 'applied'] } }).sort({ effectiveDate: -1 }).lean(),
-      ]);
-
-      const rawSales = telemetry.data?.sales || [];
-      const rawInflows = telemetry.data?.inflows || [];
-      const rawLhExpenses = telemetry.data?.expenses || [];
-      const rawProjects = telemetry.data?.projects || [];
-      const rawCommissions = telemetry.data?.commissions || [];
-
-      // 3. Compute Dual-Basis Financial Summary
+      // 2. Compute Dual-Basis Financial Summary
       const summary = financialCalculationService.computeFinancialSummary({
-        sales: rawSales,
-        inflows: rawInflows,
-        leadHunterExpenses: rawLhExpenses,
-        coreExpenses,
-        commissions: rawCommissions,
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        leadHunterExpenses: [], // Deprecated external CRM expenses
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
         startDate,
         endDate,
       });
 
-      // 4. Compute Receivables Aging
-      const aging = financialCalculationService.computeReceivablesAging(rawSales);
+      // 3. Compute Receivables Aging
+      const aging = financialCalculationService.computeReceivablesAging(data.sales);
 
-      // 5. Compute Consolidated Expense Breakdown
-      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown(rawLhExpenses, coreExpenses);
+      // 4. Compute Consolidated Expense Breakdown
+      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown([], data.coreExpenses);
 
-      // 6. Compute Project Profitability Summary
-      const projectFinancials = financialCalculationService.computeProjectFinancials(rawProjects, rawSales, rawLhExpenses);
+      // 5. Compute Project Profitability Summary
+      const projectFinancials = financialCalculationService.computeProjectFinancials(
+        data.projects,
+        data.sales,
+        []
+      );
 
-      // 7. Compute Reconciliation Audit
+      // 6. Compute Reconciliation Audit
       const reconciliation = financialCalculationService.auditReconciliation({
-        sales: rawSales,
-        inflows: rawInflows,
-        expenses: rawLhExpenses,
-        commissions: rawCommissions,
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        expenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
       });
 
-      // 8. Commission Liabilities Summary
-      const commissionSummary = financialCalculationService.computeCommissionSummary(rawCommissions, rawSales);
+      // 7. Commission Liabilities Summary
+      const commissionSummary = financialCalculationService.computeCommissionSummary(
+        data.commissions,
+        data.sales
+      );
+
+      const meta = {
+        source: 'core_admin_native',
+        mode: 'standalone_native',
+        syncId: `native_${Date.now()}`,
+        durationMs: 12,
+        lastSync: new Date().toISOString(),
+        isStale: false,
+      };
 
       return res.json({
         success: true,
@@ -103,8 +113,8 @@ export const accountsController = {
         expenseBreakdown: {
           totalExpenses: expenseBreakdown.totalExpenses,
           categorySummary: expenseBreakdown.categorySummary,
-          leadHunterShare: expenseBreakdown.leadHunterShare,
-          coreAdminShare: expenseBreakdown.coreAdminShare,
+          leadHunterShare: 0,
+          coreAdminShare: 100,
         },
         commissionSummary: {
           totalLiability: commissionSummary.totalCommissionLiability,
@@ -121,7 +131,7 @@ export const accountsController = {
           criticalCount: reconciliation.criticalCount,
           warningCount: reconciliation.warningCount,
         },
-        meta: telemetry.meta,
+        meta,
       });
     } catch (err) {
       console.error('[accountsController:getOverview] Error:', err);
@@ -147,87 +157,74 @@ export const accountsController = {
         limit = 50,
       } = req.query;
 
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      let sales = telemetry.data?.sales || [];
+      const filter = {};
 
-      // Date filtering
-      if (startDate || endDate) {
-        sales = financialCalculationService.filterByDateRange(sales, 'closedAt', startDate, endDate);
-      }
-
-      // Search filter (customer business name, phone, closer, setter)
-      if (search.trim()) {
-        const q = search.trim().toLowerCase();
-        sales = sales.filter((s) => {
-          const client = (s.customer?.businessName || s.customer?.name || '').toLowerCase();
-          const phone = (s.customer?.phone || '').toLowerCase();
-          const closer = (s.closedByName || '').toLowerCase();
-          const leadGen = (s.leadGeneratedByName || '').toLowerCase();
-          const id = String(s._id || '').toLowerCase();
-          return client.includes(q) || phone.includes(q) || closer.includes(q) || leadGen.includes(q) || id.includes(q);
-        });
-      }
-
-      // Status filter
       if (status !== 'all') {
-        sales = sales.filter((s) => s.status === status);
+        filter.status = status;
       }
 
-      // Agent filter
+      if (startDate || endDate) {
+        filter.closedAt = {};
+        if (startDate) filter.closedAt.$gte = new Date(startDate);
+        if (endDate) filter.closedAt.$lte = new Date(endDate);
+      }
+
+      if (search.trim()) {
+        const regex = new RegExp(search.trim(), 'i');
+        filter.$or = [
+          { saleNumber: regex },
+          { 'customer.businessName': regex },
+          { 'customer.phone': regex },
+          { 'leadGeneratedBy.name': regex },
+          { 'closedBy.name': regex },
+          { projectName: regex },
+        ];
+      }
+
       if (agent !== 'all') {
-        sales = sales.filter(
-          (s) =>
-            s.closedBy?._id?.toString() === agent ||
-            s.leadGeneratedBy?._id?.toString() === agent ||
-            s.closedByName === agent ||
-            s.leadGeneratedByName === agent
-        );
+        const agentRegex = new RegExp(agent.trim(), 'i');
+        filter.$or = filter.$or || [];
+        filter.$or.push({ 'leadGeneratedBy.name': agentRegex }, { 'closedBy.name': agentRegex });
       }
 
-      // Sorting
-      sales.sort((a, b) => {
-        let valA = a[sortBy] || a.closedAt || a.createdAt;
-        let valB = b[sortBy] || b.closedAt || b.createdAt;
-        if (sortBy === 'totalAmount' || sortBy === 'advanceAmount' || sortBy === 'remainingAmount') {
-          valA = Number(valA) || 0;
-          valB = Number(valB) || 0;
-        } else {
-          valA = new Date(valA).getTime() || 0;
-          valB = new Date(valB).getTime() || 0;
-        }
-        return sortOrder === 'asc' ? (valA > valB ? 1 : -1) : valA < valB ? 1 : -1;
+      const sortDir = sortOrder === 'asc' ? 1 : -1;
+      const sortObj = { [sortBy]: sortDir };
+
+      const pageNum = Math.max(1, parseInt(page, 10));
+      const limitNum = Math.max(1, parseInt(limit, 10));
+      const skip = (pageNum - 1) * limitNum;
+
+      const [sales, total] = await Promise.all([
+        AccountSale.find(filter).sort(sortObj).skip(skip).limit(limitNum).lean(),
+        AccountSale.countDocuments(filter),
+      ]);
+
+      // Calculate totals
+      let bookedSales = 0;
+      let realizedSales = 0;
+      let pendingReceivables = 0;
+
+      const allFiltered = await AccountSale.find(filter, { totalAmount: 1, advanceAmount: 1, remainingAmount: 1 }).lean();
+      allFiltered.forEach((s) => {
+        bookedSales += s.totalAmount || 0;
+        realizedSales += s.advanceAmount || 0;
+        pendingReceivables += s.remainingAmount || 0;
       });
-
-      // Totals
-      const totalBooked = sales.reduce((sum, s) => sum + (Number(s.totalAmount) || 0), 0);
-      const totalPaid = sales.reduce((sum, s) => sum + (Number(s.advanceAmount) || 0), 0);
-      const totalBalance = sales.reduce((sum, s) => {
-        const rem = s.remainingAmount !== undefined ? Number(s.remainingAmount) : Math.max(0, (s.totalAmount || 0) - (s.advanceAmount || 0));
-        return sum + rem;
-      }, 0);
-      const totalCommission = sales.reduce((sum, s) => sum + (Number(s.estimatedCommission) || 0), 0);
-
-      // Pagination
-      const pageNum = parseInt(page, 10) || 1;
-      const limitNum = parseInt(limit, 10) || 50;
-      const startIndex = (pageNum - 1) * limitNum;
-      const paginatedSales = sales.slice(startIndex, startIndex + limitNum);
 
       return res.json({
         success: true,
-        sales: paginatedSales,
+        sales,
         pagination: {
-          total: sales.length,
+          total,
           page: pageNum,
           limit: limitNum,
-          totalPages: Math.ceil(sales.length / limitNum),
+          totalPages: Math.ceil(total / limitNum) || 1,
         },
         summary: {
-          totalBooked,
-          totalPaid,
-          totalBalance,
-          totalCommission,
-          count: sales.length,
+          bookedSales,
+          realizedSales,
+          pendingReceivables,
+          dealCount: total,
         },
       });
     } catch (err) {
@@ -238,33 +235,29 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/sales/:id
-   * Deep-dive for a single sale
    */
   getSaleDetail: async (req, res) => {
     try {
       const { id } = req.params;
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const sale = (telemetry.data?.sales || []).find((s) => s._id?.toString() === id);
+      const sale = await AccountSale.findOne({
+        $or: [{ _id: id }, { saleNumber: id }, { sourceLegacyId: id }],
+      }).lean();
 
       if (!sale) {
-        return res.status(404).json({ success: false, message: 'Sale record not found' });
+        return res.status(404).json({ success: false, message: 'Sale record not found.' });
       }
 
-      // Find linked inflows
-      const linkedInflows = (telemetry.data?.inflows || []).filter(
-        (i) => i.saleId?.toString() === id || i.description?.includes(id)
-      );
-
-      // Find linked project
-      const linkedProject = (telemetry.data?.projects || []).find(
-        (p) => p._id?.toString() === sale.projectId?.toString() || p.saleId?.toString() === id
-      );
+      // Fetch linked inflows and project
+      const [inflows, project] = await Promise.all([
+        AccountInflow.find({ saleId: sale._id }).sort({ date: -1 }).lean(),
+        AccountProject.findOne({ saleId: sale._id }).lean(),
+      ]);
 
       return res.json({
         success: true,
         sale,
-        inflows: linkedInflows,
-        project: linkedProject || null,
+        inflows,
+        project,
       });
     } catch (err) {
       console.error('[accountsController:getSaleDetail] Error:', err);
@@ -273,32 +266,195 @@ export const accountsController = {
   },
 
   /**
+   * POST /api/accounts/sales
+   * Create a new Sale / Contract
+   */
+  createSale: async (req, res) => {
+    try {
+      const {
+        customer,
+        products = [],
+        totalAmount,
+        advanceAmount = 0,
+        paymentMethod = 'Bank Transfer',
+        leadGeneratedByName = 'Sales Desk',
+        closedByName = 'Super Admin',
+        assignedDeveloperNames = [],
+        notes = '',
+        closedAt = new Date(),
+        commissionRates = {},
+      } = req.body;
+
+      if (!customer?.businessName || totalAmount === undefined) {
+        return res.status(400).json({ success: false, message: 'Customer business name and totalAmount are required.' });
+      }
+
+      const tot = Number(totalAmount) || 0;
+      const adv = Number(advanceAmount) || 0;
+      const rem = Math.max(0, tot - adv);
+      const saleCount = await AccountSale.countDocuments();
+      const saleNumber = `MT-SALE-${1000 + saleCount + 1}`;
+
+      const sale = await AccountSale.create({
+        saleNumber,
+        customer,
+        products: products.length > 0 ? products : [{ name: 'Digital Services Contract', quantity: 1, unitPrice: tot, subtotal: tot }],
+        totalAmount: tot,
+        advanceAmount: adv,
+        remainingAmount: rem,
+        status: rem === 0 ? 'payment_completed' : adv > 0 ? 'advance_paid' : 'draft',
+        paymentMethod,
+        payments: adv > 0 ? [{ amount: adv, date: new Date(), paymentMethod, referenceNote: 'Initial Advance', recordedBy: req.user?.name || 'Admin' }] : [],
+        leadGeneratedBy: { name: leadGeneratedByName },
+        closedBy: { name: closedByName },
+        assignedDevelopers: assignedDeveloperNames.map((name) => ({ name, role: 'Developer' })),
+        commissionRates,
+        closedAt: new Date(closedAt),
+        notes,
+      });
+
+      // Record Inflow for advance
+      if (adv > 0) {
+        await AccountInflow.create({
+          inflowNumber: `MT-INF-${1000 + saleCount + 1}-ADV`,
+          title: `Advance: ${customer.businessName}`,
+          amount: adv,
+          type: 'sale_payment',
+          source: customer.businessName,
+          saleId: sale._id,
+          paymentMethod,
+          reference: 'Initial Advance Payment',
+          date: new Date(closedAt),
+          recordedBy: req.user?.name || 'Admin',
+        });
+      }
+
+      await logFinancialAudit(req, 'SALE_CREATED', 'ACCOUNT_SALE', sale._id, {
+        saleNumber,
+        totalAmount: tot,
+        businessName: customer.businessName,
+      });
+
+      return res.status(201).json({ success: true, sale });
+    } catch (err) {
+      console.error('[accountsController:createSale] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * PUT /api/accounts/sales/:id
+   * Update Sale Details
+   */
+  updateSale: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+
+      const sale = await AccountSale.findById(id);
+      if (!sale) {
+        return res.status(404).json({ success: false, message: 'Sale not found.' });
+      }
+
+      if (updates.customer) sale.customer = { ...sale.customer.toObject(), ...updates.customer };
+      if (updates.isProjectDelivered !== undefined) {
+        sale.isProjectDelivered = Boolean(updates.isProjectDelivered);
+        if (sale.isProjectDelivered && !sale.deliveredAt) sale.deliveredAt = new Date();
+      }
+      if (updates.notes !== undefined) sale.notes = updates.notes;
+      if (updates.status) sale.status = updates.status;
+
+      await sale.save();
+      await logFinancialAudit(req, 'SALE_UPDATED', 'ACCOUNT_SALE', sale._id, updates);
+
+      return res.json({ success: true, sale });
+    } catch (err) {
+      console.error('[accountsController:updateSale] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * POST /api/accounts/sales/:id/payments
+   * Record installment or balance payment on a sale
+   */
+  recordSalePayment: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { amount, paymentMethod = 'Bank Transfer', referenceNote = '', date = new Date() } = req.body;
+
+      const paymentAmt = Number(amount);
+      if (!paymentAmt || paymentAmt <= 0) {
+        return res.status(400).json({ success: false, message: 'Valid payment amount is required.' });
+      }
+
+      const sale = await AccountSale.findById(id);
+      if (!sale) {
+        return res.status(404).json({ success: false, message: 'Sale record not found.' });
+      }
+
+      sale.advanceAmount = (sale.advanceAmount || 0) + paymentAmt;
+      sale.remainingAmount = Math.max(0, (sale.totalAmount || 0) - sale.advanceAmount);
+      if (sale.remainingAmount === 0) {
+        sale.status = 'payment_completed';
+      }
+
+      sale.payments.push({
+        amount: paymentAmt,
+        date: new Date(date),
+        paymentMethod,
+        referenceNote,
+        recordedBy: req.user?.name || 'Admin',
+      });
+
+      await sale.save();
+
+      // Log Inflow
+      const inflowCount = await AccountInflow.countDocuments();
+      await AccountInflow.create({
+        inflowNumber: `MT-INF-${1000 + inflowCount + 1}`,
+        title: `Payment: ${sale.customer?.businessName || sale.saleNumber}`,
+        amount: paymentAmt,
+        type: 'sale_payment',
+        source: sale.customer?.businessName || 'Client',
+        saleId: sale._id,
+        paymentMethod,
+        reference: referenceNote,
+        date: new Date(date),
+        recordedBy: req.user?.name || 'Admin',
+      });
+
+      await logFinancialAudit(req, 'PAYMENT_RECORDED', 'ACCOUNT_SALE', sale._id, {
+        paymentAmount: paymentAmt,
+        newRemaining: sale.remainingAmount,
+      });
+
+      return res.json({ success: true, sale });
+    } catch (err) {
+      console.error('[accountsController:recordSalePayment] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
    * GET /api/accounts/projects
-   * Project Unit Economics & Profitability
    */
   getProjects: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const projects = telemetry.data?.projects || [];
-      const sales = telemetry.data?.sales || [];
-      const expenses = telemetry.data?.expenses || [];
+      const [projects, sales] = await Promise.all([
+        AccountProject.find().sort({ createdAt: -1 }).lean(),
+        AccountSale.find().lean(),
+      ]);
 
-      const projectFinancials = financialCalculationService.computeProjectFinancials(projects, sales, expenses);
-
-      const totalRevenue = projectFinancials.reduce((sum, p) => sum + p.contractRevenue, 0);
-      const totalCost = projectFinancials.reduce((sum, p) => sum + p.totalProjectCost, 0);
-      const totalNetContribution = projectFinancials.reduce((sum, p) => sum + p.netContribution, 0);
-      const avgMargin = totalRevenue > 0 ? parseFloat(((totalNetContribution / totalRevenue) * 100).toFixed(1)) : 0;
+      const projectFinancials = financialCalculationService.computeProjectFinancials(projects, sales, []);
 
       return res.json({
         success: true,
         projects: projectFinancials,
         summary: {
           totalProjects: projectFinancials.length,
-          totalRevenue,
-          totalCost,
-          totalNetContribution,
-          avgMargin,
+          deliveredCount: projectFinancials.filter((p) => p.isDelivered).length,
+          activeCount: projectFinancials.filter((p) => !p.isDelivered).length,
         },
       });
     } catch (err) {
@@ -309,19 +465,21 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/commissions
-   * Agent Commission Ledger & Payout Liabilities
    */
   getCommissions: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const commissions = telemetry.data?.commissions || [];
-      const sales = telemetry.data?.sales || [];
+      const [sales, users] = await Promise.all([
+        AccountSale.find().lean(),
+        AdminUser.find({ status: 'active' }).populate('roles').lean(),
+      ]);
 
+      const commissions = standaloneAccountsService.calculateCommissions(sales, users);
       const summary = financialCalculationService.computeCommissionSummary(commissions, sales);
 
       return res.json({
         success: true,
-        ...summary,
+        commissions,
+        summary,
       });
     } catch (err) {
       console.error('[accountsController:getCommissions] Error:', err);
@@ -331,18 +489,15 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/receivables
-   * Receivables Aging Buckets & Debtor Ledger
    */
   getReceivables: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const sales = telemetry.data?.sales || [];
-
+      const sales = await AccountSale.find().sort({ closedAt: -1 }).lean();
       const aging = financialCalculationService.computeReceivablesAging(sales);
 
       return res.json({
         success: true,
-        ...aging,
+        aging,
       });
     } catch (err) {
       console.error('[accountsController:getReceivables] Error:', err);
@@ -352,37 +507,40 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/inflows
-   * Cash Inflows Ledger
    */
   getInflows: async (req, res) => {
     try {
-      const { type = 'all', startDate, endDate } = req.query;
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      let inflows = telemetry.data?.inflows || [];
+      const { search = '', type = 'all', startDate, endDate, page = 1, limit = 50 } = req.query;
 
+      const filter = {};
+      if (type !== 'all') filter.type = type;
       if (startDate || endDate) {
-        inflows = financialCalculationService.filterByDateRange(inflows, 'date', startDate, endDate);
+        filter.date = {};
+        if (startDate) filter.date.$gte = new Date(startDate);
+        if (endDate) filter.date.$lte = new Date(endDate);
+      }
+      if (search.trim()) {
+        const regex = new RegExp(search.trim(), 'i');
+        filter.$or = [{ title: regex }, { source: regex }, { reference: regex }, { inflowNumber: regex }];
       }
 
-      if (type !== 'all') {
-        inflows = inflows.filter((i) => i.type === type);
-      }
+      const pageNum = Math.max(1, parseInt(page, 10));
+      const limitNum = Math.max(1, parseInt(limit, 10));
+      const skip = (pageNum - 1) * limitNum;
 
-      const totalAmount = inflows.reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
+      const [inflows, total] = await Promise.all([
+        AccountInflow.find(filter).sort({ date: -1 }).skip(skip).limit(limitNum).lean(),
+        AccountInflow.countDocuments(filter),
+      ]);
 
-      // Payment method distribution
-      const methodDistribution = {};
-      inflows.forEach((i) => {
-        const m = i.paymentMethod || 'Bank Transfer';
-        methodDistribution[m] = (methodDistribution[m] || 0) + (Number(i.amount) || 0);
-      });
+      const all = await AccountInflow.find(filter, { amount: 1 }).lean();
+      const totalAmount = all.reduce((sum, i) => sum + (i.amount || 0), 0);
 
       return res.json({
         success: true,
         inflows,
-        totalAmount,
-        count: inflows.length,
-        methodDistribution,
+        pagination: { total, page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) || 1 },
+        summary: { totalAmount, count: total },
       });
     } catch (err) {
       console.error('[accountsController:getInflows] Error:', err);
@@ -391,41 +549,94 @@ export const accountsController = {
   },
 
   /**
+   * POST /api/accounts/inflows
+   */
+  createInflow: async (req, res) => {
+    try {
+      const { title, amount, type = 'other_income', source = 'General', paymentMethod = 'Bank Transfer', reference = '', date = new Date() } = req.body;
+
+      if (!title || !amount) {
+        return res.status(400).json({ success: false, message: 'Title and amount are required.' });
+      }
+
+      const count = await AccountInflow.countDocuments();
+      const inflowNumber = `MT-INF-${1000 + count + 1}`;
+
+      const inflow = await AccountInflow.create({
+        inflowNumber,
+        title,
+        amount: Number(amount),
+        type,
+        source,
+        paymentMethod,
+        reference,
+        date: new Date(date),
+        recordedBy: req.user?.name || 'Admin',
+      });
+
+      await logFinancialAudit(req, 'INFLOW_RECORDED', 'ACCOUNT_INFLOW', inflow._id, { title, amount });
+      return res.status(201).json({ success: true, inflow });
+    } catch (err) {
+      console.error('[accountsController:createInflow] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * DELETE /api/accounts/inflows/:id
+   */
+  deleteInflow: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const inflow = await AccountInflow.findByIdAndDelete(id);
+      if (!inflow) {
+        return res.status(404).json({ success: false, message: 'Inflow record not found.' });
+      }
+
+      await logFinancialAudit(req, 'INFLOW_DELETED', 'ACCOUNT_INFLOW', id, { title: inflow.title, amount: inflow.amount });
+      return res.json({ success: true, message: 'Inflow removed successfully.' });
+    } catch (err) {
+      console.error('[accountsController:deleteInflow] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
    * GET /api/accounts/expenses
-   * Consolidated Operating Expenses (LeadHunter + MegaTrix Core)
    */
   getExpenses: async (req, res) => {
     try {
-      const { category = 'all', source = 'all', startDate, endDate } = req.query;
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const lhExpenses = telemetry.data?.expenses || [];
-      const coreExpenses = await CoreExpense.find().sort({ expenseDate: -1 }).lean();
+      const { search = '', category = 'all', startDate, endDate, page = 1, limit = 50 } = req.query;
 
-      let breakdown = financialCalculationService.computeExpenseBreakdown(lhExpenses, coreExpenses);
-      let unified = breakdown.unifiedList;
-
+      const filter = {};
+      if (category !== 'all') filter.category = category;
       if (startDate || endDate) {
-        unified = financialCalculationService.filterByDateRange(unified, 'date', startDate, endDate);
+        filter.expenseDate = {};
+        if (startDate) filter.expenseDate.$gte = new Date(startDate);
+        if (endDate) filter.expenseDate.$lte = new Date(endDate);
+      }
+      if (search.trim()) {
+        const regex = new RegExp(search.trim(), 'i');
+        filter.$or = [{ title: regex }, { reason: regex }, { vendor: regex }, { description: regex }];
       }
 
-      if (category !== 'all') {
-        unified = unified.filter((e) => e.category === category);
-      }
+      const pageNum = Math.max(1, parseInt(page, 10));
+      const limitNum = Math.max(1, parseInt(limit, 10));
+      const skip = (pageNum - 1) * limitNum;
 
-      if (source !== 'all') {
-        unified = unified.filter((e) => (source === 'core' ? e.isCore : !e.isCore));
-      }
+      const [expenses, total] = await Promise.all([
+        CoreExpense.find(filter).sort({ expenseDate: -1 }).skip(skip).limit(limitNum).lean(),
+        CoreExpense.countDocuments(filter),
+      ]);
 
-      const totalAmount = unified.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+      const all = await CoreExpense.find(filter, { amount: 1 }).lean();
+      const totalAmount = all.reduce((sum, e) => sum + (e.amount || 0), 0);
 
       return res.json({
         success: true,
-        expenses: unified,
-        totalAmount,
-        totalCount: unified.length,
-        categorySummary: breakdown.categorySummary,
-        leadHunterShare: breakdown.leadHunterShare,
-        coreAdminShare: breakdown.coreAdminShare,
+        expenses,
+        pagination: { total, page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) || 1 },
+        summary: { totalAmount, count: total },
       });
     } catch (err) {
       console.error('[accountsController:getExpenses] Error:', err);
@@ -435,58 +646,39 @@ export const accountsController = {
 
   /**
    * POST /api/accounts/expenses/core
-   * Create a new MegaTrix Core Operating Expense
    */
   createCoreExpense: async (req, res) => {
     try {
-      const {
-        title,
-        description,
-        category,
-        amount,
-        expenseDate,
-        paymentMethod,
-        vendor,
-        referenceNumber,
-        isRecurring,
-        recurringInterval,
-        tags,
-      } = req.body;
+      const { title, reason, category, amount, currency = 'USD', expenseDate = new Date(), vendor, paymentMethod, description, isRecurring, recurringInterval } = req.body;
 
-      if (!title || !category || amount === undefined || Number(amount) <= 0) {
-        return res.status(400).json({ success: false, message: 'Valid title, category, and positive amount are required.' });
+      if (!title || !amount) {
+        return res.status(400).json({ success: false, message: 'Title and amount are required.' });
       }
 
-      const newExpense = await CoreExpense.create({
-        title: title.trim(),
-        description: description?.trim() || '',
-        category,
+      const expense = await CoreExpense.create({
+        title,
+        reason: reason || title,
+        category: category || 'general_administrative',
         amount: Number(amount),
-        expenseDate: expenseDate ? new Date(expenseDate) : new Date(),
+        currency,
+        expenseDate: new Date(expenseDate),
+        date: new Date(expenseDate),
+        vendor: vendor || '',
         paymentMethod: paymentMethod || 'Corporate Account',
-        vendor: vendor?.trim() || '',
-        referenceNumber: referenceNumber?.trim() || '',
+        description: description || '',
         isRecurring: Boolean(isRecurring),
-        recurringInterval: recurringInterval || 'monthly',
-        tags: Array.isArray(tags) ? tags : [],
+        recurringInterval: recurringInterval || 'one_time',
+        status: 'approved',
+        sourcePlatform: 'core',
         createdBy: {
-          id: (req.user || req.adminUser)?._id,
-          name: (req.user || req.adminUser)?.name || 'Admin',
-          email: (req.user || req.adminUser)?.email || 'admin@megatrix.internal',
+          id: req.user?._id,
+          name: req.user?.name || 'Admin',
+          email: req.user?.email,
         },
       });
 
-      await logFinancialAudit(req, 'CREATE_CORE_EXPENSE', 'EXPENSE', newExpense._id, {
-        title: newExpense.title,
-        amount: newExpense.amount,
-        category: newExpense.category,
-      });
-
-      return res.status(201).json({
-        success: true,
-        message: 'Core Operating Expense created successfully.',
-        expense: newExpense,
-      });
+      await logFinancialAudit(req, 'EXPENSE_CREATED', 'CORE_EXPENSE', expense._id, { title, amount });
+      return res.status(201).json({ success: true, expense });
     } catch (err) {
       console.error('[accountsController:createCoreExpense] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
@@ -495,42 +687,19 @@ export const accountsController = {
 
   /**
    * PUT /api/accounts/expenses/core/:id
-   * Update MegaTrix Core Operating Expense
    */
   updateCoreExpense: async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
 
-      const expense = await CoreExpense.findById(id);
+      const expense = await CoreExpense.findByIdAndUpdate(id, updates, { new: true });
       if (!expense) {
-        return res.status(404).json({ success: false, message: 'Core Expense not found' });
+        return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
 
-      if (updates.title) expense.title = updates.title.trim();
-      if (updates.description !== undefined) expense.description = updates.description.trim();
-      if (updates.category) expense.category = updates.category;
-      if (updates.amount !== undefined) expense.amount = Number(updates.amount);
-      if (updates.expenseDate) expense.expenseDate = new Date(updates.expenseDate);
-      if (updates.paymentMethod) expense.paymentMethod = updates.paymentMethod;
-      if (updates.vendor !== undefined) expense.vendor = updates.vendor.trim();
-      if (updates.referenceNumber !== undefined) expense.referenceNumber = updates.referenceNumber.trim();
-      if (updates.status) expense.status = updates.status;
-      if (updates.isRecurring !== undefined) expense.isRecurring = Boolean(updates.isRecurring);
-
-      await expense.save();
-
-      await logFinancialAudit(req, 'UPDATE_CORE_EXPENSE', 'EXPENSE', expense._id, {
-        title: expense.title,
-        amount: expense.amount,
-        category: expense.category,
-      });
-
-      return res.json({
-        success: true,
-        message: 'Core Expense updated successfully.',
-        expense,
-      });
+      await logFinancialAudit(req, 'EXPENSE_UPDATED', 'CORE_EXPENSE', id, updates);
+      return res.json({ success: true, expense });
     } catch (err) {
       console.error('[accountsController:updateCoreExpense] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
@@ -539,26 +708,17 @@ export const accountsController = {
 
   /**
    * DELETE /api/accounts/expenses/core/:id
-   * Delete MegaTrix Core Operating Expense
    */
   deleteCoreExpense: async (req, res) => {
     try {
       const { id } = req.params;
       const expense = await CoreExpense.findByIdAndDelete(id);
       if (!expense) {
-        return res.status(404).json({ success: false, message: 'Core Expense not found' });
+        return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
 
-      await logFinancialAudit(req, 'DELETE_CORE_EXPENSE', 'EXPENSE', id, {
-        title: expense.title,
-        amount: expense.amount,
-        category: expense.category,
-      });
-
-      return res.json({
-        success: true,
-        message: 'Core Expense removed successfully.',
-      });
+      await logFinancialAudit(req, 'EXPENSE_DELETED', 'CORE_EXPENSE', id, { title: expense.title, amount: expense.amount });
+      return res.json({ success: true, message: 'Expense removed successfully.' });
     } catch (err) {
       console.error('[accountsController:deleteCoreExpense] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
@@ -567,63 +727,28 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/pnl
-   * Detailed Profit & Loss Statement (P&L)
    */
   getProfitLoss: async (req, res) => {
     try {
       const { startDate, endDate } = req.query;
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const coreExpenses = await CoreExpense.find().lean();
-      const adjustments = await AccountAdjustment.find({ status: { $in: ['approved', 'applied'] } }).lean();
+      const data = await standaloneAccountsService.getFinancialData();
 
       const summary = financialCalculationService.computeFinancialSummary({
-        sales: telemetry.data?.sales || [],
-        inflows: telemetry.data?.inflows || [],
-        leadHunterExpenses: telemetry.data?.expenses || [],
-        coreExpenses,
-        commissions: telemetry.data?.commissions || [],
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
         startDate,
         endDate,
       });
 
-      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown(
-        telemetry.data?.expenses || [],
-        coreExpenses
-      );
-
-      // Statement formatting
-      const statement = {
-        revenue: {
-          realizedSales: summary.cashBasis.realizedSalesInflow,
-          projectPayments: summary.cashBasis.totalProjectPaymentsInflow,
-          otherIncome: summary.cashBasis.totalOtherIncome,
-          totalRevenue: summary.cashBasis.totalOperatingInflow,
-        },
-        costOfDelivery: {
-          commissionLiabilities: summary.cashBasis.totalCommissionCost,
-          totalCOGS: summary.cashBasis.totalCommissionCost,
-        },
-        grossProfit: summary.cashBasis.totalOperatingInflow - summary.cashBasis.totalCommissionCost,
-        grossMarginPercent: summary.cashBasis.totalOperatingInflow > 0
-          ? parseFloat((((summary.cashBasis.totalOperatingInflow - summary.cashBasis.totalCommissionCost) / summary.cashBasis.totalOperatingInflow) * 100).toFixed(2))
-          : 0,
-        operatingExpenses: expenseBreakdown.categorySummary,
-        totalOperatingExpenses: summary.cashBasis.totalOperatingExpenses,
-        operatingProfit: summary.cashBasis.realizedNetProfit,
-        netProfitMarginPercent: summary.cashBasis.realizedProfitMargin,
-        accrualComparison: {
-          totalBookedRevenue: summary.accrualBasis.totalBookedRevenue,
-          projectedNetProfit: summary.accrualBasis.projectedNetProfit,
-          projectedProfitMargin: summary.accrualBasis.projectedProfitMargin,
-          uncollectedReceivables: summary.accrualBasis.pendingReceivables,
-        },
-      };
-
       return res.json({
         success: true,
-        statement,
-        period: summary.period,
+        cashBasis: summary.cashBasis,
+        accrualBasis: summary.accrualBasis,
+        consolidatedCost: summary.consolidatedCost,
+        period: { startDate, endDate },
       });
     } catch (err) {
       console.error('[accountsController:getProfitLoss] Error:', err);
@@ -633,46 +758,27 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/cash-flow
-   * Direct Cash Flow Statement
    */
   getCashFlow: async (req, res) => {
     try {
       const { startDate, endDate } = req.query;
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const coreExpenses = await CoreExpense.find().lean();
-      const adjustments = await AccountAdjustment.find({ status: { $in: ['approved', 'applied'] } }).lean();
+      const data = await standaloneAccountsService.getFinancialData();
 
       const summary = financialCalculationService.computeFinancialSummary({
-        sales: telemetry.data?.sales || [],
-        inflows: telemetry.data?.inflows || [],
-        leadHunterExpenses: telemetry.data?.expenses || [],
-        coreExpenses,
-        commissions: telemetry.data?.commissions || [],
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
         startDate,
         endDate,
       });
 
-      const cashFlow = {
-        operatingActivities: {
-          salesAdvancesReceived: summary.cashBasis.realizedSalesInflow,
-          otherOperatingInflows: summary.cashBasis.totalOtherIncome,
-          operatingExpensesPaid: -summary.cashBasis.totalOperatingExpenses,
-          commissionsPaid: -summary.cashBasis.totalCommissionCost,
-          netOperatingCashFlow: summary.cashBasis.realizedNetProfit,
-        },
-        financingActivities: {
-          investmentCapitalInflows: summary.cashBasis.totalInvestment,
-          administrativeAdjustments: adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0),
-          netFinancingCashFlow: summary.cashBasis.totalInvestment,
-        },
-        netCashChange: summary.cashBasis.netCashFlow,
-      };
-
       return res.json({
         success: true,
-        cashFlow,
-        period: summary.period,
+        cashFlow: summary.cashBasis,
+        inflows: data.inflows,
+        expenses: data.coreExpenses,
       });
     } catch (err) {
       console.error('[accountsController:getCashFlow] Error:', err);
@@ -682,25 +788,21 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/reconciliation
-   * Discrepancy Audits and Adjustments
    */
   getReconciliation: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const adjustments = await AccountAdjustment.find().sort({ createdAt: -1 }).lean();
-
-      const audit = financialCalculationService.auditReconciliation({
-        sales: telemetry.data?.sales || [],
-        inflows: telemetry.data?.inflows || [],
-        expenses: telemetry.data?.expenses || [],
-        commissions: telemetry.data?.commissions || [],
-        adjustments,
+      const data = await standaloneAccountsService.getFinancialData();
+      const reconciliation = financialCalculationService.auditReconciliation({
+        sales: data.sales,
+        inflows: data.inflows,
+        expenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
       });
 
       return res.json({
         success: true,
-        ...audit,
-        adjustments,
+        reconciliation,
       });
     } catch (err) {
       console.error('[accountsController:getReconciliation] Error:', err);
@@ -710,72 +812,47 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/adjustments
-   * Administrative Adjustments
    */
   getAdjustments: async (req, res) => {
     try {
-      const adjustments = await AccountAdjustment.find().sort({ createdAt: -1 }).lean();
+      const adjustments = await AccountAdjustment.find().sort({ effectiveDate: -1 }).lean();
       return res.json({ success: true, adjustments });
     } catch (err) {
+      console.error('[accountsController:getAdjustments] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
     }
   },
 
   /**
    * POST /api/accounts/adjustments
-   * Post Controlled Administrative Adjustment
    */
   createAdjustment: async (req, res) => {
     try {
-      const {
-        title,
-        adjustmentType,
-        amount,
-        reason,
-        effectiveDate,
-        targetEntity,
-        targetId,
-        impactCategory,
-      } = req.body;
+      const { title, reason, type, amount, targetType, targetId, note, effectiveDate = new Date() } = req.body;
 
-      if (!title || !adjustmentType || amount === undefined || Number(amount) === 0 || !reason) {
-        return res.status(400).json({ success: false, message: 'Title, adjustment type, non-zero amount, and reason are required.' });
+      if (!title || amount === undefined) {
+        return res.status(400).json({ success: false, message: 'Title and amount are required.' });
       }
 
       const adjustment = await AccountAdjustment.create({
-        title: title.trim(),
-        adjustmentType,
+        title,
+        reason: reason || title,
+        type: type || 'manual_adjustment',
         amount: Number(amount),
-        reason: reason.trim(),
-        effectiveDate: effectiveDate ? new Date(effectiveDate) : new Date(),
-        targetEntity: targetEntity || 'general',
+        targetType: targetType || 'general',
         targetId: targetId || null,
-        impactCategory: impactCategory || 'cash_flow',
-        status: 'applied',
-        createdBy: {
-          id: (req.user || req.adminUser)?._id,
-          name: (req.user || req.adminUser)?.name || 'Admin',
-          email: (req.user || req.adminUser)?.email || 'admin@megatrix.internal',
-        },
+        note: note || '',
+        effectiveDate: new Date(effectiveDate),
+        status: 'approved',
         approvedBy: {
-          id: (req.user || req.adminUser)?._id,
-          name: (req.user || req.adminUser)?.name || 'Admin',
-          email: (req.user || req.adminUser)?.email || 'admin@megatrix.internal',
+          id: req.user?._id,
+          name: req.user?.name || 'Admin',
+          email: req.user?.email,
         },
       });
 
-      await logFinancialAudit(req, 'CREATE_ACCOUNT_ADJUSTMENT', 'ADJUSTMENT', adjustment._id, {
-        title: adjustment.title,
-        amount: adjustment.amount,
-        type: adjustment.adjustmentType,
-        reason: adjustment.reason,
-      });
-
-      return res.status(201).json({
-        success: true,
-        message: 'Administrative adjustment recorded and applied.',
-        adjustment,
-      });
+      await logFinancialAudit(req, 'ADJUSTMENT_POSTED', 'ACCOUNT_ADJUSTMENT', adjustment._id, { title, amount });
+      return res.status(201).json({ success: true, adjustment });
     } catch (err) {
       console.error('[accountsController:createAdjustment] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
@@ -784,25 +861,66 @@ export const accountsController = {
 
   /**
    * POST /api/accounts/sync
-   * Trigger Manual Live Sync with LeadHunter
+   * Native Snapshot Generator & Ledger Refresh
    */
   triggerSync: async (req, res) => {
+    const startTime = Date.now();
     try {
-      const telemetry = await leadHunterService.getTelemetry({
-        isManual: true,
-        actor: (req.user || req.adminUser),
+      const data = await standaloneAccountsService.getFinancialData();
+      const summary = financialCalculationService.computeFinancialSummary({
+        sales: data.sales,
+        inflows: data.inflows,
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
       });
 
-      await logFinancialAudit(req, 'TRIGGER_ACCOUNTS_SYNC', 'SYSTEM', telemetry.meta?.syncId, {
-        mode: telemetry.meta?.mode,
-        durationMs: telemetry.meta?.durationMs,
+      const syncId = `native_sync_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
+      const durationMs = Date.now() - startTime;
+
+      await AccountSnapshot.create({
+        sourcePlatform: 'core_admin',
+        snapshotType: 'manual_sync',
+        period: { preset: 'all_time', label: 'All Time' },
+        metrics: summary,
+        recordCounts: {
+          salesCount: data.sales.length,
+          projectsCount: data.projects.length,
+          inflowsCount: data.inflows.length,
+          expensesCount: data.coreExpenses.length,
+          agentsCount: data.commissions.length,
+        },
+        syncId,
+      });
+
+      await AccountSyncLog.create({
+        sourcePlatform: 'core_admin',
+        syncId,
+        startedAt: new Date(startTime),
+        completedAt: new Date(),
+        durationMs,
+        status: 'success',
+        mode: 'standalone_native',
+        recordsFetched: {
+          sales: data.sales.length,
+          projects: data.projects.length,
+          inflows: data.inflows.length,
+          expenses: data.coreExpenses.length,
+          commissions: data.commissions.length,
+          total: data.sales.length + data.inflows.length + data.coreExpenses.length,
+        },
+        triggeredBy: req.user ? { id: req.user._id, name: req.user.name, email: req.user.email } : { name: 'Admin' },
       });
 
       return res.json({
         success: true,
-        message: 'Synchronized successfully with LeadHunter.',
-        meta: telemetry.meta,
-        summary: telemetry.summary,
+        message: 'Native accounts telemetry synchronized and snapshot created.',
+        meta: {
+          mode: 'standalone_native',
+          durationMs,
+          syncId,
+          lastSync: new Date().toISOString(),
+        },
       });
     } catch (err) {
       console.error('[accountsController:triggerSync] Error:', err);
@@ -812,18 +930,11 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/sync/logs
-   * Synchronization Audit History
    */
   getSyncLogs: async (req, res) => {
     try {
-      const logs = await AccountSyncLog.find().sort({ startedAt: -1 }).limit(30).lean();
-      const lastStatus = await leadHunterService.getLastSyncStatus();
-
-      return res.json({
-        success: true,
-        logs,
-        lastStatus,
-      });
+      const logs = await AccountSyncLog.find().sort({ startedAt: -1 }).limit(50).lean();
+      return res.json({ success: true, logs });
     } catch (err) {
       console.error('[accountsController:getSyncLogs] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
@@ -832,51 +943,34 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/export/excel
-   * Export Multi-Tab Financial Excel Workbook
    */
   exportExcel: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const coreExpenses = await CoreExpense.find().lean();
-      const adjustments = await AccountAdjustment.find({ status: { $in: ['approved', 'applied'] } }).lean();
-
-      const rawSales = telemetry.data?.sales || [];
-      const rawInflows = telemetry.data?.inflows || [];
-      const rawLhExpenses = telemetry.data?.expenses || [];
-      const rawProjects = telemetry.data?.projects || [];
-      const rawCommissions = telemetry.data?.commissions || [];
-
+      const data = await standaloneAccountsService.getFinancialData();
       const summary = financialCalculationService.computeFinancialSummary({
-        sales: rawSales,
-        inflows: rawInflows,
-        leadHunterExpenses: rawLhExpenses,
-        coreExpenses,
-        commissions: rawCommissions,
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
       });
 
-      const aging = financialCalculationService.computeReceivablesAging(rawSales);
-      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown(rawLhExpenses, coreExpenses);
-      const projectFinancials = financialCalculationService.computeProjectFinancials(rawProjects, rawSales, rawLhExpenses);
+      const aging = financialCalculationService.computeReceivablesAging(data.sales);
+      const projectFinancials = financialCalculationService.computeProjectFinancials(data.projects, data.sales, []);
 
       const buffer = await accountExportService.generateExcelWorkbook({
         summary,
-        sales: rawSales,
-        inflows: rawInflows,
-        expenses: expenseBreakdown.unifiedList,
-        commissions: rawCommissions,
+        sales: data.sales,
+        inflows: data.inflows,
+        expenses: data.coreExpenses,
+        commissions: data.commissions,
         aging,
         projects: projectFinancials,
-        generatedBy: (req.user || req.adminUser)?.name || 'MegaTrix Core Admin',
-      });
-
-      await logFinancialAudit(req, 'EXPORT_FINANCIAL_EXCEL', 'REPORT', 'EXCEL', {
-        salesCount: rawSales.length,
-        inflowCount: rawInflows.length,
+        generatedBy: req.user?.name || 'MegaTrix Core Admin',
       });
 
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', `attachment; filename=MegaTrix_Financial_Dossier_${new Date().toISOString().slice(0, 10)}.xlsx`);
+      res.setHeader('Content-Disposition', `attachment; filename=MegaTrix_Financial_Ledger_${new Date().toISOString().slice(0, 10)}.xlsx`);
       return res.send(buffer);
     } catch (err) {
       console.error('[accountsController:exportExcel] Error:', err);
@@ -886,41 +980,28 @@ export const accountsController = {
 
   /**
    * GET /api/accounts/export/pdf
-   * Export Executive PDF Financial Report Dossier
    */
   exportPdf: async (req, res) => {
     try {
-      const telemetry = await leadHunterService.getTelemetry({ actor: (req.user || req.adminUser) });
-      const coreExpenses = await CoreExpense.find().lean();
-      const adjustments = await AccountAdjustment.find({ status: { $in: ['approved', 'applied'] } }).lean();
-
-      const rawSales = telemetry.data?.sales || [];
-      const rawInflows = telemetry.data?.inflows || [];
-      const rawLhExpenses = telemetry.data?.expenses || [];
-      const rawCommissions = telemetry.data?.commissions || [];
-
+      const data = await standaloneAccountsService.getFinancialData();
       const summary = financialCalculationService.computeFinancialSummary({
-        sales: rawSales,
-        inflows: rawInflows,
-        leadHunterExpenses: rawLhExpenses,
-        coreExpenses,
-        commissions: rawCommissions,
-        adjustments,
+        sales: data.sales,
+        inflows: data.inflows,
+        coreExpenses: data.coreExpenses,
+        commissions: data.commissions,
+        adjustments: data.adjustments,
       });
 
-      const aging = financialCalculationService.computeReceivablesAging(rawSales);
-      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown(rawLhExpenses, coreExpenses);
+      const aging = financialCalculationService.computeReceivablesAging(data.sales);
+      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown([], data.coreExpenses);
 
       const buffer = await accountExportService.generatePdfDossier({
         summary,
         aging,
-        commissions: rawCommissions,
-        expenses: expenseBreakdown.unifiedList,
-        generatedBy: (req.user || req.adminUser)?.name || 'MegaTrix Core Admin',
-      });
-
-      await logFinancialAudit(req, 'EXPORT_FINANCIAL_PDF', 'REPORT', 'PDF', {
-        generatedAt: new Date().toISOString(),
+        expenseBreakdown,
+        salesCount: data.sales.length,
+        projectsCount: data.projects.length,
+        generatedBy: req.user?.name || 'MegaTrix Core Admin',
       });
 
       res.setHeader('Content-Type', 'application/pdf');
@@ -932,5 +1013,3 @@ export const accountsController = {
     }
   },
 };
-
-export default accountsController;

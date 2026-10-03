@@ -24,7 +24,9 @@ const PORT = process.env.PORT || 5002;
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
   console.error('[FATAL] MONGODB_URI is not defined in environment variables.');
-  process.exit(1);
+  if (!process.env.VERCEL) {
+    process.exit(1);
+  }
 }
 
 // Middlewares
@@ -224,4 +226,19 @@ async function start() {
   }
 }
 
-start();
+export async function connectDB() {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+  await mongoose.connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 8000,
+  });
+  await seedDefaultRolesAndSuperAdmin();
+  return mongoose.connection;
+}
+
+export default app;
+
+if (!process.env.VERCEL) {
+  start();
+}

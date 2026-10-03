@@ -723,6 +723,352 @@ export const autonomousEngine = {
       record: newRecord,
     };
   },
+
+  // 7. Standalone Accounts & Financial Command Center
+  accounts: {
+    getOverview: async () => {
+      return {
+        success: true,
+        summary: {
+          cashBasis: {
+            realizedSalesInflow: 5000,
+            totalProjectPaymentsInflow: 0,
+            totalOtherIncome: 0,
+            totalInvestment: 0,
+            totalOperatingInflow: 5000,
+            totalCashInflow: 5000,
+            totalOperatingExpenses: 14080,
+            totalCommissionCost: 15750,
+            totalCashOutflow: 29830,
+            realizedNetProfit: -24830,
+            realizedProfitMargin: -496.6,
+            netCashFlow: -24830,
+          },
+          accrualBasis: {
+            bookedSales: 35000,
+            totalOtherIncome: 0,
+            totalBookedRevenue: 35000,
+            pendingReceivables: 30000,
+            totalOperatingExpenses: 14080,
+            totalCommissionLiability: 15750,
+            totalAccruedCost: 29830,
+            projectedNetProfit: 5170,
+            projectedProfitMargin: 14.77,
+          },
+          consolidatedCost: {
+            totalExpenses: 14080,
+            totalCommissions: 15750,
+            totalCost: 29830,
+          },
+        },
+        aging: {
+          current: 0,
+          days1to30: 30000,
+          days31to60: 0,
+          days61to90: 0,
+          daysOver90: 0,
+          totalReceivables: 30000,
+        },
+        expenseBreakdown: {
+          totalExpenses: 14080,
+          categorySummary: [
+            { category: 'software_saas', label: 'Software & SaaS', total: 11680, percent: 83.0 },
+            { category: 'marketing', label: 'Marketing & Ads', total: 2400, percent: 17.0 },
+          ],
+          leadHunterShare: 0,
+          coreAdminShare: 100,
+        },
+        commissionSummary: {
+          totalLiability: 15750,
+          pendingPayouts: 15750,
+          topAgents: [
+            { userId: 'agt_01', name: 'Hashir Farooq', totalEarnings: 7000, dealsCount: 1 },
+            { userId: 'agt_02', name: 'Abu Sufian', totalEarnings: 5250, dealsCount: 1 },
+            { userId: 'agt_03', name: 'Abdullah Zahid', totalEarnings: 3500, dealsCount: 1 },
+          ],
+        },
+        projectsSummary: {
+          totalProjects: 1,
+          healthyCount: 1,
+          atRiskCount: 0,
+        },
+        reconciliationSummary: {
+          totalDiscrepancies: 0,
+          criticalCount: 0,
+          warningCount: 0,
+        },
+        meta: {
+          source: 'autonomous_core',
+          mode: 'standalone_autonomous',
+          syncId: 'auto_' + Date.now(),
+          lastSync: new Date().toISOString(),
+          isStale: false,
+        },
+      };
+    },
+
+    getSalesLedger: async (params = {}) => {
+      const sales = [
+        {
+          _id: 'sale_auto_001',
+          saleNumber: 'MT-SALE-FCEF',
+          customer: {
+            businessName: 'Muqeem Art Printers',
+            phone: '0300-4838477',
+            city: 'Lahore',
+            area: 'Shah Alam Market, Lahore',
+            category: 'Printing Services',
+          },
+          products: [
+            { name: 'Business Website + SEO', quantity: 1, unitPrice: 35000, subtotal: 35000 },
+          ],
+          totalAmount: 35000,
+          advanceAmount: 5000,
+          remainingAmount: 30000,
+          status: 'advance_paid',
+          paymentMethod: 'Bank Transfer',
+          leadGeneratedBy: { name: 'Abdullah Zahid' },
+          closedBy: { name: 'Abu Sufian' },
+          assignedDevelopers: [{ name: 'Hashir Farooq', role: 'Developer' }],
+          projectName: 'Muqeem Art Printers Digital Platform',
+          isProjectDelivered: false,
+          closedAt: '2026-09-06T09:37:16.130Z',
+          daysOutstanding: 27,
+        },
+      ];
+
+      return {
+        success: true,
+        sales,
+        pagination: { total: 1, page: 1, limit: 25, totalPages: 1 },
+        summary: { bookedSales: 35000, realizedSales: 5000, pendingReceivables: 30000, dealCount: 1 },
+      };
+    },
+
+    getSaleDetail: async (id) => {
+      return {
+        success: true,
+        sale: {
+          _id: id,
+          saleNumber: 'MT-SALE-FCEF',
+          customer: {
+            businessName: 'Muqeem Art Printers',
+            phone: '0300-4838477',
+            city: 'Lahore',
+            area: 'Shah Alam Market, Lahore',
+            category: 'Printing Services',
+          },
+          products: [{ name: 'Business Website + SEO', quantity: 1, unitPrice: 35000, subtotal: 35000 }],
+          totalAmount: 35000,
+          advanceAmount: 5000,
+          remainingAmount: 30000,
+          status: 'advance_paid',
+          paymentMethod: 'Bank Transfer',
+          closedAt: '2026-09-06T09:37:16.130Z',
+          notes: 'Customer will give 5000 first week and remaining on project completion',
+        },
+        inflows: [
+          {
+            _id: 'inf_auto_001',
+            inflowNumber: 'MT-INF-FCEF-ADV',
+            title: 'Advance: Muqeem Art Printers',
+            amount: 5000,
+            type: 'sale_payment',
+            date: '2026-09-06T09:37:16.130Z',
+            paymentMethod: 'Bank Transfer',
+          },
+        ],
+        project: {
+          _id: 'prj_auto_001',
+          projectNumber: 'MT-PRJ-FCF2',
+          name: 'Muqeem Art Printers Digital Platform',
+          status: 'in_progress',
+          contractValue: 35000,
+          leadDeveloper: 'Hashir Farooq',
+        },
+      };
+    },
+
+    getProjects: async () => {
+      return {
+        success: true,
+        projects: [
+          {
+            _id: 'prj_auto_001',
+            projectNumber: 'MT-PRJ-FCF2',
+            name: 'Muqeem Art Printers Digital Platform',
+            clientName: 'Muqeem Art Printers',
+            contractValue: 35000,
+            budgetedCost: 10500,
+            actualCost: 0,
+            status: 'in_progress',
+            healthStatus: 'Healthy',
+            isDelivered: false,
+            leadDeveloper: 'Hashir Farooq',
+            profitMargin: 70.0,
+          },
+        ],
+        summary: { totalProjects: 1, deliveredCount: 0, activeCount: 1 },
+      };
+    },
+
+    getCommissions: async () => {
+      return {
+        success: true,
+        commissions: [
+          {
+            userId: 'agt_01',
+            name: 'Hashir Farooq',
+            roles: ['Developer'],
+            totalEarnings: 7000,
+            dealsCount: 1,
+            commissionRates: { developerPercent: 20 },
+          },
+          {
+            userId: 'agt_02',
+            name: 'Abu Sufian',
+            roles: ['Sales Closer'],
+            totalEarnings: 5250,
+            dealsCount: 1,
+            commissionRates: { closerPercent: 15 },
+          },
+          {
+            userId: 'agt_03',
+            name: 'Abdullah Zahid',
+            roles: ['Lead Generator'],
+            totalEarnings: 3500,
+            dealsCount: 1,
+            commissionRates: { leadGenPercent: 10 },
+          },
+        ],
+        summary: { totalCommissionLiability: 15750, totalPendingPayouts: 15750, agents: [] },
+      };
+    },
+
+    getReceivables: async () => {
+      return {
+        success: true,
+        aging: {
+          current: 0,
+          days1to30: 30000,
+          days31to60: 0,
+          days61to90: 0,
+          daysOver90: 0,
+          totalReceivables: 30000,
+        },
+      };
+    },
+
+    getInflows: async () => {
+      return {
+        success: true,
+        inflows: [
+          {
+            _id: 'inf_auto_001',
+            inflowNumber: 'MT-INF-FCEF-ADV',
+            title: 'Advance: Muqeem Art Printers',
+            amount: 5000,
+            type: 'sale_payment',
+            source: 'Muqeem Art Printers',
+            paymentMethod: 'Bank Transfer',
+            date: '2026-09-06T09:37:16.130Z',
+          },
+        ],
+        pagination: { total: 1, page: 1, limit: 25, totalPages: 1 },
+        summary: { totalAmount: 5000, count: 1 },
+      };
+    },
+
+    getExpenses: async () => {
+      return {
+        success: true,
+        expenses: [
+          {
+            _id: 'exp_01',
+            title: 'OpenAI API Token Top-up',
+            category: 'software_saas',
+            amount: 150,
+            currency: 'USD',
+            expenseDate: '2026-09-15T00:00:00.000Z',
+            vendor: 'OpenAI Inc',
+            status: 'approved',
+          },
+          {
+            _id: 'exp_02',
+            title: 'Instagram Followers',
+            category: 'marketing',
+            amount: 1000,
+            currency: 'PKR',
+            expenseDate: '2026-09-06T10:15:46.105Z',
+            vendor: 'Marketing Desk',
+            status: 'paid',
+          },
+        ],
+        pagination: { total: 2, page: 1, limit: 25, totalPages: 1 },
+        summary: { totalAmount: 14080, count: 2 },
+      };
+    },
+
+    getProfitLoss: async () => {
+      return {
+        success: true,
+        cashBasis: {
+          realizedSalesInflow: 5000,
+          totalOperatingExpenses: 14080,
+          totalCommissionCost: 15750,
+          realizedNetProfit: -24830,
+        },
+        accrualBasis: {
+          bookedSales: 35000,
+          totalOperatingExpenses: 14080,
+          totalCommissionLiability: 15750,
+          projectedNetProfit: 5170,
+        },
+      };
+    },
+
+    getCashFlow: async () => {
+      return {
+        success: true,
+        cashFlow: {
+          totalOperatingInflow: 5000,
+          totalOperatingExpenses: 14080,
+          netCashFlow: -24830,
+        },
+      };
+    },
+
+    getReconciliation: async () => {
+      return {
+        success: true,
+        reconciliation: {
+          totalDiscrepancies: 0,
+          criticalCount: 0,
+          warningCount: 0,
+          items: [],
+        },
+      };
+    },
+
+    getSyncLogs: async () => {
+      return {
+        success: true,
+        logs: [
+          {
+            _id: 'log_auto_001',
+            syncId: 'native_sync_init',
+            sourcePlatform: 'core_admin',
+            startedAt: new Date(Date.now() - 3600000).toISOString(),
+            completedAt: new Date().toISOString(),
+            durationMs: 14,
+            status: 'success',
+            mode: 'standalone_native',
+            recordsFetched: { total: 4 },
+          },
+        ],
+      };
+    },
+  },
 };
 
 export default autonomousEngine;

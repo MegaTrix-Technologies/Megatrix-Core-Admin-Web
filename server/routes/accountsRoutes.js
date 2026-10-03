@@ -20,10 +20,25 @@ router.get(
   requirePermission('global:accounts:sales:view'),
   accountsController.getSalesLedger
 );
+router.post(
+  '/sales',
+  requirePermission('global:accounts:sales:view'),
+  accountsController.createSale
+);
 router.get(
   '/sales/:id',
   requirePermission('global:accounts:sales:view'),
   accountsController.getSaleDetail
+);
+router.put(
+  '/sales/:id',
+  requirePermission('global:accounts:sales:view'),
+  accountsController.updateSale
+);
+router.post(
+  '/sales/:id/payments',
+  requirePermission('global:accounts:sales:view'),
+  accountsController.recordSalePayment
 );
 
 // 3. Project Unit Economics & Profitability
@@ -52,6 +67,16 @@ router.get(
   '/inflows',
   requirePermission('global:accounts:inflows:view'),
   accountsController.getInflows
+);
+router.post(
+  '/inflows',
+  requirePermission('global:accounts:inflows:view'),
+  accountsController.createInflow
+);
+router.delete(
+  '/inflows/:id',
+  requirePermission('global:accounts:inflows:view'),
+  accountsController.deleteInflow
 );
 
 // 7. Consolidated Operating Expenses
