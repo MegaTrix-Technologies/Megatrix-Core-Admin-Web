@@ -39,7 +39,7 @@ const logFinancialAudit = async (req, action, targetType, targetId, details = {}
       platform: 'global',
       details,
       ipAddress: req.ip || req.connection?.remoteAddress || '127.0.0.1',
-      userAgent: req.headers['user-agent'] || 'MegaTrix Core Client',
+      userAgent: req.headers?.['user-agent'] || 'MegaTrix Core Client',
     });
   } catch (err) {
     console.warn('[accountsController] Could not write audit log:', err.message);
