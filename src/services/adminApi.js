@@ -537,6 +537,39 @@ export const adminApi = {
     },
   },
 
+  // Backblaze B2 Media Cloud Storage API
+  media: {
+    getPresignedUrl: async (filename, contentType, folder = 'uploads') => {
+      const res = await apiClient.post('/media/presign', { filename, contentType, folder });
+      return res.data;
+    },
+    uploadDirectToB2: async (file, folder = 'uploads') => {
+      const presigned = await adminApi.media.getPresignedUrl(file.name, file.type, folder);
+      await axios.put(presigned.uploadUrl, file, {
+        headers: {
+          'Content-Type': file.type || 'application/octet-stream',
+        },
+      });
+      return {
+        success: true,
+        key: presigned.key,
+        url: presigned.publicUrl,
+      };
+    },
+    uploadBase64: async (base64Data, filename = 'upload.png', folder = 'uploads') => {
+      const res = await apiClient.post('/media/upload-base64', { base64Data, filename, folder });
+      return res.data;
+    },
+    listMedia: async (prefix = '', maxKeys = 50) => {
+      const res = await apiClient.get('/media/list', { params: { prefix, maxKeys } });
+      return res.data;
+    },
+    deleteMedia: async (key) => {
+      const res = await apiClient.delete('/media', { data: { key } });
+      return res.data;
+    },
+  },
+
   // Gateway mode helpers for UI compatibility
   getMode: () => 'live',
   setMode: () => {},
@@ -544,4 +577,5 @@ export const adminApi = {
 };
 
 export const accountsApi = adminApi.accounts;
+export const mediaApi = adminApi.media;
 export default adminApi;

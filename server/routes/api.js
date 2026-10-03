@@ -18,6 +18,7 @@ import {
   ALL_PERMISSION_KEYS,
 } from '../config/permissionsRegistry.js';
 import accountsRoutes from './accountsRoutes.js';
+import mediaRoutes from './mediaRoutes.js';
 
 const router = express.Router();
 
@@ -261,6 +262,11 @@ router.post('/spoof/terminate', verifyAdminToken, requireCredentialsAccess, spoo
  * 9. GLOBAL ACCOUNTS & FINANCIAL COMMAND CENTER
  * ========================================================= */
 router.use('/accounts', accountsRoutes);
+
+/* =========================================================
+ * 10. BACKBLAZE B2 CLOUD MEDIA STORAGE
+ * ========================================================= */
+router.use('/media', mediaRoutes);
 
 export default router;
 
