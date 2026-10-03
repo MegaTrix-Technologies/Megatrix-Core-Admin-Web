@@ -81,8 +81,11 @@ const AccountsCommandCenter = () => {
     setSearchParams({ tab: tabId });
   };
 
+  const [fetchError, setFetchError] = useState(null);
+
   const fetchOverview = async () => {
     setLoading(true);
+    setFetchError(null);
     try {
       const res = await accountsApi.getOverview({
         preset: dateRange.preset,
@@ -91,10 +94,16 @@ const AccountsCommandCenter = () => {
       });
       if (res.success) {
         setOverviewData(res);
+        setFetchError(null);
       }
     } catch (err) {
       console.error('[AccountsCommandCenter] Overview fetch error:', err);
-      toast.error('Failed to load accounts telemetry');
+      const isNetwork = !err.response || err.code === 'ERR_NETWORK' || err.message?.includes('Network Error');
+      const msg = isNetwork
+        ? 'Core Admin Backend (Port 5002) is offline or unreachable. Please ensure the backend server is running.'
+        : (err.response?.data?.message || 'Failed to load accounts telemetry');
+      setFetchError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -308,6 +317,9 @@ const AccountsCommandCenter = () => {
         {activeTab === 'overview' && (
           <AccountsOverviewTab
             overviewData={overviewData}
+            loading={loading}
+            error={fetchError}
+            onRetry={fetchOverview}
             basisView={basisView}
             onSelectTab={handleTabChange}
             onOpenAdjustment={(init = {}) => {

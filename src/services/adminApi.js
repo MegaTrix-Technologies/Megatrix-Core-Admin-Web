@@ -308,8 +308,39 @@ export const adminApi = {
   // 10. Global Accounts & Financial Command Center
   accounts: {
     getOverview: async (params = {}) => {
-      const res = await apiClient.get('/accounts/overview', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/overview', { params });
+        if (res.data && res.data.success) {
+          try {
+            localStorage.setItem('megatrix_cached_accounts_overview', JSON.stringify(res.data));
+          } catch (storageErr) {
+            // Non-blocking storage quota warning
+          }
+        }
+        return res.data;
+      } catch (err) {
+        // If network error, check for cached snapshot
+        const isNetwork = !err.response || err.code === 'ERR_NETWORK' || err.message?.includes('Network Error');
+        if (isNetwork) {
+          try {
+            const cached = localStorage.getItem('megatrix_cached_accounts_overview');
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              return {
+                ...parsed,
+                meta: {
+                  ...parsed.meta,
+                  isStale: true,
+                  staleWarning: 'Core Admin API is currently offline. Displaying cached financial telemetry.',
+                },
+              };
+            }
+          } catch (cacheErr) {
+            // Ignore cache parse error
+          }
+        }
+        throw err;
+      }
     },
     getSalesLedger: async (params = {}) => {
       const res = await apiClient.get('/accounts/sales', { params });

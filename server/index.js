@@ -1,6 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import dns from 'dns';
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (dnsErr) {
+  console.warn('[Server] DNS setup warning:', dnsErr.message);
+}
+
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -177,11 +184,31 @@ async function seedDefaultRolesAndSuperAdmin() {
  * Start Server
  */
 async function start() {
-  try {
-    console.log('[Server] Connecting to MongoDB Atlas...');
-    await mongoose.connect(MONGODB_URI);
-    console.log('[Server] Connected to MongoDB Atlas successfully.');
+  const maxRetries = 5;
+  let retries = 0;
+  let connected = false;
 
+  while (!connected && retries < maxRetries) {
+    try {
+      retries++;
+      console.log(`[Server] Connecting to MongoDB Atlas (attempt ${retries}/${maxRetries})...`);
+      await mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 8000,
+      });
+      connected = true;
+      console.log('[Server] Connected to MongoDB Atlas successfully.');
+    } catch (connErr) {
+      console.error(`[Server] MongoDB Atlas connection attempt ${retries} failed:`, connErr.message);
+      if (retries >= maxRetries) {
+        console.error('[Server Start Error] Could not connect to MongoDB Atlas after multiple attempts.');
+        process.exit(1);
+      }
+      console.log('[Server] Retrying in 2 seconds...');
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+  }
+
+  try {
     await seedDefaultRolesAndSuperAdmin();
 
     app.listen(PORT, () => {

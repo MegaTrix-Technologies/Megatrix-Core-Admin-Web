@@ -14,14 +14,64 @@ import {
   ArrowDownRight,
   Percent,
   ShieldCheck,
+  RefreshCw,
+  Server,
 } from 'lucide-react';
 
 const AccountsOverviewTab = ({
   overviewData,
+  loading = false,
+  error = null,
+  onRetry = null,
   basisView = 'dual', // 'dual', 'cash', 'accrual'
   onSelectTab,
   onOpenAdjustment,
 }) => {
+  if (loading && !overviewData) {
+    return (
+      <div className="py-20 flex flex-col items-center justify-center text-center space-y-3 p-6 rounded-lg bg-mx-panel border border-mx-border">
+        <RefreshCw size={28} className="animate-spin text-mx-blue" />
+        <p className="text-sm font-semibold text-white">Aggregating Financial Telemetry...</p>
+        <p className="text-xs text-mx-subtle font-mono">
+          Querying dual-basis ledger, receivables aging, and LeadHunter CRM telemetry
+        </p>
+      </div>
+    );
+  }
+
+  if (error && !overviewData) {
+    return (
+      <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 p-8 rounded-lg bg-mx-panel border border-red-500/20">
+        <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
+          <AlertTriangle size={24} />
+        </div>
+        <div className="space-y-1.5 max-w-md">
+          <h3 className="text-base font-bold text-white">Financial Telemetry Offline</h3>
+          <p className="text-xs text-mx-subtle">
+            {error || 'Unable to retrieve live financial metrics from Core Admin API (port 5002).'}
+          </p>
+        </div>
+        <div className="p-3 rounded bg-mx-surface border border-mx-border text-[11px] font-mono text-mx-subtle max-w-lg text-left">
+          <div className="text-white font-bold mb-1 flex items-center gap-1.5">
+            <Server size={13} className="text-amber-400" /> Resolution Steps:
+          </div>
+          <div>1. Ensure the Core Backend API is running on port 5002:</div>
+          <div className="text-emerald-400 mt-0.5 ml-3 font-bold">npm run dev:all &nbsp; or &nbsp; npm run server</div>
+          <div className="mt-1">2. Verify connection to MongoDB Atlas database.</div>
+        </div>
+        {onRetry && (
+          <button
+            onClick={onRetry}
+            className="px-4 py-2 rounded-sm bg-mx-blue hover:bg-blue-600 text-white text-xs font-mono font-bold transition-colors flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <RefreshCw size={13} />
+            Retry Connection
+          </button>
+        )}
+      </div>
+    );
+  }
+
   if (!overviewData) {
     return (
       <div className="py-16 text-center text-mx-subtle text-xs font-mono">
@@ -42,6 +92,24 @@ const AccountsOverviewTab = ({
 
   return (
     <div className="space-y-6 animate-fadeIn">
+      {overviewData?.meta?.isStale && (
+        <div className="p-3 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <AlertTriangle size={15} />
+            <span>
+              {overviewData.meta.staleWarning || 'Displaying cached historical telemetry.'} {overviewData.meta.lastSync && `(Snapshot: ${new Date(overviewData.meta.lastSync).toLocaleString()})`}
+            </span>
+          </div>
+          {onRetry && (
+            <button
+              onClick={onRetry}
+              className="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-[11px] font-bold transition-colors cursor-pointer"
+            >
+              Re-sync Live Feed
+            </button>
+          )}
+        </div>
+      )}
       {/* ─────────────────────────────────────────────────────────────
        * 1. TOP DUAL-BASIS SCORECARD METRICS
        * ───────────────────────────────────────────────────────────── */}
