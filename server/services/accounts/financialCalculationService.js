@@ -423,8 +423,8 @@ export const financialCalculationService = {
 
       const entry = {
         _id: e._id,
-        source: 'LeadHunter CRM',
-        sourceType: 'leadhunter',
+        source: 'MegaTrix Core',
+        sourceType: 'megatrix_core',
         title: e.title || e.description || 'Expense',
         category: mappedCat,
         categoryLabel: categories[mappedCat]?.label || 'General Overhead',
@@ -432,8 +432,8 @@ export const financialCalculationService = {
         date: e.date || e.createdAt,
         paymentMethod: e.paymentMethod || 'Bank',
         status: e.status || 'paid',
-        addedBy: e.addedBy?.name || 'CRM Team',
-        isCore: false,
+        addedBy: e.addedBy?.name || 'Admin',
+        isCore: true,
       };
 
       if (!categories[mappedCat]) categories[mappedCat] = { label: 'Other', total: 0, count: 0, items: [] };

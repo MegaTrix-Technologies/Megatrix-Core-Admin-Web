@@ -151,7 +151,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
               All Ledgers in Perfect Balance
             </h5>
             <p className="text-xs text-mx-subtle max-w-md mx-auto">
-              No negative balances, unlinked transactions, or calculation mismatches were detected across LeadHunter CRM and MegaTrix Core.
+              No negative balances, unlinked transactions, or calculation mismatches were detected across MegaTrix Core ledgers.
             </p>
           </div>
         ) : (

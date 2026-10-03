@@ -239,15 +239,15 @@ const AccountsCommandCenter = () => {
             </button>
           </div>
 
-          {/* Sync Button */}
+          {/* Sync / Refresh Button */}
           <button
             onClick={handleManualSync}
             disabled={syncing}
             className="px-3 py-1.5 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors flex items-center gap-1.5 disabled:opacity-50 font-mono"
-            title="Force immediate sync with LeadHunter"
+            title="Recalculate ledger metrics and create snapshot"
           >
             <RefreshCw size={13} className={syncing ? 'animate-spin text-mx-blue' : ''} />
-            {syncing ? 'Syncing...' : 'Sync CRM'}
+            {syncing ? 'Refreshing...' : 'Refresh Ledger'}
           </button>
 
           {/* Export Dropdown */}

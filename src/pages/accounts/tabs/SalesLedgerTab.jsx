@@ -195,7 +195,7 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
               {loading ? (
                 <tr>
                   <td colSpan={10} className="px-4 py-12 text-center text-mx-subtle font-mono">
-                    Querying LeadHunter sales database...
+                    Querying sales contracts database...
                   </td>
                 </tr>
               ) : sales.length === 0 ? (

@@ -66,19 +66,19 @@ const SyncLogsTab = ({ onSyncSuccess }) => {
           </div>
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              LeadHunter Telemetry Engine
+              Core Accounts Engine
               <span
                 className={`text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase ${
-                  lastStatus.status === 'success' || lastStatus.mode === 'api_gateway'
+                  lastStatus.status === 'success' || lastStatus.mode === 'standalone_native'
                     ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                     : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                 }`}
               >
-                {lastStatus.mode === 'api_gateway' ? 'Primary API Gateway' : 'Atlas Direct Fallback'}
+                {lastStatus.mode === 'standalone_native' ? 'Standalone Core Native' : (lastStatus.mode === 'api_gateway' ? 'Primary API Gateway' : 'Native Ledger Engine')}
               </span>
             </h3>
             <p className="text-xs text-mx-subtle font-mono">
-              Last Sync: {lastStatus.lastSync ? new Date(lastStatus.lastSync).toLocaleString() : 'N/A'} | Duration: {lastStatus.durationMs || 0}ms
+              Last Snapshot: {lastStatus.lastSync ? new Date(lastStatus.lastSync).toLocaleString() : 'N/A'} | Duration: {lastStatus.durationMs || 0}ms
             </p>
           </div>
         </div>
@@ -89,7 +89,7 @@ const SyncLogsTab = ({ onSyncSuccess }) => {
           className="px-4 py-2 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors flex items-center gap-2 disabled:opacity-50 font-mono"
         >
           <RefreshCw size={14} className={syncing ? 'animate-spin' : ''} />
-          {syncing ? 'Synchronizing CRM...' : 'Force Live Sync'}
+          {syncing ? 'Refreshing Ledger...' : 'Create Snapshot'}
         </button>
       </div>
 
@@ -99,7 +99,7 @@ const SyncLogsTab = ({ onSyncSuccess }) => {
       <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden">
         <div className="p-4 border-b border-mx-border bg-mx-surface">
           <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
-            CRM Synchronization Audit Trail (Last 30 Sync Runs)
+            Ledger Snapshot & Synchronization Audit Trail
           </h4>
         </div>
 

@@ -164,7 +164,7 @@ const ReceivablesAgingTab = ({ onOpenSaleDetail }) => {
               {loading ? (
                 <tr>
                   <td colSpan={10} className="px-4 py-12 text-center text-mx-subtle font-mono">
-                    Computing aging buckets from LeadHunter sales ledger...
+                    Computing aging buckets from receivables ledger...
                   </td>
                 </tr>
               ) : filteredItems.length === 0 ? (

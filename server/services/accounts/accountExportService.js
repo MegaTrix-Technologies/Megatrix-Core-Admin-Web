@@ -71,8 +71,7 @@ export const accountExportService = {
     summarySheet.addRow(['Realized Sales Cash Inflow', cash.realizedSalesInflow || 0, 'Total Booked Sales Revenue', accrual.bookedSales || 0]);
     summarySheet.addRow(['Other Inflows & Income', cash.totalOtherIncome || 0, 'Other Income', accrual.totalOtherIncome || 0]);
     summarySheet.addRow(['Investment Capital Inflows', cash.totalInvestment || 0, 'Total Effective Revenue', accrual.totalBookedRevenue || 0]);
-    summarySheet.addRow(['Total Operating Cash Inflow', cash.totalOperatingInflow || 0, 'Outstanding Receivables Due', accrual.pendingReceivables || 0]);
-    summarySheet.addRow(['LeadHunter Operating Expenses', cost.leadHunterExpenses || 0, 'Total Operating Expenses', accrual.totalOperatingExpenses || 0]);
+    summarySheet.addRow(['Direct Operating Expenses', cost.leadHunterExpenses || cost.coreExpenses || 0, 'Total Operating Expenses', accrual.totalOperatingExpenses || 0]);
     summarySheet.addRow(['MegaTrix Core Expenses', cost.coreExpenses || 0, 'Commission Liabilities', accrual.totalCommissionLiability || 0]);
     summarySheet.addRow(['Total Commission Costs', cash.totalCommissionCost || 0, 'Total Accrued Cost', accrual.totalAccruedCost || 0]);
     summarySheet.addRow(['Realized Net Operating Profit', cash.realizedNetProfit || 0, 'Projected / Accrual Net Profit', accrual.projectedNetProfit || 0]);
@@ -266,7 +265,7 @@ export const accountExportService = {
     expenses.forEach((e) => {
       expSheet.addRow({
         id: String(e._id || ''),
-        source: e.source || (e.isCore ? 'MegaTrix Core' : 'LeadHunter CRM'),
+        source: 'MegaTrix Core',
         category: e.categoryLabel || e.category || 'General',
         title: e.title || e.description || 'Expense',
         vendor: e.vendor || 'N/A',
@@ -416,7 +415,7 @@ export const accountExportService = {
           ['Sales & Contract Revenue', fmt(cash.realizedSalesInflow), fmt(accrual.bookedSales)],
           ['Other Income & Capital', fmt(cash.totalOtherIncome + (cash.totalInvestment || 0)), fmt(accrual.totalOtherIncome)],
           ['Total Effective Inflow / Bookings', fmt(cash.totalCashInflow), fmt(accrual.totalBookedRevenue)],
-          ['Operating Expenses (LeadHunter + Core)', fmt(cost.leadHunterExpenses + cost.coreExpenses), fmt(accrual.totalOperatingExpenses)],
+          ['Operating Expenses', fmt(cost.leadHunterExpenses + cost.coreExpenses), fmt(accrual.totalOperatingExpenses)],
           ['Commission Liabilities & Cost', fmt(cash.totalCommissionCost), fmt(accrual.totalCommissionLiability)],
           ['Net Profit Before Adjustments', fmt(cash.realizedNetProfit), fmt(accrual.projectedNetProfit)],
           ['Operating Profit Margin %', `${cash.realizedProfitMargin || 0}%`, `${accrual.projectedProfitMargin || 0}%`],

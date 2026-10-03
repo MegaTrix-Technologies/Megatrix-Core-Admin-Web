@@ -77,7 +77,7 @@ const SaleDetailModal = ({ saleId, onClose }) => {
                 )}
               </h2>
               <p className="text-xs text-mx-subtle">
-                LeadHunter CRM Contract Reference & Realized Telemetry
+                Core Sales Contract Reference & Realized Telemetry
               </p>
             </div>
           </div>
@@ -93,7 +93,7 @@ const SaleDetailModal = ({ saleId, onClose }) => {
         <div className="p-5 flex-1 overflow-y-auto space-y-6">
           {loading ? (
             <div className="py-16 text-center text-mx-subtle text-xs font-mono">
-              Loading contract ledger and telemetry from LeadHunter...
+              Loading contract ledger and financial telemetry...
             </div>
           ) : error ? (
             <div className="p-4 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 text-xs">

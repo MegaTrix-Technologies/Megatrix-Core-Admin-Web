@@ -22,7 +22,6 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
   const [expenseData, setExpenseData] = useState(null);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
-  const [sourceFilter, setSourceFilter] = useState('all');
   const [dateRange, setDateRange] = useState({ preset: 'all_time', startDate: '', endDate: '' });
 
   const fetchExpenses = async () => {
@@ -30,7 +29,6 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
     try {
       const res = await accountsApi.getExpenses({
         category: categoryFilter,
-        source: sourceFilter,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
       });
@@ -46,7 +44,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
 
   useEffect(() => {
     fetchExpenses();
-  }, [categoryFilter, sourceFilter, dateRange, refreshKey]);
+  }, [categoryFilter, dateRange, refreshKey]);
 
   const handleDeleteCoreExpense = async (id, title) => {
     if (!window.confirm(`Are you sure you want to delete core expense "${title}"?`)) return;
@@ -140,15 +138,6 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
           />
 
           <select
-            value={sourceFilter}
-            onChange={(e) => setSourceFilter(e.target.value)}
-            className="px-2.5 py-1.5 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono focus:outline-none focus:border-mx-blue"
-          >
-            <option value="all">All Sources</option>
-            <option value="core">Direct Core Ledger</option>
-          </select>
-
-          <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="px-2.5 py-1.5 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono focus:outline-none focus:border-mx-blue"
@@ -181,7 +170,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
           <table className="w-full text-xs text-left">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface text-mx-subtle font-mono">
-                <th className="px-4 py-2.5">Origin Source</th>
+                <th className="px-4 py-2.5">Ledger Source</th>
                 <th className="px-4 py-2.5">Category</th>
                 <th className="px-4 py-2.5">Expense Title / Vendor</th>
                 <th className="px-4 py-2.5">Payment Method</th>
@@ -207,14 +196,8 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
                 filteredExpenses.map((exp) => (
                   <tr key={exp._id} className="hover:bg-mx-surface/60 transition-colors">
                     <td className="px-4 py-2.5">
-                      <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase ${
-                          exp.isCore
-                            ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
-                            : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
-                        }`}
-                      >
-                        {exp.source}
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        MegaTrix Core
                       </span>
                     </td>
                     <td className="px-4 py-2.5">
@@ -234,34 +217,28 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
                       {exp.paymentMethod || 'Corporate'}
                     </td>
                     <td className="px-4 py-2.5 font-mono text-mx-subtle whitespace-nowrap">
-                      {exp.date ? new Date(exp.date).toLocaleDateString() : 'N/A'}
+                      {exp.date || exp.expenseDate ? new Date(exp.date || exp.expenseDate).toLocaleDateString() : 'N/A'}
                     </td>
                     <td className="px-4 py-2.5 text-right font-mono font-bold text-red-400">
                       {fmt(exp.amount)}
                     </td>
                     <td className="px-4 py-2.5 text-center">
-                      {exp.isCore ? (
-                        <div className="flex items-center justify-center gap-1.5">
-                          <button
-                            onClick={() => onOpenEditExpense(exp)}
-                            className="p-1 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-surface"
-                            title="Edit Core Expense"
-                          >
-                            <Edit2 size={13} />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteCoreExpense(exp._id, exp.title)}
-                            className="p-1 rounded-sm text-mx-subtle hover:text-red-400 hover:bg-mx-surface"
-                            title="Delete Core Expense"
-                          >
-                            <Trash2 size={13} />
-                          </button>
-                        </div>
-                      ) : (
-                        <span className="text-[10px] font-mono text-mx-subtle/60" title="Managed in LeadHunter">
-                          CRM Managed
-                        </span>
-                      )}
+                      <div className="flex items-center justify-center gap-1.5">
+                        <button
+                          onClick={() => onOpenEditExpense(exp)}
+                          className="p-1 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-surface"
+                          title="Edit Expense"
+                        >
+                          <Edit2 size={13} />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteCoreExpense(exp._id, exp.title)}
+                          className="p-1 rounded-sm text-mx-subtle hover:text-red-400 hover:bg-mx-surface"
+                          title="Delete Expense"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
