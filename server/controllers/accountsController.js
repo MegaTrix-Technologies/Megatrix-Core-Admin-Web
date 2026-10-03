@@ -10,6 +10,7 @@ import { AdminUser } from '../models/AdminUser.js';
 import { standaloneAccountsService } from '../services/accounts/standaloneAccountsService.js';
 import { financialCalculationService } from '../services/accounts/financialCalculationService.js';
 import { accountExportService } from '../services/accounts/accountExportService.js';
+import mongoose from 'mongoose';
 import crypto from 'crypto';
 
 /**
@@ -693,7 +694,41 @@ export const accountsController = {
       const { id } = req.params;
       const updates = req.body;
 
-      const expense = await CoreExpense.findByIdAndUpdate(id, updates, { new: true });
+      let expense = null;
+      if (mongoose.Types.ObjectId.isValid(id)) {
+        expense = await CoreExpense.findByIdAndUpdate(id, updates, { new: true });
+      } else {
+        expense = await CoreExpense.findOneAndUpdate({ _id: id }, updates, { new: true });
+      }
+
+      if (!expense) {
+        // If not in CoreExpense yet, check if it exists in LeadHunter and migrate/create it with updates
+        try {
+          if (mongoose.connection?.client && mongoose.Types.ObjectId.isValid(id)) {
+            const lhDb = mongoose.connection.client.db('leadhunter');
+            const lhDoc = await lhDb.collection('expenses').findOne({ _id: new mongoose.Types.ObjectId(id) });
+            if (lhDoc) {
+              expense = await CoreExpense.create({
+                _id: lhDoc._id,
+                title: updates.title || lhDoc.description || lhDoc.reason,
+                reason: updates.reason || lhDoc.reason,
+                category: updates.category || 'software_saas',
+                amount: updates.amount !== undefined ? Number(updates.amount) : (Number(lhDoc.amount) || 0),
+                currency: updates.currency || 'PKR',
+                expenseDate: updates.expenseDate || lhDoc.date || new Date(),
+                paymentMethod: updates.paymentMethod || 'Bank Transfer (IBFT / Raast)',
+                vendor: updates.vendor || '',
+                description: updates.description || lhDoc.description || '',
+                status: updates.status || 'approved',
+                sourcePlatform: 'core',
+              });
+            }
+          }
+        } catch (lhErr) {
+          console.warn('[accountsController:updateCoreExpense] Legacy migrate check error:', lhErr.message);
+        }
+      }
+
       if (!expense) {
         return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
@@ -712,7 +747,26 @@ export const accountsController = {
   deleteCoreExpense: async (req, res) => {
     try {
       const { id } = req.params;
-      const expense = await CoreExpense.findByIdAndDelete(id);
+      let expense = null;
+      if (mongoose.Types.ObjectId.isValid(id)) {
+        expense = await CoreExpense.findByIdAndDelete(id);
+      } else {
+        expense = await CoreExpense.findOneAndDelete({ _id: id });
+      }
+
+      // Also clean up from legacy leadhunter database if present
+      try {
+        if (mongoose.connection?.client && mongoose.Types.ObjectId.isValid(id)) {
+          const lhDb = mongoose.connection.client.db('leadhunter');
+          const r = await lhDb.collection('expenses').deleteOne({ _id: new mongoose.Types.ObjectId(id) });
+          if (r.deletedCount > 0 && !expense) {
+            expense = { _id: id, title: 'CRM Expense', amount: 0 };
+          }
+        }
+      } catch (lhErr) {
+        console.warn('[accountsController:deleteCoreExpense] Legacy clean check error:', lhErr.message);
+      }
+
       if (!expense) {
         return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
