@@ -89,8 +89,9 @@ export const verifyAdminToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.id || decoded._id || decoded.userId;
 
-    const user = await AdminUser.findById(decoded.id).populate('roles');
+    const user = await AdminUser.findById(userId).populate('roles');
     if (!user) {
       return res.status(401).json({ success: false, message: 'User account not found.' });
     }
