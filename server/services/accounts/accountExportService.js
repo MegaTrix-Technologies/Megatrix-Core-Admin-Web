@@ -37,7 +37,7 @@ export const accountExportService = {
       bold: true,
       color: { argb: 'FF0F172A' },
     };
-    const currencyFormat = '$#,##0.00;($#,##0.00);"-"';
+    const currencyFormat = '"PKR " #,##0;("-PKR " #,##0);"-"';
     const percentFormat = '0.0%';
 
     // ==========================================
@@ -349,9 +349,12 @@ export const accountExportService = {
         const textMuted = '#64748B';
         const borderColor = '#CBD5E1';
 
-        // Helper: Format Currency
-        const fmt = (num = 0) =>
-          `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        // Helper: Format Currency (PKR)
+        const fmt = (num = 0) => {
+          const val = Number(num) || 0;
+          const formatted = Math.abs(val).toLocaleString('en-PK', { maximumFractionDigits: 0 });
+          return val < 0 ? `-PKR ${formatted}` : `PKR ${formatted}`;
+        };
 
         // ==========================================
         // HEADER BANNER

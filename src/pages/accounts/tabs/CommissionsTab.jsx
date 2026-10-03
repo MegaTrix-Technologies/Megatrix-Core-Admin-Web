@@ -12,6 +12,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const CommissionsTab = ({ onOpenSaleDetail }) => {
   const [loading, setLoading] = useState(true);
@@ -37,8 +38,7 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
     fetchCommissions();
   }, []);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const agents = commissionData?.agents || [];
   const filteredAgents = agents.filter((ag) => {

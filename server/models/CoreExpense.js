@@ -29,7 +29,7 @@ const coreExpenseSchema = new mongoose.Schema(
     },
     currency: {
       type: String,
-      default: 'USD',
+      default: 'PKR',
     },
     expenseDate: {
       type: Date,
@@ -46,7 +46,7 @@ const coreExpenseSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      default: 'Corporate Account',
+      default: 'Bank Transfer (IBFT / Raast)',
     },
     vendor: {
       type: String,

@@ -12,6 +12,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) => {
   const [loading, setLoading] = useState(true);
@@ -35,8 +36,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
     fetchReconciliation();
   }, [refreshKey]);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const discrepancies = auditData?.discrepancies || [];
   const adjustments = auditData?.adjustments || [];

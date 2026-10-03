@@ -10,6 +10,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const CashFlowTab = () => {
   const [loading, setLoading] = useState(true);
@@ -33,8 +34,7 @@ const CashFlowTab = () => {
     fetchCashFlow();
   }, []);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   if (loading) {
     return (
@@ -118,7 +118,7 @@ const CashFlowTab = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-bold text-emerald-400 border-b border-mx-border pb-1">
             <span>1. CASH FLOWS FROM OPERATING ACTIVITIES</span>
-            <span>AMOUNT (USD)</span>
+            <span>AMOUNT (PKR)</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Cash Receipts from Customer Sales Advances & Inflows</span>
@@ -148,7 +148,7 @@ const CashFlowTab = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-bold text-mx-blue border-b border-mx-border pb-1">
             <span>2. CASH FLOWS FROM FINANCING & CAPITAL ACTIVITIES</span>
-            <span>AMOUNT (USD)</span>
+            <span>AMOUNT (PKR)</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Capital Investment & Partner Injections</span>

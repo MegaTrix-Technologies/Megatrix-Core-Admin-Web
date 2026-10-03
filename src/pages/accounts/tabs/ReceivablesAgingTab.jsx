@@ -12,6 +12,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const ReceivablesAgingTab = ({ onOpenSaleDetail }) => {
   const [loading, setLoading] = useState(true);
@@ -37,8 +38,7 @@ const ReceivablesAgingTab = ({ onOpenSaleDetail }) => {
     fetchReceivables();
   }, []);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const buckets = agingData?.buckets || {};
 

@@ -17,6 +17,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
     title: initialData.title || '',
     adjustmentType: initialData.adjustmentType || 'cash_inflow',
     amount: initialData.difference ? Math.abs(initialData.difference) : '',
+    currency: 'PKR',
     reason: initialData.reason || '',
     effectiveDate: new Date().toISOString().slice(0, 10),
     targetEntity: initialData.entityType || 'general',
@@ -122,13 +123,13 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
 
             <div>
               <label className="block text-[11px] font-mono text-mx-subtle uppercase mb-1">
-                Amount (USD $) *
+                Amount (PKR) *
               </label>
               <input
                 type="number"
-                step="0.01"
+                step="1"
                 required
-                placeholder="0.00"
+                placeholder="0"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                 className="w-full px-3 py-2 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono placeholder:text-mx-subtle/50 focus:outline-none focus:border-mx-blue"

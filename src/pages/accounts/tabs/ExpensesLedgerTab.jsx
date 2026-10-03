@@ -15,6 +15,7 @@ import {
 import { toast } from 'react-toastify';
 import { accountsApi } from '../../../services/adminApi';
 import DarkDateRangePicker from '../../../components/common/DarkDateRangePicker';
+import { fmtPKR } from '../../../config/currency';
 
 const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) => {
   const [loading, setLoading] = useState(true);
@@ -58,8 +59,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
     }
   };
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const expenses = expenseData?.expenses || [];
   const filteredExpenses = expenses.filter((e) => {
@@ -81,7 +81,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="p-4 rounded-md bg-mx-panel border border-mx-border">
           <span className="text-[10px] font-mono text-mx-subtle uppercase block">
-            Total Consolidated OpEx
+            Total Operating OpEx
           </span>
           <span className="text-2xl font-bold font-mono text-red-400 mt-1 block">
             {fmt(expenseData?.totalAmount)}
@@ -93,25 +93,25 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
 
         <div className="p-4 rounded-md bg-mx-panel border border-mx-border">
           <span className="text-[10px] font-mono text-mx-subtle uppercase block">
-            LeadHunter CRM Expenses
+            Software & Cloud Tools
           </span>
           <span className="text-2xl font-bold font-mono text-purple-400 mt-1 block">
-            {fmt(expenseData?.leadHunterShare)}
+            {fmt(expenses.filter(e => e.category === 'software_saas').reduce((sum, e) => sum + (e.amount || 0), 0))}
           </span>
           <span className="text-[10px] font-mono text-mx-subtle">
-            Sales & local CRM operations
+            AI APIs, Hosting & Infrastructure
           </span>
         </div>
 
         <div className="p-4 rounded-md bg-mx-panel border border-mx-border">
           <span className="text-[10px] font-mono text-mx-subtle uppercase block">
-            MegaTrix Core Expenses
+            Operations & Marketing
           </span>
           <span className="text-2xl font-bold font-mono text-mx-blue mt-1 block">
-            {fmt(expenseData?.coreAdminShare)}
+            {fmt(expenses.filter(e => e.category !== 'software_saas').reduce((sum, e) => sum + (e.amount || 0), 0))}
           </span>
           <span className="text-[10px] font-mono text-mx-subtle">
-            Central tooling, infrastructure & executive costs
+            Campaigns, Overheads & Administrative Costs
           </span>
         </div>
       </div>
@@ -145,8 +145,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
             className="px-2.5 py-1.5 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono focus:outline-none focus:border-mx-blue"
           >
             <option value="all">All Sources</option>
-            <option value="core">MegaTrix Core Only</option>
-            <option value="leadhunter">LeadHunter CRM Only</option>
+            <option value="core">Direct Core Ledger</option>
           </select>
 
           <select

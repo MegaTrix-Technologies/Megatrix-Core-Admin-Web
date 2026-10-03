@@ -17,6 +17,7 @@ import {
   Percent,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const SaleDetailModal = ({ saleId, onClose }) => {
   const [loading, setLoading] = useState(true);
@@ -49,8 +50,7 @@ const SaleDetailModal = ({ saleId, onClose }) => {
 
   if (!saleId) return null;
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
@@ -304,7 +304,7 @@ const SaleDetailModal = ({ saleId, onClose }) => {
         {/* Footer */}
         <div className="p-4 border-t border-mx-border flex items-center justify-between bg-mx-surface">
           <span className="text-[11px] font-mono text-mx-subtle">
-            LeadHunter Database Verified
+            Core Admin Ledger Verified
           </span>
           <button
             onClick={onClose}

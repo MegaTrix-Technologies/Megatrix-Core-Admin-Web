@@ -11,6 +11,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const ProjectFinancialsTab = () => {
   const [loading, setLoading] = useState(true);
@@ -36,8 +37,7 @@ const ProjectFinancialsTab = () => {
     fetchProjects();
   }, []);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const projects = projectData?.projects || [];
   const summary = projectData?.summary || {};

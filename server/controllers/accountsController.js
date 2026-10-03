@@ -649,7 +649,7 @@ export const accountsController = {
    */
   createCoreExpense: async (req, res) => {
     try {
-      const { title, reason, category, amount, currency = 'USD', expenseDate = new Date(), vendor, paymentMethod, description, isRecurring, recurringInterval } = req.body;
+      const { title, reason, category, amount, currency = 'PKR', expenseDate = new Date(), vendor, paymentMethod, description, isRecurring, recurringInterval } = req.body;
 
       if (!title || !amount) {
         return res.status(400).json({ success: false, message: 'Title and amount are required.' });
@@ -664,7 +664,7 @@ export const accountsController = {
         expenseDate: new Date(expenseDate),
         date: new Date(expenseDate),
         vendor: vendor || '',
-        paymentMethod: paymentMethod || 'Corporate Account',
+        paymentMethod: paymentMethod || 'Bank Transfer (IBFT / Raast)',
         description: description || '',
         isRecurring: Boolean(isRecurring),
         recurringInterval: recurringInterval || 'one_time',

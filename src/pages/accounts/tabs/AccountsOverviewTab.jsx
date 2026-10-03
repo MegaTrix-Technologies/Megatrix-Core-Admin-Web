@@ -1,5 +1,6 @@
 import React from 'react';
 import MetricCard from '../../../components/MetricCard';
+import { fmtPKR } from '../../../config/currency';
 import {
   DollarSign,
   TrendingUp,
@@ -33,7 +34,7 @@ const AccountsOverviewTab = ({
         <RefreshCw size={28} className="animate-spin text-mx-blue" />
         <p className="text-sm font-semibold text-white">Aggregating Financial Telemetry...</p>
         <p className="text-xs text-mx-subtle font-mono">
-          Querying dual-basis ledger, receivables aging, and LeadHunter CRM telemetry
+          Querying dual-basis ledger, receivables aging, and Core Admin standalone telemetry
         </p>
       </div>
     );
@@ -87,8 +88,7 @@ const AccountsOverviewTab = ({
   const accrual = summary?.accrualBasis || {};
   const cost = summary?.consolidatedCost || {};
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   return (
     <div className="space-y-6 animate-fadeIn">
@@ -177,13 +177,13 @@ const AccountsOverviewTab = ({
               {fmt(cost.totalCost)}
             </span>
             <span className="text-[11px] font-mono text-mx-subtle">
-              OpEx: {fmt((cost.leadHunterExpenses || 0) + (cost.coreExpenses || 0))} | Comm: {fmt(cost.commissions || 0)}
+              OpEx: {fmt(cost.coreExpenses || cost.totalOperatingExpenses || 0)} | Comm: {fmt(cost.commissions || 0)}
             </span>
           </div>
           <div className="pt-2 border-t border-mx-border/60 flex items-center justify-between text-[11px] text-mx-subtle font-mono">
-            <span>Core + LeadHunter</span>
+            <span>Operating Overhead</span>
             <span className="text-red-400 font-bold">
-              {(summary?.counts?.lhExpensesCount || 0) + (summary?.counts?.coreExpensesCount || 0)} Items
+              {(summary?.counts?.coreExpensesCount || summary?.counts?.expensesCount || 0)} Items
             </span>
           </div>
         </div>
@@ -262,7 +262,7 @@ const AccountsOverviewTab = ({
               <span className="text-white font-mono">{fmt(cash.totalOtherIncome)}</span>
             </div>
             <div className="flex justify-between py-1 text-mx-subtle">
-              <span>Less: Operating Expenses (LeadHunter + Core)</span>
+              <span>Less: Operating Expenses (Core Ledger)</span>
               <span className="text-red-400 font-mono">-{fmt(cash.totalOperatingExpenses)}</span>
             </div>
             <div className="flex justify-between py-1 text-mx-subtle">

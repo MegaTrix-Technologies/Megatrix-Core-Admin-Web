@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
 import DarkDateRangePicker from '../../../components/common/DarkDateRangePicker';
+import { fmtPKR } from '../../../config/currency';
 
 const InflowsLedgerTab = () => {
   const [loading, setLoading] = useState(true);
@@ -41,8 +42,7 @@ const InflowsLedgerTab = () => {
     fetchInflows();
   }, [typeFilter, dateRange]);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   const inflows = inflowData?.inflows || [];
   const methodDist = inflowData?.methodDistribution || {};

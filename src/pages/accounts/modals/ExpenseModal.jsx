@@ -3,6 +3,7 @@ import { X, Receipt, DollarSign, Calendar, Tag, Building2, CreditCard, RefreshCw
 import { toast } from 'react-toastify';
 import { accountsApi } from '../../../services/adminApi';
 import DarkDatePicker from '../../../components/common/DarkDatePicker';
+import { PAKISTAN_PAYMENT_METHODS, DEFAULT_PAYMENT_METHOD } from '../../../config/currency';
 
 const CATEGORIES = [
   { id: 'software_saas', label: 'Software, AI & SaaS Tools' },
@@ -15,15 +16,7 @@ const CATEGORIES = [
   { id: 'miscellaneous', label: 'General Overhead & Miscellaneous' },
 ];
 
-const PAYMENT_METHODS = [
-  'Corporate Account',
-  'Company Credit Card',
-  'Bank Wire Transfer',
-  'Direct ACH',
-  'PayPal Business',
-  'Crypto / USDT',
-  'Cash',
-];
+const PAYMENT_METHODS = PAKISTAN_PAYMENT_METHODS;
 
 const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
@@ -31,8 +24,9 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
     title: '',
     category: 'software_saas',
     amount: '',
+    currency: 'PKR',
     expenseDate: new Date().toISOString().slice(0, 10),
-    paymentMethod: 'Corporate Account',
+    paymentMethod: DEFAULT_PAYMENT_METHOD,
     vendor: '',
     referenceNumber: '',
     description: '',
@@ -46,8 +40,9 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
         title: expense.title || '',
         category: expense.category || 'software_saas',
         amount: expense.amount || '',
+        currency: expense.currency || 'PKR',
         expenseDate: expense.date ? new Date(expense.date).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10),
-        paymentMethod: expense.paymentMethod || 'Corporate Account',
+        paymentMethod: expense.paymentMethod || DEFAULT_PAYMENT_METHOD,
         vendor: expense.vendor || '',
         referenceNumber: expense.referenceNumber || '',
         description: expense.description || '',
@@ -148,14 +143,14 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
 
             <div>
               <label className="block text-[11px] font-mono text-mx-subtle uppercase mb-1">
-                Amount (USD $) *
+                Amount (PKR) *
               </label>
               <input
                 type="number"
-                step="0.01"
-                min="0.01"
+                step="1"
+                min="1"
                 required
-                placeholder="0.00"
+                placeholder="0"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                 className="w-full px-3 py-2 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono placeholder:text-mx-subtle/50 focus:outline-none focus:border-mx-blue"

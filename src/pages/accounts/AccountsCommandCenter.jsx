@@ -185,16 +185,15 @@ const AccountsCommandCenter = () => {
               </h1>
               {overviewData?.meta?.mode && (
                 <span
-                  className={`text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase ${
-                    overviewData.meta.mode === 'api_gateway'
-                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                  }`}
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                   title={`Ingestion mode: ${overviewData.meta.mode}`}
                 >
-                  {overviewData.meta.mode === 'api_gateway' ? 'Live API Gateway' : 'Atlas Direct Fallback'}
+                  {overviewData.meta.mode === 'standalone_native' ? 'Standalone Core Native' : (overviewData.meta.mode === 'api_gateway' ? 'Live API Gateway' : 'Atlas Direct Fallback')}
                 </span>
               )}
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                PKR (Rs)
+              </span>
             </div>
             <p className="text-xs text-mx-subtle font-mono mt-0.5">
               Dual-Basis Accounting, Receivables Aging, Profitability & Integrity Audits

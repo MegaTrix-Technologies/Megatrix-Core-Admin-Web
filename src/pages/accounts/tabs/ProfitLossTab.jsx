@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
+import { fmtPKR } from '../../../config/currency';
 
 const ProfitLossTab = () => {
   const [loading, setLoading] = useState(true);
@@ -35,8 +36,7 @@ const ProfitLossTab = () => {
     fetchPnl();
   }, []);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   if (loading) {
     return (
@@ -124,7 +124,7 @@ const ProfitLossTab = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-bold text-emerald-400 border-b border-mx-border pb-1">
             <span>1. OPERATING REVENUE</span>
-            <span>REALIZED (USD)</span>
+            <span>REALIZED (PKR)</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Sales & Contract Cash Inflows (Advances / Collected)</span>
@@ -148,7 +148,7 @@ const ProfitLossTab = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-bold text-purple-400 border-b border-mx-border pb-1">
             <span>2. COST OF SALES & AGENT COMMISSIONS</span>
-            <span>AMOUNT (USD)</span>
+            <span>AMOUNT (PKR)</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Sales Closer, Setter & Developer Commissions</span>
@@ -172,7 +172,7 @@ const ProfitLossTab = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-bold text-red-400 border-b border-mx-border pb-1">
             <span>3. OPERATING EXPENSES (OpEx)</span>
-            <span>AMOUNT (USD)</span>
+            <span>AMOUNT (PKR)</span>
           </div>
           {operatingExpenses?.map((cat) => (
             <div key={cat.key} className="flex justify-between text-xs py-1 text-mx-subtle pl-4">

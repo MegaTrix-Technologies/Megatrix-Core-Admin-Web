@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
 import DarkDateRangePicker from '../../../components/common/DarkDateRangePicker';
+import { fmtPKR } from '../../../config/currency';
 
 const SalesLedgerTab = ({ onOpenSaleDetail }) => {
   const [loading, setLoading] = useState(true);
@@ -62,8 +63,7 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
     fetchSales(1);
   }, [search, status, agent, dateRange, sortBy, sortOrder]);
 
-  const fmt = (num = 0) =>
-    `$${Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const fmt = fmtPKR;
 
   return (
     <div className="space-y-4 animate-fadeIn">
