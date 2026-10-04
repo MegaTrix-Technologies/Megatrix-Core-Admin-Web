@@ -46,12 +46,20 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Handle 401 Unauthorized responses
+// Handle 401 Unauthorized / 403 Revoked responses
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      const isLoginPage = window.location.pathname.includes('/login') || window.location.pathname.includes('/activate');
+    if (
+      error.response &&
+      (error.response.status === 401 ||
+        (error.response.status === 403 &&
+          (error.response.data?.status === 'suspended' ||
+            error.response.data?.message?.includes('revoked') ||
+            error.response.data?.message?.includes('SUSPENDED'))))
+    ) {
+      const isLoginPage =
+        window.location.pathname.includes('/login') || window.location.pathname.includes('/activate');
       if (!isLoginPage) {
         localStorage.removeItem('megatrix_admin_user');
         window.location.href = '/login';
@@ -322,19 +330,67 @@ export const adminApi = {
     return res.data;
   },
 
-  // 10. Global Accounts & Financial Command Center (100% Real Live DB Data)
+  // 10. Global Accounts & Financial Command Center
   accounts: {
     getOverview: async (params = {}) => {
-      const res = await apiClient.get('/accounts/overview', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/overview', { params });
+        if (res.data && res.data.success) {
+          try {
+            localStorage.setItem('megatrix_cached_accounts_overview', JSON.stringify(res.data));
+          } catch (storageErr) {
+            // Non-blocking storage quota warning
+          }
+        }
+        return res.data;
+      } catch (err) {
+        // If network error, check for cached snapshot
+        const isNetwork = !err.response || err.code === 'ERR_NETWORK' || err.message?.includes('Network Error');
+        if (isNetwork) {
+          try {
+            const cached = localStorage.getItem('megatrix_cached_accounts_overview');
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              return {
+                ...parsed,
+                meta: {
+                  ...parsed.meta,
+                  isStale: true,
+                  staleWarning: 'Core Admin API is currently offline. Displaying cached financial telemetry.',
+                },
+              };
+            }
+          } catch (cacheErr) {
+            // Ignore cache parse error
+          }
+          if (autonomousEngine?.accounts?.getOverview) {
+            return await autonomousEngine.accounts.getOverview(params);
+          }
+        }
+        throw err;
+      }
     },
     getSalesLedger: async (params = {}) => {
-      const res = await apiClient.get('/accounts/sales', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/sales', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getSalesLedger) {
+          return await autonomousEngine.accounts.getSalesLedger(params);
+        }
+        throw err;
+      }
     },
     getSaleDetail: async (id) => {
-      const res = await apiClient.get(`/accounts/sales/${id}`);
-      return res.data;
+      try {
+        const res = await apiClient.get(`/accounts/sales/${id}`);
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getSaleDetail) {
+          return await autonomousEngine.accounts.getSaleDetail(id);
+        }
+        throw err;
+      }
     },
     createSale: async (data) => {
       const res = await apiClient.post('/accounts/sales', data);
@@ -349,20 +405,48 @@ export const adminApi = {
       return res.data;
     },
     getProjects: async (params = {}) => {
-      const res = await apiClient.get('/accounts/projects', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/projects', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getProjects) {
+          return await autonomousEngine.accounts.getProjects(params);
+        }
+        throw err;
+      }
     },
     getCommissions: async (params = {}) => {
-      const res = await apiClient.get('/accounts/commissions', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/commissions', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getCommissions) {
+          return await autonomousEngine.accounts.getCommissions(params);
+        }
+        throw err;
+      }
     },
     getReceivables: async (params = {}) => {
-      const res = await apiClient.get('/accounts/receivables', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/receivables', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getReceivables) {
+          return await autonomousEngine.accounts.getReceivables(params);
+        }
+        throw err;
+      }
     },
     getInflows: async (params = {}) => {
-      const res = await apiClient.get('/accounts/inflows', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/inflows', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getInflows) {
+          return await autonomousEngine.accounts.getInflows(params);
+        }
+        throw err;
+      }
     },
     createInflow: async (data) => {
       const res = await apiClient.post('/accounts/inflows', data);
@@ -373,8 +457,15 @@ export const adminApi = {
       return res.data;
     },
     getExpenses: async (params = {}) => {
-      const res = await apiClient.get('/accounts/expenses', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/expenses', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getExpenses) {
+          return await autonomousEngine.accounts.getExpenses(params);
+        }
+        throw err;
+      }
     },
     createCoreExpense: async (data) => {
       const res = await apiClient.post('/accounts/expenses/core', data);
@@ -389,16 +480,37 @@ export const adminApi = {
       return res.data;
     },
     getProfitLoss: async (params = {}) => {
-      const res = await apiClient.get('/accounts/pnl', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/pnl', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getProfitLoss) {
+          return await autonomousEngine.accounts.getProfitLoss(params);
+        }
+        throw err;
+      }
     },
     getCashFlow: async (params = {}) => {
-      const res = await apiClient.get('/accounts/cash-flow', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/cash-flow', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getCashFlow) {
+          return await autonomousEngine.accounts.getCashFlow(params);
+        }
+        throw err;
+      }
     },
     getReconciliation: async (params = {}) => {
-      const res = await apiClient.get('/accounts/reconciliation', { params });
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/reconciliation', { params });
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getReconciliation) {
+          return await autonomousEngine.accounts.getReconciliation(params);
+        }
+        throw err;
+      }
     },
     getAdjustments: async (params = {}) => {
       const res = await apiClient.get('/accounts/adjustments', { params });
@@ -408,13 +520,39 @@ export const adminApi = {
       const res = await apiClient.post('/accounts/adjustments', data);
       return res.data;
     },
+    getSalesAgents: async () => {
+      try {
+        const res = await apiClient.get('/accounts/sales-agents');
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getSalesAgents) {
+          return await autonomousEngine.accounts.getSalesAgents();
+        }
+        throw err;
+      }
+    },
+    previewCrmSync: async () => {
+      const res = await apiClient.post('/accounts/crm-sync/preview');
+      return res.data;
+    },
+    executeCrmSync: async (data = {}) => {
+      const res = await apiClient.post('/accounts/crm-sync/execute', data);
+      return res.data;
+    },
     triggerSync: async () => {
       const res = await apiClient.post('/accounts/sync');
       return res.data;
     },
     getSyncLogs: async () => {
-      const res = await apiClient.get('/accounts/sync/logs');
-      return res.data;
+      try {
+        const res = await apiClient.get('/accounts/sync/logs');
+        return res.data;
+      } catch (err) {
+        if ((!err.response || err.code === 'ERR_NETWORK') && autonomousEngine?.accounts?.getSyncLogs) {
+          return await autonomousEngine.accounts.getSyncLogs();
+        }
+        throw err;
+      }
     },
     exportExcel: async (params = {}) => {
       const res = await apiClient.get('/accounts/export/excel', { params, responseType: 'blob' });

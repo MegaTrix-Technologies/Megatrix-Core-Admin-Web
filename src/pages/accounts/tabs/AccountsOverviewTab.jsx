@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   RefreshCw,
   Server,
+  Plus,
 } from 'lucide-react';
 
 const AccountsOverviewTab = ({
@@ -27,6 +28,7 @@ const AccountsOverviewTab = ({
   basisView = 'dual', // 'dual', 'cash', 'accrual'
   onSelectTab,
   onOpenAdjustment,
+  onOpenAddSale,
 }) => {
   if (loading && !overviewData) {
     return (
@@ -319,7 +321,7 @@ const AccountsOverviewTab = ({
               <Clock size={14} className="text-amber-400" /> Receivables Aging Portfolio ({fmt(aging?.totalReceivables)})
             </h3>
             <p className="text-[11px] text-mx-subtle">
-              5-Tier overdue aging analysis across outstanding CRM client contracts
+              5-Tier overdue aging analysis across outstanding Core client contracts
             </p>
           </div>
           <button
@@ -480,12 +482,23 @@ const AccountsOverviewTab = ({
             <p className="text-[11px] text-mx-subtle">
               {reconciliationSummary?.criticalCount > 0
                 ? `${reconciliationSummary.criticalCount} Critical Ledger Mismatch(es) requiring immediate resolution.`
-                : 'All CRM sales, payment transactions, and contract allocations are in balance.'}
+                : 'All Core sales, payment transactions, and contract allocations are in balance.'}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
+          {onOpenAddSale && (
+            <button
+              type="button"
+              data-testid="btn-overview-add-sale"
+              onClick={onOpenAddSale}
+              className="px-3 py-1.5 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors font-mono flex items-center gap-1.5 cursor-pointer shadow-sm"
+            >
+              <Plus size={13} />
+              + New Sale Contract
+            </button>
+          )}
           <button
             onClick={() => onSelectTab('reconciliation')}
             className="px-3 py-1.5 rounded-sm bg-mx-surface border border-mx-border text-xs text-white hover:bg-mx-panel transition-colors font-mono"

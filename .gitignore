@@ -1,8 +1,11 @@
 # Dependencies
 node_modules
 .pnp
-.pnp.js
-qa
+# Test outputs
+test-results/
+playwright-report/
+qa/reports/playwright-html/
+qa/reports/2026-*/
 
 # Production build artifacts
 dist

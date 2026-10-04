@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Server,
   AlertTriangle,
+  Plus,
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { accountsApi } from '../../services/adminApi';
@@ -38,8 +39,10 @@ import SyncLogsTab from './tabs/SyncLogsTab';
 
 // Modals
 import SaleDetailModal from './modals/SaleDetailModal';
+import AddSaleModal from './modals/AddSaleModal';
 import ExpenseModal from './modals/ExpenseModal';
 import AdjustmentModal from './modals/AdjustmentModal';
+import CrmSyncConfirmationModal from './modals/CrmSyncConfirmationModal';
 import DarkDateRangePicker from '../../components/common/DarkDateRangePicker';
 
 const TABS = [
@@ -62,6 +65,9 @@ const AccountsCommandCenter = () => {
 
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [loadingCrmPreview, setLoadingCrmPreview] = useState(false);
+  const [crmSyncPreviewData, setCrmSyncPreviewData] = useState(null);
+  const [crmSyncModalOpen, setCrmSyncModalOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportDropdownOpen, setExportDropdownOpen] = useState(false);
 
@@ -72,6 +78,7 @@ const AccountsCommandCenter = () => {
 
   // Modals state
   const [selectedSaleId, setSelectedSaleId] = useState(null);
+  const [addSaleModalOpen, setAddSaleModalOpen] = useState(false);
   const [expenseModalOpen, setExpenseModalOpen] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [adjustmentModalOpen, setAdjustmentModalOpen] = useState(false);
@@ -82,6 +89,24 @@ const AccountsCommandCenter = () => {
   };
 
   const [fetchError, setFetchError] = useState(null);
+
+  const handleOpenCrmSync = async () => {
+    setLoadingCrmPreview(true);
+    try {
+      const preview = await accountsApi.previewCrmSync();
+      if (preview.success) {
+        setCrmSyncPreviewData(preview);
+        setCrmSyncModalOpen(true);
+      } else {
+        toast.error(preview.message || 'Failed to inspect LeadHunter CRM.');
+      }
+    } catch (err) {
+      console.error('[AccountsCommandCenter] CRM preview error:', err);
+      toast.error(err.response?.data?.message || err.message || 'Could not query CRM database.');
+    } finally {
+      setLoadingCrmPreview(false);
+    }
+  };
 
   const fetchOverview = async () => {
     setLoading(true);
@@ -118,7 +143,7 @@ const AccountsCommandCenter = () => {
     try {
       const res = await accountsApi.triggerSync();
       if (res.success) {
-        toast.success(`CRM Telemetry updated (${res.meta?.durationMs || 0}ms via ${res.meta?.mode})`);
+        toast.success(`Financial Telemetry updated (${res.meta?.durationMs || 0}ms via ${res.meta?.mode})`);
         fetchOverview();
       }
     } catch (err) {
@@ -239,6 +264,30 @@ const AccountsCommandCenter = () => {
             </button>
           </div>
 
+          {/* Prominent Sync from CRM Action */}
+          <button
+            type="button"
+            data-testid="btn-sync-from-crm"
+            onClick={handleOpenCrmSync}
+            disabled={loadingCrmPreview}
+            className="px-3.5 py-1.5 rounded-sm bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-bold text-white transition-all flex items-center gap-1.5 font-mono cursor-pointer shadow-md disabled:opacity-50"
+            title="Inspect and sync missing sales and rep commissions from LeadHunter CRM"
+          >
+            <RefreshCw size={13} className={loadingCrmPreview ? 'animate-spin' : ''} />
+            {loadingCrmPreview ? 'Querying CRM...' : 'Sync from CRM'}
+          </button>
+
+          {/* Add Sale Global Action */}
+          <button
+            type="button"
+            data-testid="btn-global-add-sale"
+            onClick={() => setAddSaleModalOpen(true)}
+            className="px-3 py-1.5 rounded-sm bg-mx-blue hover:bg-blue-600 text-xs font-bold text-white transition-colors flex items-center gap-1.5 font-mono cursor-pointer shadow-sm"
+          >
+            <Plus size={13} />
+            + Add Sale
+          </button>
+
           {/* Sync / Refresh Button */}
           <button
             onClick={handleManualSync}
@@ -325,12 +374,15 @@ const AccountsCommandCenter = () => {
               setAdjustmentInitialData(init);
               setAdjustmentModalOpen(true);
             }}
+            onOpenAddSale={() => setAddSaleModalOpen(true)}
           />
         )}
 
         {activeTab === 'sales' && (
           <SalesLedgerTab
+            refreshKey={refreshKey}
             onOpenSaleDetail={(id) => setSelectedSaleId(id)}
+            onOpenAddSale={() => setAddSaleModalOpen(true)}
           />
         )}
 
@@ -395,10 +447,36 @@ const AccountsCommandCenter = () => {
       {/* ─────────────────────────────────────────────────────────────
        * 4. GLOBAL MODALS
        * ───────────────────────────────────────────────────────────── */}
+      {crmSyncModalOpen && crmSyncPreviewData && (
+        <CrmSyncConfirmationModal
+          previewData={crmSyncPreviewData}
+          onClose={() => setCrmSyncModalOpen(false)}
+          onSyncSuccess={() => {
+            fetchOverview();
+            setRefreshKey((k) => k + 1);
+          }}
+        />
+      )}
+
       {selectedSaleId && (
         <SaleDetailModal
           saleId={selectedSaleId}
           onClose={() => setSelectedSaleId(null)}
+          onPaymentRecorded={() => {
+            setRefreshKey((k) => k + 1);
+            fetchOverview();
+          }}
+        />
+      )}
+
+      {addSaleModalOpen && (
+        <AddSaleModal
+          onClose={() => setAddSaleModalOpen(false)}
+          onSuccess={() => {
+            setAddSaleModalOpen(false);
+            setRefreshKey((k) => k + 1);
+            fetchOverview();
+          }}
         />
       )}
 

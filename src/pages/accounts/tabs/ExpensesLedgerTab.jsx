@@ -154,8 +154,10 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
           </select>
 
           <button
+            type="button"
+            data-testid="btn-open-add-expense"
             onClick={onOpenAddExpense}
-            className="px-3 py-1.5 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors flex items-center gap-1.5 whitespace-nowrap"
+            className="px-3 py-1.5 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm"
           >
             <Plus size={14} /> Add Core Expense
           </button>
@@ -167,7 +169,7 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
        * ───────────────────────────────────────────────────────────── */}
       <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left" data-testid="expenses-table">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface text-mx-subtle font-mono">
                 <th className="px-4 py-2.5">Ledger Source</th>
@@ -225,15 +227,21 @@ const ExpensesLedgerTab = ({ onOpenAddExpense, onOpenEditExpense, refreshKey }) 
                     <td className="px-4 py-2.5 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <button
+                          type="button"
+                          data-testid="btn-edit-expense"
+                          data-expense-id={exp._id}
                           onClick={() => onOpenEditExpense(exp)}
-                          className="p-1 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-surface"
+                          className="p-1 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-surface cursor-pointer"
                           title="Edit Expense"
                         >
                           <Edit2 size={13} />
                         </button>
                         <button
+                          type="button"
+                          data-testid="btn-delete-expense"
+                          data-expense-id={exp._id}
                           onClick={() => handleDeleteCoreExpense(exp._id, exp.title)}
-                          className="p-1 rounded-sm text-mx-subtle hover:text-red-400 hover:bg-mx-surface"
+                          className="p-1 rounded-sm text-mx-subtle hover:text-red-400 hover:bg-mx-surface cursor-pointer"
                           title="Delete Expense"
                         >
                           <Trash2 size={13} />

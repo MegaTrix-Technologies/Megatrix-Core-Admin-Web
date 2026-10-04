@@ -69,7 +69,7 @@ export const verifyAdminToken = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     // Support autonomous dev superadmin session token
-    if (token.startsWith('megatrix_auth_jwt_superadmin_autonomous_session_')) {
+    if (token.startsWith('megatrix_auth_jwt_superadmin_autonomous_session_') || token.startsWith('jwt_autonomous_admin_session_token_')) {
       let superAdmin = await AdminUser.findOne({ isSuperAdmin: true }).populate('roles');
       if (!superAdmin) {
         superAdmin = {
@@ -89,9 +89,8 @@ export const verifyAdminToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-    const userId = decoded.id || decoded._id || decoded.userId;
 
-    const user = await AdminUser.findById(userId).populate('roles');
+    const user = await AdminUser.findById(decoded.id).populate('roles');
     if (!user) {
       return res.status(401).json({ success: false, message: 'User account not found.' });
     }

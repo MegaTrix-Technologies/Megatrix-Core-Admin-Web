@@ -83,7 +83,7 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-mx-panel border border-mx-border rounded-lg w-full max-w-xl shadow-2xl overflow-hidden animate-fadeIn">
+      <div className="bg-mx-panel border border-mx-border rounded-lg w-full max-w-xl shadow-2xl overflow-hidden animate-fadeIn" data-testid="expense-modal">
         {/* Header */}
         <div className="p-4 border-b border-mx-border flex items-center justify-between bg-mx-surface">
           <div className="flex items-center gap-3">
@@ -100,15 +100,17 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
             </div>
           </div>
           <button
+            type="button"
+            data-testid="btn-close-expense"
             onClick={onClose}
-            className="p-1.5 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors"
+            className="p-1.5 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4" data-testid="expense-form">
           <div>
             <label className="block text-[11px] font-mono text-mx-subtle uppercase mb-1">
               Expense Title / Description *
@@ -116,6 +118,7 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
             <input
               type="text"
               required
+              data-testid="input-expense-title"
               placeholder="e.g. AWS Production Cloud Infrastructure"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -129,6 +132,7 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
                 Category *
               </label>
               <select
+                data-testid="select-expense-category"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="w-full px-3 py-2 bg-mx-surface border border-mx-border rounded-sm text-xs text-white focus:outline-none focus:border-mx-blue"
@@ -150,6 +154,7 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
                 step="1"
                 min="1"
                 required
+                data-testid="input-expense-amount"
                 placeholder="0"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
@@ -245,15 +250,17 @@ const ExpenseModal = ({ expense = null, onClose, onSuccess }) => {
           <div className="pt-3 border-t border-mx-border flex items-center justify-end gap-2">
             <button
               type="button"
+              data-testid="btn-cancel-expense"
               onClick={onClose}
-              className="px-4 py-2 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors"
+              className="px-4 py-2 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
+              data-testid="btn-save-expense"
               disabled={loading}
-              className="px-4 py-2 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-sm bg-mx-blue text-xs font-bold text-white hover:bg-blue-600 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
             >
               {loading ? 'Saving...' : expense ? 'Update Expense' : 'Record Expense'}
             </button>

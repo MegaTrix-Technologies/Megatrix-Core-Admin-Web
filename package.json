@@ -14,6 +14,7 @@
     "qa:lint": "node qa/lint/run-lint.js",
     "qa:e2e": "playwright test --config=playwright.config.js",
     "qa:report": "node qa/reporters/build-report.js",
+    "qa:accounts": "playwright test qa/specs/accounts-auth.spec.js qa/specs/accounts-navigation.spec.js qa/specs/accounts-sales.spec.js qa/specs/accounts-payments.spec.js qa/specs/accounts-commissions.spec.js qa/specs/accounts-expenses.spec.js qa/specs/accounts-reports.spec.js qa/specs/accounts-reconciliation.spec.js qa/specs/accounts-visual.spec.js --project=desktop-1280",
     "qa": "node qa/run-qa.js",
     "qa:update-baseline": "playwright test --update-snapshots"
   },

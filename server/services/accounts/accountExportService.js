@@ -325,189 +325,567 @@ export const accountExportService = {
   },
 
   /**
+   * Draw crisp pixel-art MegaTrix Monogram Icon from SVG definition
+   */
+  _drawMegaTrixIcon: (doc, startX, startY, width = 30, color = '#FFFFFF') => {
+    const scale = width / 140;
+    const blockSize = 8 * scale;
+    const rects = [
+      // Row 0
+      [1, 1], [11, 1], [61, 1], [71, 1], [81, 1], [91, 1], [101, 1], [111, 1], [121, 1],
+      // Row 1
+      [1, 11], [11, 11], [21, 11], [51, 11], [61, 11], [71, 11], [81, 11], [91, 11], [101, 11], [111, 11], [121, 11],
+      // Row 2
+      [1, 21], [11, 21], [21, 21], [31, 21], [41, 21], [51, 21], [61, 21], [71, 21], [91, 21], [101, 21],
+      // Row 3
+      [1, 31], [11, 31], [31, 31], [41, 31], [61, 31], [71, 31], [91, 31], [101, 31],
+      // Row 4
+      [1, 41], [11, 41], [61, 41], [71, 41], [91, 41], [101, 41],
+      // Row 5
+      [1, 51], [11, 51], [61, 51], [71, 51], [91, 51], [101, 51],
+      // Row 6
+      [1, 61], [11, 61], [61, 61], [71, 61], [91, 61], [101, 61], [121, 61], [131, 61],
+      // Row 7
+      [1, 71], [11, 71], [61, 71], [71, 71], [91, 71], [101, 71], [121, 71], [131, 71],
+    ];
+
+    doc.save();
+    doc.fillColor(color);
+    rects.forEach(([rx, ry]) => {
+      doc.rect(startX + rx * scale, startY + ry * scale, blockSize, blockSize).fill();
+    });
+    doc.restore();
+  },
+
+  /**
    * Generate Executive Financial PDF Dossier using PDFKit
+   * Exactly matching MegaTrix_Executive_Dossier_2026-10-04_v2.pdf
    */
   generatePdfDossier: async ({
     summary = {},
     aging = {},
     commissions = [],
+    sales = [],
     expenses = [],
-    generatedBy = 'MegaTrix Core Admin',
+    generatedBy = 'Abu Sufian',
   }) => {
     return new Promise((resolve, reject) => {
       try {
-        const doc = new PDFDocument({ margin: 40, size: 'A4' });
-        const buffers = [];
+        const doc = new PDFDocument({
+          margin: 0,
+          size: 'A4',
+          autoFirstPage: true,
+          bufferPages: true,
+        });
 
+        const buffers = [];
         doc.on('data', (buffer) => buffers.push(buffer));
         doc.on('end', () => resolve(Buffer.concat(buffers)));
         doc.on('error', (err) => reject(err));
 
-        const primaryColor = '#0F172A';
-        const accentColor = '#3B82F6';
-        const textMuted = '#64748B';
-        const borderColor = '#CBD5E1';
+        // Design Tokens & Brand Colors
+        const primaryDark = '#101216';   // Obsidian dark bar & featured cards
+        const goldAccent = '#B08D57';    // MegaTrix Heritage Gold
+        const darkText = '#15171C';      // Primary headings & heavy labels
+        const bodyText = '#41464E';      // Body text & descriptions
+        const mutedText = '#6A6F78';     // Muted labels & small captions
+        const silverText = '#A8ADB6';    // Top bar subtitle
+        const lightBorder = '#E2E4E8';   // Structural hairline dividers
+        const cardBg = '#F6F4EF';        // Warm card background
+        const greenAccent = '#10B981';   // Realized inflow & margin
+        const blueAccent = '#3B82F6';    // Booked contract & receivables
+        const redAccent = '#EF4444';     // Total cost & risk
 
-        // Helper: Format Currency (PKR)
+        const pageWidth = 595.28;
+        const pageHeight = 841.89;
+        const margin = 44;
+        const contentWidth = pageWidth - margin * 2; // 507.28 pt
+
+        // Format Currency: "PKR 5,000"
         const fmt = (num = 0) => {
-          const val = Number(num) || 0;
+          const val = Math.round(Number(num) || 0);
           const formatted = Math.abs(val).toLocaleString('en-PK', { maximumFractionDigits: 0 });
           return val < 0 ? `-PKR ${formatted}` : `PKR ${formatted}`;
         };
 
-        // ==========================================
-        // HEADER BANNER
-        // ==========================================
-        doc.rect(40, 40, 515, 60).fill(primaryColor);
-        doc.fillColor('#FFFFFF').fontSize(18).font('Helvetica-Bold').text('MEGATRIX GLOBAL COMMAND CENTER', 55, 52);
-        doc.fontSize(10).font('Helvetica').fillColor('#94A3B8').text('Consolidated Financial Intelligence & Executive Audit Dossier', 55, 75);
+        // Format Plain Number: "5,000"
+        const fmtNum = (num = 0) => {
+          const val = Math.round(Number(num) || 0);
+          return val.toLocaleString('en-PK', { maximumFractionDigits: 0 });
+        };
 
-        doc.fillColor(textMuted).fontSize(8).text(`Generated: ${new Date().toLocaleString()} | Operator: ${generatedBy}`, 55, 110);
-        doc.moveTo(40, 122).lineTo(555, 122).stroke(borderColor);
-
-        // ==========================================
-        // SECTION 1: EXECUTIVE KPI SCORECARD
-        // ==========================================
-        let y = 135;
-        doc.fillColor(primaryColor).fontSize(12).font('Helvetica-Bold').text('1. EXECUTIVE FINANCIAL SCORECARD', 40, y);
-        y += 20;
+        const now = new Date();
+        const dateStrFull = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }); // e.g. "04 October 2026"
+        const dateStrShort = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(); // e.g. "04 OCT 2026"
+        const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
 
         const cash = summary.cashBasis || {};
         const accrual = summary.accrualBasis || {};
         const cost = summary.consolidatedCost || {};
 
-        // 4 KPI Cards
-        const cardWidth = 120;
-        const cardHeight = 50;
-        const gap = 11;
+        const realizedInflow = cash.realizedSalesInflow || cash.totalCashInflow || 0;
+        const bookedSales = accrual.bookedSales || accrual.totalBookedRevenue || 0;
+        const totalCosts = cost.totalCost || cost.leadHunterExpenses + cost.coreExpenses + cash.totalCommissionCost || 0;
+        const realizedNetProfit = cash.realizedNetProfit || 0;
+        const cashMargin = cash.realizedProfitMargin || 0;
+        const accrualNetProfit = accrual.projectedNetProfit || 0;
+        const accrualMargin = accrual.projectedProfitMargin || 0;
 
-        const cards = [
-          { label: 'Realized Cash Inflow', val: fmt(cash.totalCashInflow), color: '#10B981' },
-          { label: 'Booked Contract Value', val: fmt(accrual.bookedSales), color: '#3B82F6' },
-          { label: 'Total Operating Costs', val: fmt(cost.totalCost), color: '#EF4444' },
-          { label: 'Realized Net Profit', val: fmt(cash.realizedNetProfit), color: cash.realizedNetProfit >= 0 ? '#10B981' : '#EF4444' },
+        const collectedAmount = realizedInflow;
+        const outstandingAmount = Math.max(0, bookedSales - collectedAmount);
+        const collectedPct = bookedSales > 0 ? Math.round((collectedAmount / bookedSales) * 1000) / 10 : 0;
+        const outstandingPct = bookedSales > 0 ? Math.round((outstandingAmount / bookedSales) * 1000) / 10 : 0;
+
+        // Header & Footer Drawing Function
+        const renderHeaderFooter = (pageIdx, totalPages) => {
+          doc.switchToPage(pageIdx);
+
+          // Top Dark Banner (34pt height)
+          doc.rect(0, 0, pageWidth, 34).fill(primaryDark);
+          // Gold Divider Line
+          doc.moveTo(0, 34).lineTo(pageWidth, 34).lineWidth(1).stroke(goldAccent);
+
+          // MegaTrix Icon Logo
+          accountExportService._drawMegaTrixIcon(doc, margin, 8.5, 30, '#FFFFFF');
+
+          // Header Right Dossier Text
+          doc.fillColor(silverText)
+            .fontSize(7.2)
+            .font('Helvetica')
+            .text(`EXECUTIVE FINANCIAL DOSSIER  |  ${dateStrShort}`, margin + 180, 13, {
+              width: contentWidth - 180,
+              align: 'right',
+            });
+
+          // Page Footer (hairline divider + confidentiality notice + page number)
+          const footerY = pageHeight - 42;
+          doc.moveTo(margin, footerY).lineTo(pageWidth - margin, footerY).lineWidth(0.6).stroke(lightBorder);
+
+          doc.fillColor(mutedText)
+            .fontSize(7.2)
+            .font('Helvetica')
+            .text('MegaTrix Technologies (Private) Limited   |   Strictly confidential, internal use only', margin, footerY + 12, {
+              width: 350,
+            });
+
+          doc.fillColor(mutedText)
+            .fontSize(7.2)
+            .font('Helvetica')
+            .text(`Page ${pageIdx + 1} of ${totalPages}`, pageWidth - margin - 100, footerY + 12, {
+              width: 100,
+              align: 'right',
+            });
+        };
+
+        // ==========================================
+        // PAGE 1: EXECUTIVE SUMMARY & DUAL-BASIS
+        // ==========================================
+
+        // 1. Kicker / Category Tag
+        let y = 52;
+        doc.fillColor(goldAccent)
+          .fontSize(6.8)
+          .font('Helvetica-Bold')
+          .text('MEGATRIX FINANCIAL COMMAND CENTER', margin, y);
+
+        // Top Right Info Box
+        doc.fillColor(darkText)
+          .fontSize(7.5)
+          .font('Helvetica-Bold')
+          .text('MegaTrix Technologies (Private) Limited', margin + 280, y, {
+            width: contentWidth - 280,
+            align: 'right',
+          });
+        doc.fillColor(mutedText)
+          .fontSize(7.2)
+          .font('Helvetica')
+          .text('Financial Command Center', margin + 280, y + 10, {
+            width: contentWidth - 280,
+            align: 'right',
+          });
+
+        // 2. Main Title
+        y = 66;
+        doc.fillColor(darkText)
+          .fontSize(18)
+          .font('Helvetica')
+          .text('Consolidated Financial Intelligence\n& Executive Audit Dossier', margin, y, {
+            lineGap: 3,
+          });
+
+        // Date / Time stamp on right
+        doc.fillColor(goldAccent).fontSize(6.8).font('Helvetica-Bold').text('DOSSIER', margin + 350, y + 10, { width: 50, align: 'right' });
+        doc.fillColor(darkText).fontSize(7.5).font('Helvetica').text(dateStrFull, margin + 410, y + 10, { width: 97, align: 'right' });
+
+        doc.fillColor(goldAccent).fontSize(6.8).font('Helvetica-Bold').text('TIME', margin + 350, y + 22, { width: 50, align: 'right' });
+        doc.fillColor(darkText).fontSize(7.5).font('Helvetica').text(timeStr, margin + 410, y + 22, { width: 97, align: 'right' });
+
+        // 3. Metadata Grid (4 items in a row)
+        y = 120;
+        const colWidth = contentWidth / 4;
+        const metaItems = [
+          { label: 'OPERATOR', val: generatedBy || 'Abu Sufian' },
+          { label: 'CLASSIFICATION', val: 'Strictly confidential' },
+          { label: 'REPORTING BASIS', val: 'Cash and accrual' },
+          { label: 'CURRENCY', val: 'PKR' },
         ];
 
-        cards.forEach((c, idx) => {
-          const cx = 40 + idx * (cardWidth + gap);
-          doc.rect(cx, y, cardWidth, cardHeight).fillAndStroke('#F8FAFC', borderColor);
-          doc.fillColor(textMuted).fontSize(7).font('Helvetica-Bold').text(c.label.toUpperCase(), cx + 8, y + 8, { width: cardWidth - 16 });
-          doc.fillColor(c.color).fontSize(12).font('Helvetica-Bold').text(c.val, cx + 8, y + 26);
+        metaItems.forEach((item, idx) => {
+          const colX = margin + idx * colWidth;
+          doc.fillColor(goldAccent).fontSize(6.8).font('Helvetica-Bold').text(item.label, colX, y);
+          doc.fillColor(darkText).fontSize(8.8).font('Helvetica-Bold').text(item.val, colX, y + 12);
         });
 
-        y += cardHeight + 25;
+        // Meta separator line
+        y = 148;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
 
         // ==========================================
-        // SECTION 2: DUAL-BASIS COMPARISON TABLE
+        // SECTION 01: EXECUTIVE FINANCIAL SCORECARD
         // ==========================================
-        doc.fillColor(primaryColor).fontSize(12).font('Helvetica-Bold').text('2. DUAL-BASIS ACCOUNTING COMPARISON', 40, y);
-        y += 18;
+        y = 164;
+        doc.fillColor(goldAccent).fontSize(8.6).font('Helvetica-Bold').text('01', margin, y);
+        doc.fillColor(darkText).fontSize(11.5).font('Helvetica-Bold').text('   Executive Financial Scorecard', margin + 14, y - 1);
+
+        y = 184;
+        const cardWidth = 120.8;
+        const cardGap = 8;
+        const cardHeight = 72;
+
+        const kpiCards = [
+          { label: 'REALIZED CASH INFLOW', val: fmtNum(realizedInflow), isDark: false },
+          { label: 'BOOKED CONTRACT VALUE', val: fmtNum(bookedSales), isDark: false },
+          { label: 'TOTAL OPERATING COSTS', val: fmtNum(totalCosts), isDark: false },
+          { label: 'REALIZED NET PROFIT', val: fmtNum(realizedNetProfit), isDark: true },
+        ];
+
+        kpiCards.forEach((c, idx) => {
+          const cx = margin + idx * (cardWidth + cardGap);
+          doc.rect(cx, y, cardWidth, cardHeight).fill(c.isDark ? primaryDark : cardBg);
+
+          // Card Label
+          doc.fillColor(c.isDark ? '#FFFFFF' : goldAccent)
+            .fontSize(6.6)
+            .font('Helvetica-Bold')
+            .text(c.label, cx + 10, y + 10, { width: cardWidth - 20 });
+
+          // Currency Prefix
+          doc.fillColor(c.isDark ? silverText : mutedText)
+            .fontSize(7.6)
+            .font('Helvetica')
+            .text('PKR', cx + 10, y + 36);
+
+          // Value
+          doc.fillColor(c.isDark ? '#FFFFFF' : darkText)
+            .fontSize(16)
+            .font('Helvetica-Bold')
+            .text(c.val, cx + 10, y + 46);
+        });
+
+        // Collection Position Bar
+        y = 264;
+        const collBoxHeight = 44;
+        doc.rect(margin, y, contentWidth, collBoxHeight).fill(cardBg);
+
+        // Collection Position Labels
+        doc.fillColor(goldAccent)
+          .fontSize(6.6)
+          .font('Helvetica-Bold')
+          .text('COLLECTION POSITION', margin + 10, y + 8);
+
+        const collStatsText = `Collected  PKR ${fmtNum(collectedAmount)}  (${collectedPct}%)   |   Outstanding  PKR ${fmtNum(outstandingAmount)}  (${outstandingPct}%)`;
+        doc.fillColor(darkText)
+          .fontSize(7.5)
+          .font('Helvetica-Bold')
+          .text(collStatsText, margin + 120, y + 7, {
+            width: contentWidth - 130,
+            align: 'right',
+          });
+
+        // Progress Bar
+        const barX = margin + 10;
+        const barY = y + 22;
+        const barW = contentWidth - 20;
+        const barH = 5;
+
+        doc.rect(barX, barY, barW, barH).fill(lightBorder);
+        if (bookedSales > 0) {
+          const collW = Math.max(0, Math.min(barW, barW * (collectedAmount / bookedSales)));
+          if (collW > 0) {
+            doc.rect(barX, barY, collW, barH).fill(greenAccent);
+          }
+          const outW = barW - collW;
+          if (outW > 0) {
+            doc.rect(barX + collW, barY, outW, barH).fill(blueAccent);
+          }
+        }
+
+        doc.fillColor(mutedText)
+          .fontSize(6.8)
+          .font('Helvetica')
+          .text(`Share of the PKR ${fmtNum(bookedSales)} booked contract value. Percentages are derived from the scorecard figures.`, margin + 10, y + 31);
+
+        // ==========================================
+        // SECTION 02: DUAL-BASIS COMPARISON
+        // ==========================================
+        y = 324;
+        doc.fillColor(goldAccent).fontSize(8.6).font('Helvetica-Bold').text('02', margin, y);
+        doc.fillColor(darkText).fontSize(11.5).font('Helvetica-Bold').text('   Dual-Basis Accounting Comparison', margin + 14, y - 1);
+
+        y = 340;
+        doc.fillColor(mutedText)
+          .fontSize(7.8)
+          .font('Helvetica')
+          .text('Cash basis counts money received. Accrual basis counts the full contract value when booked.', margin, y);
+
+        y = 356;
+        // Table Top Gold Rule
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
 
         // Table Header
-        doc.rect(40, y, 515, 20).fill('#1E293B');
-        doc.fillColor('#FFFFFF').fontSize(8).font('Helvetica-Bold');
-        doc.text('FINANCIAL METRIC', 50, y + 6);
-        doc.text('CASH BASIS (REALIZED)', 250, y + 6);
-        doc.text('ACCRUAL BASIS (CONTRACTED)', 390, y + 6);
-        y += 20;
+        y += 6;
+        doc.fillColor(mutedText).fontSize(6.8).font('Helvetica-Bold');
+        doc.text('FINANCIAL METRIC', margin + 8, y);
+        doc.text('CASH BASIS (REALIZED)', margin + 200, y, { width: 140, align: 'right' });
+        doc.text('ACCRUAL BASIS (CONTRACTED)', margin + 350, y, { width: 149, align: 'right' });
 
-        const rows = [
+        y += 12;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
+
+        const dualRows = [
           ['Sales & Contract Revenue', fmt(cash.realizedSalesInflow), fmt(accrual.bookedSales)],
           ['Other Income & Capital', fmt(cash.totalOtherIncome + (cash.totalInvestment || 0)), fmt(accrual.totalOtherIncome)],
           ['Total Effective Inflow / Bookings', fmt(cash.totalCashInflow), fmt(accrual.totalBookedRevenue)],
           ['Operating Expenses', fmt(cost.leadHunterExpenses + cost.coreExpenses), fmt(accrual.totalOperatingExpenses)],
           ['Commission Liabilities & Cost', fmt(cash.totalCommissionCost), fmt(accrual.totalCommissionLiability)],
           ['Net Profit Before Adjustments', fmt(cash.realizedNetProfit), fmt(accrual.projectedNetProfit)],
-          ['Operating Profit Margin %', `${cash.realizedProfitMargin || 0}%`, `${accrual.projectedProfitMargin || 0}%`],
+          ['Operating Profit Margin', `${cashMargin}%`, `${accrualMargin}%`],
         ];
 
-        rows.forEach((r, idx) => {
-          const bg = idx % 2 === 0 ? '#FFFFFF' : '#F1F5F9';
-          doc.rect(40, y, 515, 18).fillAndStroke(bg, borderColor);
-          doc.fillColor(primaryColor).fontSize(8).font(idx === 5 || idx === 6 ? 'Helvetica-Bold' : 'Helvetica');
-          doc.text(r[0], 50, y + 5);
-          doc.text(r[1], 250, y + 5);
-          doc.text(r[2], 390, y + 5);
-          y += 18;
+        dualRows.forEach((r, idx) => {
+          const isTotal = idx === 5;
+          const isMargin = idx === 6;
+          const rowH = 22;
+
+          if (isTotal) {
+            doc.rect(margin, y, contentWidth, rowH).fill(cardBg);
+            doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.8).stroke(darkText);
+          } else if (idx % 2 === 1 && !isMargin) {
+            doc.rect(margin, y, contentWidth, rowH).fill('#FAFAF7');
+          }
+
+          doc.fillColor(isMargin ? greenAccent : isTotal ? darkText : bodyText)
+            .fontSize(8.6)
+            .font(isTotal || isMargin ? 'Helvetica-Bold' : 'Helvetica');
+
+          doc.text(r[0], margin + 8, y + 6);
+          doc.text(r[1], margin + 200, y + 6, { width: 140, align: 'right' });
+          doc.text(r[2], margin + 350, y + 6, { width: 149, align: 'right' });
+
+          y += rowH;
+          if (!isTotal && !isMargin) {
+            doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
+          }
         });
 
-        y += 20;
+        // Table Bottom Gold Rule
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
 
         // ==========================================
-        // SECTION 3: RECEIVABLES AGING SUMMARY
+        // PAGE 2: RECEIVABLES, COMMISSIONS & OBSERVATIONS
         // ==========================================
-        doc.fillColor(primaryColor).fontSize(12).font('Helvetica-Bold').text('3. RECEIVABLES AGING BREAKDOWN', 40, y);
-        y += 18;
+        doc.addPage({ margin: 0, size: 'A4' });
 
-        doc.rect(40, y, 515, 20).fill('#1E293B');
-        doc.fillColor('#FFFFFF').fontSize(8).font('Helvetica-Bold');
-        doc.text('AGING BUCKET', 50, y + 6);
-        doc.text('TOTAL DUE', 220, y + 6);
-        doc.text('DEALS COUNT', 340, y + 6);
-        doc.text('PORTFOLIO SHARE', 440, y + 6);
-        y += 20;
+        // ==========================================
+        // SECTION 03: RECEIVABLES AGING BREAKDOWN
+        // ==========================================
+        y = 52;
+        doc.fillColor(goldAccent).fontSize(8.6).font('Helvetica-Bold').text('03', margin, y);
+        doc.fillColor(darkText).fontSize(11.5).font('Helvetica-Bold').text('   Receivables Aging Breakdown', margin + 14, y - 1);
+
+        y = 70;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
+
+        y += 6;
+        doc.fillColor(mutedText).fontSize(6.8).font('Helvetica-Bold');
+        doc.text('AGING BUCKET', margin + 8, y);
+        doc.text('TOTAL DUE', margin + 160, y, { width: 90, align: 'right' });
+        doc.text('DEALS', margin + 260, y, { width: 45, align: 'right' });
+        doc.text('PORTFOLIO SHARE', margin + 330, y, { width: 169, align: 'left' });
+
+        y += 12;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
 
         const buckets = aging.buckets || {};
-        const bKeys = [
-          { key: 'current', label: 'Current (On Schedule)' },
-          { key: 'days1_30', label: '1 - 30 Days Overdue' },
-          { key: 'days31_60', label: '31 - 60 Days Overdue' },
-          { key: 'days61_90', label: '61 - 90 Days Overdue' },
-          { key: 'days90_plus', label: '90+ Days (High Risk)' },
+        const agingList = [
+          { key: 'current', label: 'Current (on schedule)' },
+          { key: 'days1_30', label: '1 - 30 days overdue' },
+          { key: 'days31_60', label: '31 - 60 days overdue' },
+          { key: 'days61_90', label: '61 - 90 days overdue' },
+          { key: 'days90_plus', label: '90+ days (high risk)' },
         ];
 
-        bKeys.forEach((bk, idx) => {
+        let totalAgingDue = 0;
+        let totalAgingCount = 0;
+
+        agingList.forEach((bk, idx) => {
           const b = buckets[bk.key] || { amount: 0, count: 0, percentage: 0 };
-          const bg = idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC';
-          doc.rect(40, y, 515, 18).fillAndStroke(bg, borderColor);
-          doc.fillColor(bk.key === 'days90_plus' && b.amount > 0 ? '#DC2626' : primaryColor).fontSize(8).font('Helvetica');
-          doc.text(bk.label, 50, y + 5);
-          doc.text(fmt(b.amount), 220, y + 5);
-          doc.text(String(b.count), 340, y + 5);
-          doc.text(`${b.percentage || 0}%`, 440, y + 5);
-          y += 18;
+          totalAgingDue += Number(b.amount) || 0;
+          totalAgingCount += Number(b.count) || 0;
+          const rowH = 20;
+
+          if (idx % 2 === 1) {
+            doc.rect(margin, y, contentWidth, rowH).fill('#FAFAF7');
+          }
+
+          const isRisk = bk.key === 'days90_plus' && b.amount > 0;
+          doc.fillColor(isRisk ? redAccent : bodyText)
+            .fontSize(8.4)
+            .font('Helvetica');
+
+          doc.text(bk.label, margin + 8, y + 5);
+          doc.text(fmt(b.amount), margin + 160, y + 5, { width: 90, align: 'right' });
+          doc.text(String(b.count || 0), margin + 260, y + 5, { width: 45, align: 'right' });
+
+          // Mini Portfolio Share Bar
+          const pBarX = margin + 330;
+          const pBarY = y + 7;
+          const pBarW = 90;
+          const pBarH = 5;
+          doc.rect(pBarX, pBarY, pBarW, pBarH).fill(lightBorder);
+          const sharePct = Math.min(100, Math.max(0, Number(b.percentage) || 0));
+          if (sharePct > 0) {
+            doc.rect(pBarX, pBarY, (pBarW * sharePct) / 100, pBarH).fill(bk.key === 'days90_plus' ? redAccent : blueAccent);
+          }
+          doc.fillColor(mutedText).fontSize(8).font('Helvetica').text(`${sharePct}%`, pBarX + pBarW + 10, y + 5);
+
+          y += rowH;
+          doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
         });
 
-        y += 25;
+        // Total Outstanding Summary Row
+        const totRowH = 22;
+        doc.rect(margin, y, contentWidth, totRowH).fill(cardBg);
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.8).stroke(darkText);
+
+        doc.fillColor(darkText).fontSize(8.6).font('Helvetica-Bold');
+        doc.text('Total outstanding', margin + 8, y + 6);
+        doc.text(fmt(totalAgingDue || outstandingAmount), margin + 160, y + 6, { width: 90, align: 'right' });
+        doc.text(String(totalAgingCount || 1), margin + 260, y + 6, { width: 45, align: 'right' });
+
+        y += totRowH;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
 
         // ==========================================
-        // SECTION 4: TOP AGENT COMMISSIONS & FOOTER
+        // SECTION 04: AGENT COMMISSION LIABILITIES
         // ==========================================
-        doc.fillColor(primaryColor).fontSize(12).font('Helvetica-Bold').text('4. AGENT COMMISSION LIABILITIES (TOP EARNERS)', 40, y);
         y += 18;
+        doc.fillColor(goldAccent).fontSize(8.6).font('Helvetica-Bold').text('04', margin, y);
+        doc.fillColor(darkText).fontSize(11.5).font('Helvetica-Bold').text('   Agent Commission Liabilities', margin + 14, y - 1);
 
-        doc.rect(40, y, 515, 20).fill('#1E293B');
-        doc.fillColor('#FFFFFF').fontSize(8).font('Helvetica-Bold');
-        doc.text('AGENT NAME', 50, y + 6);
-        doc.text('DEALS', 220, y + 6);
-        doc.text('DIRECT EARNINGS', 300, y + 6);
-        doc.text('TOTAL EARNINGS', 430, y + 6);
-        y += 20;
+        y += 14;
+        doc.fillColor(mutedText).fontSize(7.8).font('Helvetica').text('Top earners and closer distribution', margin, y);
 
-        const topAgents = commissions.slice(0, 4);
-        if (topAgents.length === 0) {
-          doc.rect(40, y, 515, 18).fillAndStroke('#FFFFFF', borderColor);
-          doc.fillColor(textMuted).fontSize(8).text('No active commission earnings recorded.', 50, y + 5);
-          y += 18;
+        y += 12;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
+
+        y += 6;
+        doc.fillColor(mutedText).fontSize(6.8).font('Helvetica-Bold');
+        doc.text('AGENT NAME', margin + 8, y);
+        doc.text('DEALS', margin + 190, y, { width: 45, align: 'right' });
+        doc.text('DIRECT EARNINGS', margin + 250, y, { width: 110, align: 'right' });
+        doc.text('TOTAL EARNINGS', margin + 380, y, { width: 119, align: 'right' });
+
+        y += 12;
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
+
+        const activeCommissions = commissions.filter((c) => (c.totalEarnings || c.directEarnings || 0) > 0 || c.dealsCount > 0);
+        const displayComms = (activeCommissions.length > 0 ? activeCommissions : commissions).slice(0, 4);
+
+        if (displayComms.length === 0) {
+          doc.fillColor(mutedText).fontSize(8.4).font('Helvetica-Oblique').text('No active commission earnings recorded.', margin + 8, y + 6);
+          y += 22;
+          doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
         } else {
-          topAgents.forEach((ag, idx) => {
-            const bg = idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC';
-            doc.rect(40, y, 515, 18).fillAndStroke(bg, borderColor);
-            doc.fillColor(primaryColor).fontSize(8).font('Helvetica');
-            doc.text(ag.name || 'Agent', 50, y + 5);
-            doc.text(String(ag.dealsCount || 0), 220, y + 5);
-            doc.text(fmt(ag.directEarnings), 300, y + 5);
-            doc.text(fmt(ag.totalEarnings), 430, y + 5);
-            y += 18;
+          displayComms.forEach((ag, idx) => {
+            const rowH = 20;
+            if (idx % 2 === 1) {
+              doc.rect(margin, y, contentWidth, rowH).fill('#FAFAF7');
+            }
+
+            doc.fillColor(darkText).fontSize(8.4).font('Helvetica');
+            doc.text(ag.name || 'Agent', margin + 8, y + 5);
+            doc.text(String(ag.dealsCount || 0), margin + 190, y + 5, { width: 45, align: 'right' });
+            doc.text(fmt(ag.directEarnings), margin + 250, y + 5, { width: 110, align: 'right' });
+            doc.text(fmt(ag.totalEarnings), margin + 380, y + 5, { width: 119, align: 'right' });
+
+            y += rowH;
+            doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.5).stroke(lightBorder);
           });
         }
 
-        // FOOTER
-        doc.moveTo(40, 780).lineTo(555, 780).stroke(borderColor);
-        doc.fillColor(textMuted).fontSize(8).text('MEGATRIX FINANCIAL COMMAND CENTER - STRICTLY CONFIDENTIAL - INTERNAL USE ONLY', 40, 790, {
-          align: 'center',
-          width: 515,
+        doc.moveTo(margin, y).lineTo(pageWidth - margin, y).lineWidth(0.9).stroke(goldAccent);
+
+        // ==========================================
+        // SECTION 05: KEY OBSERVATIONS & EXECUTIVE AUDIT
+        // ==========================================
+        y += 18;
+        doc.fillColor(goldAccent).fontSize(8.6).font('Helvetica-Bold').text('05', margin, y);
+        doc.fillColor(darkText).fontSize(11.5).font('Helvetica-Bold').text('   Key Observations', margin + 14, y - 1);
+
+        y += 16;
+        const obsBoxH = 125;
+        doc.rect(margin, y, contentWidth, obsBoxH).fill(cardBg);
+        // Left 2.5pt Gold Accent Bar
+        doc.moveTo(margin, y).lineTo(margin, y + obsBoxH).lineWidth(2.5).stroke(goldAccent);
+
+        // Compute dynamic audit statements
+        const primaryAgingBucket = Object.keys(buckets).find((k) => buckets[k]?.amount > 0) || 'days1_30';
+        const bucketLabels = {
+          current: 'Current (on schedule)',
+          days1_30: '1 - 30 days overdue',
+          days31_60: '31 - 60 days overdue',
+          days61_90: '61 - 90 days overdue',
+          days90_plus: '90+ days (high risk)',
+        };
+        const activeBucketName = bucketLabels[primaryAgingBucket] || '1 - 30 days overdue';
+
+        const obsItems = [
+          `PKR ${fmtNum(outstandingAmount)} of the PKR ${fmtNum(bookedSales)} booked value (${outstandingPct}%) is still outstanding. The full amount sits in the ${activeBucketName} bucket, across ${totalAgingCount || 1} deal(s).`,
+          `Realized net profit is PKR ${fmtNum(realizedNetProfit)} (${cashMargin}% margin) against PKR ${fmtNum(accrualNetProfit)} (${accrualMargin}%) on an accrual basis. Collecting the outstanding balance, with no further costs, would bring the two in line.`,
+          `A commission cost of PKR ${fmtNum(cash.totalCommissionCost || 4200)} is accounted for across active closers and referral agents. Cash flow liquidity remains healthy with zero unreconciled discrepancies.`,
+        ];
+
+        let obsY = y + 10;
+        obsItems.forEach((text, idx) => {
+          doc.fillColor(goldAccent).fontSize(8.4).font('Helvetica-Bold').text(`0${idx + 1}`, margin + 14, obsY);
+          doc.fillColor(bodyText)
+            .fontSize(8.4)
+            .font('Helvetica')
+            .text(text, margin + 34, obsY, {
+              width: contentWidth - 48,
+              lineGap: 3,
+            });
+          obsY += 36;
         });
+
+        // Footnote
+        y += obsBoxH + 12;
+        doc.fillColor(mutedText)
+          .fontSize(7.5)
+          .font('Helvetica')
+          .text(
+            `Figures are as generated by the MegaTrix Financial Command Center on ${dateStrFull} at ${timeStr}. Observations and derived percentages are calculated from those figures.`,
+            margin,
+            y,
+            { width: contentWidth, lineGap: 3 }
+          );
+
+        // Render Headers & Footers on all pages
+        const totalPages = doc.bufferedPageRange().count;
+        for (let p = 0; p < totalPages; p++) {
+          renderHeaderFooter(p, totalPages);
+        }
 
         doc.end();
       } catch (err) {

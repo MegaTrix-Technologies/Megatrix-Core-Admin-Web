@@ -35,8 +35,8 @@ const accountSyncLogSchema = new mongoose.Schema(
     },
     mode: {
       type: String,
-      enum: ['api_gateway', 'atlas_direct_fallback'],
-      default: 'api_gateway'
+      enum: ['api_gateway', 'atlas_direct_fallback', 'standalone_native', 'crm_live_integration'],
+      default: 'crm_live_integration'
     },
     recordsFetched: {
       sales: { type: Number, default: 0 },

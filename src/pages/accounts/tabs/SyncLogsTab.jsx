@@ -104,7 +104,7 @@ const SyncLogsTab = ({ onSyncSuccess }) => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left" data-testid="sync-logs-table">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface/60 text-mx-subtle font-mono">
                 <th className="px-4 py-2.5">Sync ID</th>

@@ -132,7 +132,22 @@ router.post(
   accountsController.createAdjustment
 );
 
-// 11. CRM Sync Engine
+// 11. CRM Sync Engine & Sales Agents Roster
+router.get(
+  '/sales-agents',
+  requirePermission('global:accounts:sales:view'),
+  accountsController.getSalesAgents
+);
+router.post(
+  '/crm-sync/preview',
+  requirePermission('global:accounts:sync:execute'),
+  accountsController.previewCrmSync
+);
+router.post(
+  '/crm-sync/execute',
+  requirePermission('global:accounts:sync:execute'),
+  accountsController.executeCrmSync
+);
 router.post(
   '/sync',
   requirePermission('global:accounts:sync:execute'),

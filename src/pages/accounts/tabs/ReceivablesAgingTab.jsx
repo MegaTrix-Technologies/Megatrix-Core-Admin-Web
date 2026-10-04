@@ -145,7 +145,7 @@ const ReceivablesAgingTab = ({ onOpenSaleDetail }) => {
        * ───────────────────────────────────────────────────────────── */}
       <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left" data-testid="receivables-table">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface text-mx-subtle font-mono">
                 <th className="px-4 py-2.5">Sale ID</th>
@@ -212,8 +212,11 @@ const ReceivablesAgingTab = ({ onOpenSaleDetail }) => {
                     <td className="px-4 py-2.5 text-mx-subtle">{item.closerName}</td>
                     <td className="px-4 py-2.5 text-center">
                       <button
+                        type="button"
+                        data-testid="btn-receivable-dossier"
+                        data-sale-id={item.saleId}
                         onClick={() => onOpenSaleDetail(item.saleId)}
-                        className="px-2.5 py-1 rounded-sm bg-mx-surface border border-mx-border text-[11px] font-mono text-mx-blue hover:text-white transition-colors"
+                        className="px-2.5 py-1 rounded-sm bg-mx-surface border border-mx-border text-[11px] font-mono text-mx-blue hover:text-white transition-colors cursor-pointer"
                       >
                         Dossier
                       </button>

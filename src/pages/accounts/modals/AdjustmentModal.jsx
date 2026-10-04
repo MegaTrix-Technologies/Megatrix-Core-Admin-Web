@@ -26,7 +26,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
   });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     if (!formData.title.trim()) {
       toast.error('Adjustment title is required');
       return;
@@ -44,8 +44,8 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
     try {
       await accountsApi.createAdjustment(formData);
       toast.success('Administrative Adjustment recorded & applied');
-      onSuccess();
-      onClose();
+      if (onSuccess) onSuccess();
+      if (onClose) onClose();
     } catch (err) {
       toast.error(err.response?.data?.message || err.message || 'Failed to post adjustment');
     } finally {
@@ -55,7 +55,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-mx-panel border border-mx-border rounded-lg w-full max-w-xl shadow-2xl overflow-hidden animate-fadeIn">
+      <div className="bg-mx-panel border border-mx-border rounded-lg w-full max-w-xl shadow-2xl overflow-hidden animate-fadeIn" data-testid="adjustment-modal">
         {/* Header */}
         <div className="p-4 border-b border-mx-border flex items-center justify-between bg-mx-surface">
           <div className="flex items-center gap-3">
@@ -72,8 +72,10 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
             </div>
           </div>
           <button
+            type="button"
+            data-testid="btn-close-adjustment"
             onClick={onClose}
-            className="p-1.5 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors"
+            className="p-1.5 rounded-sm text-mx-subtle hover:text-white hover:bg-mx-panel transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
@@ -88,7 +90,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4" data-testid="adjustment-form">
           <div>
             <label className="block text-[11px] font-mono text-mx-subtle uppercase mb-1">
               Adjustment Title / Memo *
@@ -96,6 +98,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
             <input
               type="text"
               required
+              data-testid="input-adjustment-title"
               placeholder="e.g. Bank Fee Reconciliation Offset / Sale #4092 Correction"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -109,6 +112,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
                 Adjustment Type *
               </label>
               <select
+                data-testid="select-adjustment-type"
                 value={formData.adjustmentType}
                 onChange={(e) => setFormData({ ...formData, adjustmentType: e.target.value })}
                 className="w-full px-3 py-2 bg-mx-surface border border-mx-border rounded-sm text-xs text-white focus:outline-none focus:border-mx-blue"
@@ -129,6 +133,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
                 type="number"
                 step="1"
                 required
+                data-testid="input-adjustment-amount"
                 placeholder="0"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
@@ -168,6 +173,7 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
             <textarea
               rows={3}
               required
+              data-testid="input-adjustment-reason"
               placeholder="State the detailed operational or banking rationale for this manual ledger adjustment..."
               value={formData.reason}
               onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
@@ -179,15 +185,18 @@ const AdjustmentModal = ({ onClose, onSuccess, initialData = {} }) => {
           <div className="pt-3 border-t border-mx-border flex items-center justify-end gap-2">
             <button
               type="button"
+              data-testid="btn-cancel-adjustment"
               onClick={onClose}
-              className="px-4 py-2 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors"
+              className="px-4 py-2 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
+              data-testid="btn-save-adjustment"
               disabled={loading}
-              className="px-4 py-2 rounded-sm bg-amber-500 text-xs font-bold text-black hover:bg-amber-400 transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-sm bg-amber-500 text-xs font-bold text-black hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
             >
               {loading ? 'Posting...' : 'Apply Adjustment'}
             </button>

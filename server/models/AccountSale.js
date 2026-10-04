@@ -50,8 +50,17 @@ const accountSaleSchema = new mongoose.Schema(
     remainingAmount: { type: Number, default: 0, min: 0, index: true },
     status: {
       type: String,
-      enum: ['draft', 'advance_paid', 'payment_completed', 'cancelled', 'refunded'],
-      default: 'advance_paid',
+      enum: [
+        'draft',
+        'contract_signed',
+        'advance_paid',
+        'partial_payment',
+        'payment_completed',
+        'defaulted',
+        'cancelled',
+        'refunded',
+      ],
+      default: 'contract_signed',
       index: true,
     },
     paymentMethod: { type: String, default: 'Bank Transfer' },
@@ -75,6 +84,11 @@ const accountSaleSchema = new mongoose.Schema(
         role: { type: String, default: 'Developer' },
       },
     ],
+    referralPartner: {
+      id: { type: String, default: null },
+      name: { type: String, default: '' },
+      email: { type: String, default: '' },
+    },
 
     // Project Delivery Link
     projectId: { type: String, default: null, index: true },
@@ -84,9 +98,10 @@ const accountSaleSchema = new mongoose.Schema(
 
     // Commission Rates Snapshot (at deal close)
     commissionRates: {
-      leadGenPercent: { type: Number, default: 0 },
-      closerPercent: { type: Number, default: 0 },
-      developerPercent: { type: Number, default: 0 },
+      leadGenPercent: { type: Number, default: 10 },
+      closerPercent: { type: Number, default: 15 },
+      developerPercent: { type: Number, default: 20 },
+      referralPercent: { type: Number, default: 0 },
     },
     estimatedCommission: { type: Number, default: 0 },
 
@@ -101,10 +116,14 @@ const accountSaleSchema = new mongoose.Schema(
 accountSaleSchema.pre('save', function () {
   if (this.totalAmount !== undefined && this.advanceAmount !== undefined) {
     this.remainingAmount = Math.max(0, this.totalAmount - this.advanceAmount);
-    if (this.remainingAmount === 0 && this.totalAmount > 0) {
-      this.status = 'payment_completed';
-    } else if (this.advanceAmount > 0) {
-      this.status = 'advance_paid';
+    if (this.status !== 'defaulted' && this.status !== 'cancelled' && this.status !== 'refunded') {
+      if (this.remainingAmount === 0 && this.totalAmount > 0) {
+        this.status = 'payment_completed';
+      } else if (this.advanceAmount > 0) {
+        this.status = 'partial_payment';
+      } else if (!this.status || this.status === 'draft') {
+        this.status = 'contract_signed';
+      }
     }
   }
 });

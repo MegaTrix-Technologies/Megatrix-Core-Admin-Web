@@ -13,12 +13,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  Plus,
 } from 'lucide-react';
 import { accountsApi } from '../../../services/adminApi';
 import DarkDateRangePicker from '../../../components/common/DarkDateRangePicker';
 import { fmtPKR } from '../../../config/currency';
 
-const SalesLedgerTab = ({ onOpenSaleDetail }) => {
+const SalesLedgerTab = ({ onOpenSaleDetail, onOpenAddSale, refreshKey = 0 }) => {
   const [loading, setLoading] = useState(true);
   const [sales, setSales] = useState([]);
   const [summary, setSummary] = useState(null);
@@ -61,7 +62,7 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
 
   useEffect(() => {
     fetchSales(1);
-  }, [search, status, agent, dateRange, sortBy, sortOrder]);
+  }, [search, status, agent, dateRange, sortBy, sortOrder, refreshKey]);
 
   const fmt = fmtPKR;
 
@@ -145,9 +146,12 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
             className="px-2.5 py-1.5 bg-mx-surface border border-mx-border rounded-sm text-xs text-white font-mono focus:outline-none focus:border-mx-blue"
           >
             <option value="all">All Deal Statuses</option>
+            <option value="contract_signed">Contract Signed</option>
             <option value="advance_paid">Advance Paid</option>
+            <option value="partial_payment">Partial Payment</option>
             <option value="payment_completed">Payment Completed</option>
             <option value="closed">Closed</option>
+            <option value="defaulted">Defaulted</option>
           </select>
 
           <select
@@ -168,6 +172,18 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
           >
             <ArrowUpDown size={14} />
           </button>
+
+          {onOpenAddSale && (
+            <button
+              type="button"
+              data-testid="btn-open-add-sale"
+              onClick={onOpenAddSale}
+              className="px-3 py-1.5 rounded-sm bg-mx-blue hover:bg-blue-600 text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm ml-auto sm:ml-0"
+            >
+              <Plus size={14} />
+              Add Sale
+            </button>
+          )}
         </div>
       </div>
 
@@ -176,7 +192,7 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
        * ───────────────────────────────────────────────────────────── */}
       <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left" data-testid="sales-ledger-table">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface text-mx-subtle font-mono">
                 <th className="px-4 py-2.5">Sale ID</th>
@@ -201,7 +217,17 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
               ) : sales.length === 0 ? (
                 <tr>
                   <td colSpan={10} className="px-4 py-12 text-center text-mx-subtle font-mono">
-                    No sales contracts found matching criteria.
+                    <p>No sales contracts found matching criteria.</p>
+                    {onOpenAddSale && (
+                      <button
+                        type="button"
+                        data-testid="btn-empty-add-sale"
+                        onClick={onOpenAddSale}
+                        className="mt-3 px-3 py-1.5 rounded-sm bg-mx-blue hover:bg-blue-600 text-white text-xs font-mono font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-sm"
+                      >
+                        <Plus size={13} /> Add First Sale
+                      </button>
+                    )}
                   </td>
                 </tr>
               ) : (
@@ -213,10 +239,26 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
                       ? Number(sale.remainingAmount)
                       : Math.max(0, tot - adv);
 
+                  const getStatusClass = (st) => {
+                    switch (st) {
+                      case 'payment_completed':
+                        return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+                      case 'partial_payment':
+                      case 'advance_paid':
+                        return 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+                      case 'contract_signed':
+                        return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+                      case 'defaulted':
+                        return 'bg-red-500/10 text-red-400 border border-red-500/20';
+                      default:
+                        return 'bg-purple-500/10 text-purple-400 border border-purple-500/20';
+                    }
+                  };
+
                   return (
-                    <tr key={sale._id} className="hover:bg-mx-surface/60 transition-colors">
+                    <tr key={sale._id} className="hover:bg-mx-surface/60 transition-colors" data-testid={`sale-row-${sale._id}`}>
                       <td className="px-4 py-2.5 font-mono text-mx-subtle">
-                        #{String(sale._id).slice(-6)}
+                        #{sale.saleNumber || String(sale._id).slice(-6)}
                       </td>
                       <td className="px-4 py-2.5">
                         <span className="text-white font-medium block">
@@ -228,11 +270,7 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
                       </td>
                       <td className="px-4 py-2.5">
                         <span
-                          className={`text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase ${
-                            sale.status === 'payment_completed'
-                              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                              : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                          }`}
+                          className={`text-[10px] font-mono px-2 py-0.5 rounded-sm uppercase ${getStatusClass(sale.status)}`}
                         >
                           {sale.status?.replace('_', ' ')}
                         </span>
@@ -262,8 +300,11 @@ const SalesLedgerTab = ({ onOpenSaleDetail }) => {
                       </td>
                       <td className="px-4 py-2.5 text-center">
                         <button
+                          type="button"
+                          data-testid="btn-sale-dossier"
+                          data-sale-id={sale._id}
                           onClick={() => onOpenSaleDetail(sale._id)}
-                          className="px-2.5 py-1 rounded-sm bg-mx-surface border border-mx-border text-[11px] font-mono text-mx-blue hover:bg-mx-panel hover:text-white transition-colors"
+                          className="px-2.5 py-1 rounded-sm bg-mx-surface border border-mx-border text-[11px] font-mono text-mx-blue hover:bg-mx-panel hover:text-white transition-colors cursor-pointer"
                         >
                           Dossier
                         </button>

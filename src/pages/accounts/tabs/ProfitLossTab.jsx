@@ -54,8 +54,27 @@ const ProfitLossTab = () => {
     );
   }
 
-  const { revenue, costOfDelivery, grossProfit, grossMarginPercent, operatingExpenses, totalOperatingExpenses, operatingProfit, netProfitMarginPercent, accrualComparison } =
-    pnlData;
+  const revenue = pnlData?.revenue || {};
+  const costOfDelivery = pnlData?.costOfDelivery || {};
+  const grossProfit = Number(pnlData?.grossProfit) || 0;
+  const grossMarginPercent = Number(pnlData?.grossMarginPercent) || 0;
+  const totalOperatingExpenses = Number(pnlData?.totalOperatingExpenses) || 0;
+  const operatingProfit = Number(pnlData?.operatingProfit) || 0;
+  const netProfitMarginPercent = Number(pnlData?.netProfitMarginPercent) || 0;
+  const accrualComparison = pnlData?.accrualComparison || null;
+
+  // Defensive extraction of expense categories (handles both array and object formats)
+  const operatingExpensesList = Array.isArray(pnlData?.operatingExpenses)
+    ? pnlData.operatingExpenses
+    : pnlData?.operatingExpenses && typeof pnlData.operatingExpenses === 'object'
+    ? Object.entries(pnlData.operatingExpenses)
+        .filter(([k]) => k !== 'totalOperatingExpenses')
+        .map(([k, v]) => ({
+          key: k,
+          label: k.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+          total: Number(v) || 0,
+        }))
+    : [];
 
   return (
     <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
@@ -68,7 +87,7 @@ const ProfitLossTab = () => {
             Total Operating Revenue
           </span>
           <span className="text-2xl font-bold font-mono text-white mt-1 block">
-            {fmt(revenue?.totalRevenue)}
+            {fmt(revenue.totalRevenue || revenue.salesRevenue || 0)}
           </span>
           <span className="text-[10px] font-mono text-emerald-400">Cash Realized Inflows</span>
         </div>
@@ -105,7 +124,7 @@ const ProfitLossTab = () => {
       {/* ─────────────────────────────────────────────────────────────
        * 2. FORMAL P&L STATEMENT TABLE
        * ───────────────────────────────────────────────────────────── */}
-      <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden p-6 space-y-6">
+      <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden p-6 space-y-6" data-testid="pnl-statement-container">
         <div className="border-b border-mx-border pb-4 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
@@ -128,19 +147,19 @@ const ProfitLossTab = () => {
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Sales & Contract Cash Inflows (Advances / Collected)</span>
-            <span className="text-white font-mono">{fmt(revenue?.realizedSales)}</span>
+            <span className="text-white font-mono">{fmt(revenue.realizedSales || revenue.salesRevenue || 0)}</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Direct Project Delivery Inflows</span>
-            <span className="text-white font-mono">{fmt(revenue?.projectPayments)}</span>
+            <span className="text-white font-mono">{fmt(revenue.projectPayments || 0)}</span>
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Other Ancillary Income</span>
-            <span className="text-white font-mono">{fmt(revenue?.otherIncome)}</span>
+            <span className="text-white font-mono">{fmt(revenue.otherIncome || 0)}</span>
           </div>
           <div className="flex justify-between text-xs py-1.5 border-t border-mx-border/60 font-mono font-bold pl-2 bg-mx-surface/40">
             <span className="text-white">TOTAL OPERATING REVENUE</span>
-            <span className="text-emerald-400">{fmt(revenue?.totalRevenue)}</span>
+            <span className="text-emerald-400">{fmt(revenue.totalRevenue || 0)}</span>
           </div>
         </div>
 
@@ -152,11 +171,15 @@ const ProfitLossTab = () => {
           </div>
           <div className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
             <span>Sales Closer, Setter & Developer Commissions</span>
-            <span className="text-purple-400 font-mono">{fmt(costOfDelivery?.commissionLiabilities)}</span>
+            <span className="text-purple-400 font-mono">
+              {fmt(costOfDelivery.commissionLiabilities || costOfDelivery.developerCommissions || 0)}
+            </span>
           </div>
           <div className="flex justify-between text-xs py-1.5 border-t border-mx-border/60 font-mono font-bold pl-2 bg-mx-surface/40">
             <span className="text-white">TOTAL COST OF DELIVERY</span>
-            <span className="text-purple-400">{fmt(costOfDelivery?.totalCOGS)}</span>
+            <span className="text-purple-400">
+              {fmt(costOfDelivery.totalCOGS || costOfDelivery.totalCostOfDelivery || 0)}
+            </span>
           </div>
         </div>
 
@@ -174,12 +197,18 @@ const ProfitLossTab = () => {
             <span>3. OPERATING EXPENSES (OpEx)</span>
             <span>AMOUNT (PKR)</span>
           </div>
-          {operatingExpenses?.map((cat) => (
-            <div key={cat.key} className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
-              <span>{cat.label}</span>
-              <span className="text-white font-mono">{fmt(cat.total)}</span>
+          {operatingExpensesList.length === 0 ? (
+            <div className="text-xs py-1 text-mx-subtle pl-4 italic font-mono">
+              No operating expenses recorded for period
             </div>
-          ))}
+          ) : (
+            operatingExpensesList.map((cat) => (
+              <div key={cat.key} className="flex justify-between text-xs py-1 text-mx-subtle pl-4">
+                <span>{cat.label}</span>
+                <span className="text-white font-mono">{fmt(cat.total)}</span>
+              </div>
+            ))
+          )}
           <div className="flex justify-between text-xs py-1.5 border-t border-mx-border/60 font-mono font-bold pl-2 bg-mx-surface/40">
             <span className="text-white">TOTAL OPERATING EXPENSES</span>
             <span className="text-red-400">{fmt(totalOperatingExpenses)}</span>
@@ -209,15 +238,21 @@ const ProfitLossTab = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
               <div className="p-2 rounded bg-mx-panel border border-mx-border">
                 <span className="text-[10px] text-mx-subtle block">Contract Bookings</span>
-                <span className="text-white font-bold">{fmt(accrualComparison.totalBookedRevenue)}</span>
+                <span className="text-white font-bold">
+                  {fmt(accrualComparison.totalBookedRevenue || accrualComparison.bookedSales || 0)}
+                </span>
               </div>
               <div className="p-2 rounded bg-mx-panel border border-mx-border">
                 <span className="text-[10px] text-mx-subtle block">Uncollected Receivables</span>
-                <span className="text-amber-400 font-bold">{fmt(accrualComparison.uncollectedReceivables)}</span>
+                <span className="text-amber-400 font-bold">
+                  {fmt(accrualComparison.uncollectedReceivables || accrualComparison.pendingReceivables || 0)}
+                </span>
               </div>
               <div className="p-2 rounded bg-mx-panel border border-mx-border">
                 <span className="text-[10px] text-mx-subtle block">Projected Accrual Profit</span>
-                <span className="text-mx-blue font-bold">{fmt(accrualComparison.projectedNetProfit)} ({accrualComparison.projectedProfitMargin}%)</span>
+                <span className="text-mx-blue font-bold">
+                  {fmt(accrualComparison.projectedNetProfit || 0)} ({accrualComparison.projectedProfitMargin || 0}%)
+                </span>
               </div>
             </div>
           </div>

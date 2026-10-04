@@ -59,6 +59,7 @@ jobs:
           name: design-qa-reports
           path: |
             qa/reports/**
+            qa/baselines/shots/**
             HISTORY.csv
           retention-days: 30
 

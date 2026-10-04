@@ -135,7 +135,7 @@ const ProjectFinancialsTab = () => {
        * ───────────────────────────────────────────────────────────── */}
       <div className="rounded-md bg-mx-panel border border-mx-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
+          <table className="w-full text-xs text-left" data-testid="projects-table">
             <thead>
               <tr className="border-b border-mx-border bg-mx-surface text-mx-subtle font-mono">
                 <th className="px-4 py-2.5">Project Name</th>

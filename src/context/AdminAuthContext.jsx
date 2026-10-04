@@ -43,8 +43,8 @@ export const AdminAuthProvider = ({ children }) => {
             );
           }
         } catch (err) {
-          // Only clear if server explicitly returned 401 Unauthorized
-          if (err.response && err.response.status === 401) {
+          // Clear session if server explicitly returned 401 Unauthorized or 403 Forbidden (e.g. suspended user)
+          if (err.response && (err.response.status === 401 || err.response.status === 403)) {
             setAdminUser(null);
             localStorage.removeItem('megatrix_admin_user');
           } else {

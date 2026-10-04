@@ -23,7 +23,11 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
     try {
       const res = await accountsApi.getReconciliation();
       if (res.success) {
-        setAuditData(res);
+        const payload = res.reconciliation || res;
+        setAuditData({
+          ...payload,
+          adjustments: res.adjustments || payload.adjustments || [],
+        });
       }
     } catch (err) {
       console.error('[ReconciliationTab] Error:', err);
@@ -59,7 +63,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
             {auditData?.totalDiscrepancies || 0}
           </span>
           <span className="text-[10px] font-mono text-mx-subtle">
-            Integrity check across CRM sales & inflows
+            Integrity check across Core sales & inflows
           </span>
         </div>
 
@@ -117,15 +121,19 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
+            data-testid="btn-rescan-reconciliation"
             onClick={fetchReconciliation}
             disabled={loading}
-            className="px-3 py-1.5 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors flex items-center gap-1.5"
+            className="px-3 py-1.5 rounded-sm bg-mx-surface border border-mx-border text-xs text-mx-subtle hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <RefreshCw size={13} className={loading ? 'animate-spin' : ''} /> Rescan
           </button>
           <button
+            type="button"
+            data-testid="btn-record-adjustment"
             onClick={() => onOpenAdjustment()}
-            className="px-3 py-1.5 rounded-sm bg-amber-500 text-xs font-bold text-black hover:bg-amber-400 transition-colors flex items-center gap-1.5"
+            className="px-3 py-1.5 rounded-sm bg-amber-500 text-xs font-bold text-black hover:bg-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <Plus size={14} /> Record Adjustment
           </button>
@@ -135,7 +143,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
       {/* ─────────────────────────────────────────────────────────────
        * 3. DISCREPANCY CARDS LIST
        * ───────────────────────────────────────────────────────────── */}
-      <div className="space-y-3">
+      <div className="space-y-3" data-testid="reconciliation-container">
         <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
           Detected Discrepancies & Ledger Anomalies ({discrepancies.length})
         </h4>
@@ -209,6 +217,8 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
                     </button>
                   )}
                   <button
+                    type="button"
+                    data-testid="btn-apply-fix"
                     onClick={() =>
                       onOpenAdjustment({
                         title: `Resolution for ${disc.title}`,
@@ -218,7 +228,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
                         reason: `Correction applied for discrepancy [${disc.type}]: ${disc.description}`,
                       })
                     }
-                    className="px-2.5 py-1 rounded-sm bg-amber-500 text-[11px] font-mono font-bold text-black hover:bg-amber-400"
+                    className="px-2.5 py-1 rounded-sm bg-amber-500 text-[11px] font-mono font-bold text-black hover:bg-amber-400 cursor-pointer"
                   >
                     Apply Fix
                   </button>
@@ -243,7 +253,7 @@ const ReconciliationTab = ({ onOpenAdjustment, onOpenSaleDetail, refreshKey }) =
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-xs text-left">
+            <table className="w-full text-xs text-left" data-testid="adjustments-table">
               <thead>
                 <tr className="border-b border-mx-border text-mx-subtle font-mono">
                   <th className="pb-2">Adjustment Memo</th>

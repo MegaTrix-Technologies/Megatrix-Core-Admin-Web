@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { AccountSale } from '../models/AccountSale.js';
 import { AccountInflow } from '../models/AccountInflow.js';
 import { AccountProject } from '../models/AccountProject.js';
@@ -10,7 +11,7 @@ import { AdminUser } from '../models/AdminUser.js';
 import { standaloneAccountsService } from '../services/accounts/standaloneAccountsService.js';
 import { financialCalculationService } from '../services/accounts/financialCalculationService.js';
 import { accountExportService } from '../services/accounts/accountExportService.js';
-import mongoose from 'mongoose';
+import { crmSyncService } from '../services/accounts/crmSyncService.js';
 import crypto from 'crypto';
 
 /**
@@ -39,7 +40,7 @@ const logFinancialAudit = async (req, action, targetType, targetId, details = {}
       platform: 'global',
       details,
       ipAddress: req.ip || req.connection?.remoteAddress || '127.0.0.1',
-      userAgent: req.headers?.['user-agent'] || 'MegaTrix Core Client',
+      userAgent: req.headers['user-agent'] || 'MegaTrix Core Client',
     });
   } catch (err) {
     console.warn('[accountsController] Could not write audit log:', err.message);
@@ -204,12 +205,20 @@ export const accountsController = {
       let bookedSales = 0;
       let realizedSales = 0;
       let pendingReceivables = 0;
+      let totalCommission = 0;
 
-      const allFiltered = await AccountSale.find(filter, { totalAmount: 1, advanceAmount: 1, remainingAmount: 1 }).lean();
+      const allFiltered = await AccountSale.find(filter, {
+        totalAmount: 1,
+        advanceAmount: 1,
+        remainingAmount: 1,
+        estimatedCommission: 1,
+      }).lean();
+
       allFiltered.forEach((s) => {
         bookedSales += s.totalAmount || 0;
         realizedSales += s.advanceAmount || 0;
         pendingReceivables += s.remainingAmount || 0;
+        totalCommission += s.estimatedCommission || 0;
       });
 
       return res.json({
@@ -226,6 +235,12 @@ export const accountsController = {
           realizedSales,
           pendingReceivables,
           dealCount: total,
+          // Frontend alternate naming compatibility
+          totalBooked: bookedSales,
+          totalPaid: realizedSales,
+          totalBalance: pendingReceivables,
+          totalCommission,
+          count: total,
         },
       });
     } catch (err) {
@@ -268,7 +283,7 @@ export const accountsController = {
 
   /**
    * POST /api/accounts/sales
-   * Create a new Sale / Contract
+   * Create a new Sale / Contract with validation and commission attribution
    */
   createSale: async (req, res) => {
     try {
@@ -277,39 +292,118 @@ export const accountsController = {
         products = [],
         totalAmount,
         advanceAmount = 0,
-        paymentMethod = 'Bank Transfer',
+        paymentMethod = 'Bank Transfer (IBFT / Raast)',
         leadGeneratedByName = 'Sales Desk',
         closedByName = 'Super Admin',
         assignedDeveloperNames = [],
+        referralPartnerName = '',
         notes = '',
         closedAt = new Date(),
         commissionRates = {},
       } = req.body;
 
-      if (!customer?.businessName || totalAmount === undefined) {
-        return res.status(400).json({ success: false, message: 'Customer business name and totalAmount are required.' });
+      if (!customer?.businessName || !customer.businessName.trim()) {
+        return res.status(400).json({ success: false, message: 'Customer business name is required.' });
       }
 
       const tot = Number(totalAmount) || 0;
+      if (tot <= 0) {
+        return res.status(400).json({ success: false, message: 'Total contract amount must be greater than zero.' });
+      }
+
       const adv = Number(advanceAmount) || 0;
+      if (adv < 0) {
+        return res.status(400).json({ success: false, message: 'Advance amount cannot be negative.' });
+      }
+      if (adv > tot) {
+        return res.status(400).json({ success: false, message: 'Advance amount cannot exceed the total contract amount.' });
+      }
+
+      if (customer.email && customer.email.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(customer.email.trim())) {
+          return res.status(400).json({ success: false, message: 'Invalid customer email address format.' });
+        }
+      }
+
       const rem = Math.max(0, tot - adv);
       const saleCount = await AccountSale.countDocuments();
-      const saleNumber = `MT-SALE-${1000 + saleCount + 1}`;
+      const saleNumber = `SALE-${1000 + saleCount + 1}`;
+
+      // Calculate estimated commission liability
+      const leadRate = commissionRates.leadGenPercent !== undefined ? Number(commissionRates.leadGenPercent) : 10;
+      const closerRate = commissionRates.closerPercent !== undefined ? Number(commissionRates.closerPercent) : 15;
+      const devRate = commissionRates.developerPercent !== undefined ? Number(commissionRates.developerPercent) : 20;
+      const refRate = referralPartnerName ? (commissionRates.referralPercent !== undefined ? Number(commissionRates.referralPercent) : 5) : 0;
+      const totalCommPercent = leadRate + closerRate + devRate + refRate;
+      const estimatedCommission = Math.round((tot * totalCommPercent) / 100);
+
+      const status = rem === 0 ? 'payment_completed' : adv > 0 ? 'partial_payment' : 'contract_signed';
 
       const sale = await AccountSale.create({
         saleNumber,
-        customer,
-        products: products.length > 0 ? products : [{ name: 'Digital Services Contract', quantity: 1, unitPrice: tot, subtotal: tot }],
+        customer: {
+          businessName: customer.businessName.trim(),
+          contactPerson: customer.contactPerson || customer.name || '',
+          email: customer.email || '',
+          phone: customer.phone || '',
+          city: customer.city || 'Lahore',
+          area: customer.area || '',
+          category: customer.category || 'General',
+        },
+        products:
+          products.length > 0
+            ? products.map((p) => ({
+                name: p.name || p.title || 'Product Line Item',
+                quantity: Number(p.quantity) || 1,
+                unitPrice: Number(p.unitPrice || p.price || p.rate || 0),
+                subtotal: Number(p.subtotal || p.total || (Number(p.quantity) || 1) * Number(p.unitPrice || p.price || 0)),
+              }))
+            : [{ name: 'Digital Services Contract', quantity: 1, unitPrice: tot, subtotal: tot }],
         totalAmount: tot,
         advanceAmount: adv,
         remainingAmount: rem,
-        status: rem === 0 ? 'payment_completed' : adv > 0 ? 'advance_paid' : 'draft',
+        status,
         paymentMethod,
-        payments: adv > 0 ? [{ amount: adv, date: new Date(), paymentMethod, referenceNote: 'Initial Advance', recordedBy: req.user?.name || 'Admin' }] : [],
-        leadGeneratedBy: { name: leadGeneratedByName },
-        closedBy: { name: closedByName },
-        assignedDevelopers: assignedDeveloperNames.map((name) => ({ name, role: 'Developer' })),
-        commissionRates,
+        payments:
+          adv > 0
+            ? [
+                {
+                  amount: adv,
+                  date: new Date(closedAt),
+                  paymentMethod,
+                  referenceNote: 'Initial Advance Payment',
+                  recordedBy: req.user?.name || 'Admin',
+                },
+              ]
+            : [],
+        leadGeneratedBy: typeof req.body.leadGeneratedBy === 'object' && req.body.leadGeneratedBy !== null
+          ? req.body.leadGeneratedBy
+          : { name: leadGeneratedByName, id: req.body.leadGeneratedById || null },
+        closedBy: typeof req.body.closedBy === 'object' && req.body.closedBy !== null
+          ? req.body.closedBy
+          : { name: closedByName, id: req.body.closedById || null },
+        assignedDevelopers: Array.isArray(req.body.assignedDevelopers) && req.body.assignedDevelopers.length > 0
+          ? req.body.assignedDevelopers.map((d) => ({
+              id: d.id || null,
+              name: d.name || 'Developer',
+              role: d.role || 'Developer',
+            }))
+          : assignedDeveloperNames.map((item) => ({
+              id: null,
+              name: typeof item === 'string' ? item : item.name,
+              role: 'Developer',
+            })),
+        referralPartner: typeof req.body.referralPartner === 'object' && req.body.referralPartner !== null
+          ? req.body.referralPartner
+          : { name: referralPartnerName || '', id: req.body.referralPartnerId || null },
+        commissionRates: {
+          leadGenPercent: leadRate,
+          closerPercent: closerRate,
+          developerPercent: devRate,
+          referralPercent: refRate,
+        },
+        estimatedCommission,
         closedAt: new Date(closedAt),
         notes,
       });
@@ -317,11 +411,11 @@ export const accountsController = {
       // Record Inflow for advance
       if (adv > 0) {
         await AccountInflow.create({
-          inflowNumber: `MT-INF-${1000 + saleCount + 1}-ADV`,
-          title: `Advance: ${customer.businessName}`,
+          inflowNumber: `INF-${1000 + saleCount + 1}-ADV`,
+          title: `Advance: ${customer.businessName.trim()}`,
           amount: adv,
           type: 'sale_payment',
-          source: customer.businessName,
+          source: customer.businessName.trim(),
           saleId: sale._id,
           paymentMethod,
           reference: 'Initial Advance Payment',
@@ -330,9 +424,15 @@ export const accountsController = {
         });
       }
 
+      // Propagate sale creation to CRM asynchronously
+      crmSyncService.syncSaleToCrm(sale).catch((err) => {
+        console.warn('[accountsController:createSale] CRM background sync warning:', err.message);
+      });
+
       await logFinancialAudit(req, 'SALE_CREATED', 'ACCOUNT_SALE', sale._id, {
         saleNumber,
         totalAmount: tot,
+        advanceAmount: adv,
         businessName: customer.businessName,
       });
 
@@ -364,8 +464,18 @@ export const accountsController = {
       }
       if (updates.notes !== undefined) sale.notes = updates.notes;
       if (updates.status) sale.status = updates.status;
+      if (updates.commissionRates) sale.commissionRates = { ...sale.commissionRates, ...updates.commissionRates };
+      if (updates.leadGeneratedBy) sale.leadGeneratedBy = updates.leadGeneratedBy;
+      if (updates.closedBy) sale.closedBy = updates.closedBy;
+      if (updates.assignedDevelopers) sale.assignedDevelopers = updates.assignedDevelopers;
 
       await sale.save();
+
+      // Propagate update to CRM
+      crmSyncService.syncSaleToCrm(sale).catch((err) => {
+        console.warn('[accountsController:updateSale] CRM background sync warning:', err.message);
+      });
+
       await logFinancialAudit(req, 'SALE_UPDATED', 'ACCOUNT_SALE', sale._id, updates);
 
       return res.json({ success: true, sale });
@@ -382,11 +492,11 @@ export const accountsController = {
   recordSalePayment: async (req, res) => {
     try {
       const { id } = req.params;
-      const { amount, paymentMethod = 'Bank Transfer', referenceNote = '', date = new Date() } = req.body;
+      const { amount, paymentMethod = 'Bank Transfer (IBFT / Raast)', referenceNote = '', date = new Date() } = req.body;
 
       const paymentAmt = Number(amount);
       if (!paymentAmt || paymentAmt <= 0) {
-        return res.status(400).json({ success: false, message: 'Valid payment amount is required.' });
+        return res.status(400).json({ success: false, message: 'Valid positive payment amount is required.' });
       }
 
       const sale = await AccountSale.findById(id);
@@ -394,10 +504,24 @@ export const accountsController = {
         return res.status(404).json({ success: false, message: 'Sale record not found.' });
       }
 
+      const currentRemaining =
+        sale.remainingAmount !== undefined
+          ? sale.remainingAmount
+          : Math.max(0, (sale.totalAmount || 0) - (sale.advanceAmount || 0));
+
+      if (paymentAmt > currentRemaining) {
+        return res.status(400).json({
+          success: false,
+          message: `Payment amount (${paymentAmt}) exceeds outstanding remaining balance (${currentRemaining}).`,
+        });
+      }
+
       sale.advanceAmount = (sale.advanceAmount || 0) + paymentAmt;
       sale.remainingAmount = Math.max(0, (sale.totalAmount || 0) - sale.advanceAmount);
       if (sale.remainingAmount === 0) {
         sale.status = 'payment_completed';
+      } else {
+        sale.status = 'partial_payment';
       }
 
       sale.payments.push({
@@ -413,7 +537,7 @@ export const accountsController = {
       // Log Inflow
       const inflowCount = await AccountInflow.countDocuments();
       await AccountInflow.create({
-        inflowNumber: `MT-INF-${1000 + inflowCount + 1}`,
+        inflowNumber: `INF-${1000 + inflowCount + 1}`,
         title: `Payment: ${sale.customer?.businessName || sale.saleNumber}`,
         amount: paymentAmt,
         type: 'sale_payment',
@@ -425,9 +549,20 @@ export const accountsController = {
         recordedBy: req.user?.name || 'Admin',
       });
 
+      // Propagate payment to CRM
+      crmSyncService.syncPaymentToCrm(sale, {
+        amount: paymentAmt,
+        paymentMethod,
+        referenceNote,
+        date: new Date(date),
+      }).catch((err) => {
+        console.warn('[accountsController:recordSalePayment] CRM payment sync warning:', err.message);
+      });
+
       await logFinancialAudit(req, 'PAYMENT_RECORDED', 'ACCOUNT_SALE', sale._id, {
         paymentAmount: paymentAmt,
         newRemaining: sale.remainingAmount,
+        status: sale.status,
       });
 
       return res.json({ success: true, sale });
@@ -442,20 +577,34 @@ export const accountsController = {
    */
   getProjects: async (req, res) => {
     try {
-      const [projects, sales] = await Promise.all([
+      const [projects, sales, expenses] = await Promise.all([
         AccountProject.find().sort({ createdAt: -1 }).lean(),
         AccountSale.find().lean(),
+        CoreExpense.find().lean(),
       ]);
 
-      const projectFinancials = financialCalculationService.computeProjectFinancials(projects, sales, []);
+      const projectFinancials = financialCalculationService.computeProjectFinancials(projects, sales, expenses);
+
+      const totalRevenue = projectFinancials.reduce((sum, p) => sum + (p.contractRevenue || 0), 0);
+      const totalCost = projectFinancials.reduce((sum, p) => sum + (p.totalProjectCost || 0), 0);
+      const totalCollected = projectFinancials.reduce((sum, p) => sum + (p.cashCollected || 0), 0);
+      const totalReceivables = projectFinancials.reduce((sum, p) => sum + (p.receivables || 0), 0);
+      const grossProfit = totalRevenue - totalCost;
+      const netMargin = totalRevenue > 0 ? parseFloat(((grossProfit / totalRevenue) * 100).toFixed(1)) : 0;
 
       return res.json({
         success: true,
         projects: projectFinancials,
         summary: {
           totalProjects: projectFinancials.length,
-          deliveredCount: projectFinancials.filter((p) => p.isDelivered).length,
-          activeCount: projectFinancials.filter((p) => !p.isDelivered).length,
+          deliveredCount: projectFinancials.filter((p) => p.status === 'delivered' || p.isDelivered).length,
+          activeCount: projectFinancials.filter((p) => p.status !== 'delivered' && !p.isDelivered).length,
+          totalRevenue,
+          totalCost,
+          totalCollected,
+          totalReceivables,
+          grossProfit,
+          netMargin,
         },
       });
     } catch (err) {
@@ -474,13 +623,24 @@ export const accountsController = {
         AdminUser.find({ status: 'active' }).populate('roles').lean(),
       ]);
 
-      const commissions = standaloneAccountsService.calculateCommissions(sales, users);
+      let crmAgents = [];
+      try {
+        crmAgents = await crmSyncService.getSalesAgents();
+      } catch (crmErr) {
+        // Fallback gracefully if CRM is unreachable
+      }
+
+      const commissions = standaloneAccountsService.calculateCommissions(sales, users, crmAgents);
       const summary = financialCalculationService.computeCommissionSummary(commissions, sales);
 
       return res.json({
         success: true,
         commissions,
         summary,
+        agents: summary.agents || commissions,
+        totalCommissionLiability: summary.totalCommissionLiability,
+        totalPendingPayouts: summary.totalPendingPayouts,
+        agentsCount: summary.agentsCount || commissions.length,
       });
     } catch (err) {
       console.error('[accountsController:getCommissions] Error:', err);
@@ -499,6 +659,9 @@ export const accountsController = {
       return res.json({
         success: true,
         aging,
+        buckets: aging.buckets,
+        totalReceivables: aging.totalReceivables,
+        totalUnpaidDeals: aging.totalUnpaidDeals,
       });
     } catch (err) {
       console.error('[accountsController:getReceivables] Error:', err);
@@ -534,14 +697,22 @@ export const accountsController = {
         AccountInflow.countDocuments(filter),
       ]);
 
-      const all = await AccountInflow.find(filter, { amount: 1 }).lean();
+      const all = await AccountInflow.find(filter, { amount: 1, paymentMethod: 1 }).lean();
       const totalAmount = all.reduce((sum, i) => sum + (i.amount || 0), 0);
+      const methodDistribution = {};
+      all.forEach((inf) => {
+        const m = inf.paymentMethod || 'Bank Transfer (IBFT / Raast)';
+        methodDistribution[m] = (methodDistribution[m] || 0) + (inf.amount || 0);
+      });
 
       return res.json({
         success: true,
         inflows,
+        totalAmount,
+        count: total,
+        methodDistribution,
         pagination: { total, page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) || 1 },
-        summary: { totalAmount, count: total },
+        summary: { totalAmount, count: total, methodDistribution },
       });
     } catch (err) {
       console.error('[accountsController:getInflows] Error:', err);
@@ -554,14 +725,22 @@ export const accountsController = {
    */
   createInflow: async (req, res) => {
     try {
-      const { title, amount, type = 'other_income', source = 'General', paymentMethod = 'Bank Transfer', reference = '', date = new Date() } = req.body;
+      const {
+        title,
+        amount,
+        type = 'other_income',
+        source = 'General',
+        paymentMethod = 'Bank Transfer (IBFT / Raast)',
+        reference = '',
+        date = new Date(),
+      } = req.body;
 
       if (!title || !amount) {
         return res.status(400).json({ success: false, message: 'Title and amount are required.' });
       }
 
       const count = await AccountInflow.countDocuments();
-      const inflowNumber = `MT-INF-${1000 + count + 1}`;
+      const inflowNumber = `INF-${1000 + count + 1}`;
 
       const inflow = await AccountInflow.create({
         inflowNumber,
@@ -636,6 +815,8 @@ export const accountsController = {
       return res.json({
         success: true,
         expenses,
+        totalAmount,
+        totalCount: total,
         pagination: { total, page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) || 1 },
         summary: { totalAmount, count: total },
       });
@@ -694,41 +875,7 @@ export const accountsController = {
       const { id } = req.params;
       const updates = req.body;
 
-      let expense = null;
-      if (mongoose.Types.ObjectId.isValid(id)) {
-        expense = await CoreExpense.findByIdAndUpdate(id, updates, { new: true });
-      } else {
-        expense = await CoreExpense.findOneAndUpdate({ _id: id }, updates, { new: true });
-      }
-
-      if (!expense) {
-        // If not in CoreExpense yet, check if it exists in LeadHunter and migrate/create it with updates
-        try {
-          if (mongoose.connection?.client && mongoose.Types.ObjectId.isValid(id)) {
-            const lhDb = mongoose.connection.client.db('leadhunter');
-            const lhDoc = await lhDb.collection('expenses').findOne({ _id: new mongoose.Types.ObjectId(id) });
-            if (lhDoc) {
-              expense = await CoreExpense.create({
-                _id: lhDoc._id,
-                title: updates.title || lhDoc.description || lhDoc.reason,
-                reason: updates.reason || lhDoc.reason,
-                category: updates.category || 'software_saas',
-                amount: updates.amount !== undefined ? Number(updates.amount) : (Number(lhDoc.amount) || 0),
-                currency: updates.currency || 'PKR',
-                expenseDate: updates.expenseDate || lhDoc.date || new Date(),
-                paymentMethod: updates.paymentMethod || 'Bank Transfer (IBFT / Raast)',
-                vendor: updates.vendor || '',
-                description: updates.description || lhDoc.description || '',
-                status: updates.status || 'approved',
-                sourcePlatform: 'core',
-              });
-            }
-          }
-        } catch (lhErr) {
-          console.warn('[accountsController:updateCoreExpense] Legacy migrate check error:', lhErr.message);
-        }
-      }
-
+      const expense = await CoreExpense.findByIdAndUpdate(id, updates, { new: true });
       if (!expense) {
         return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
@@ -747,26 +894,7 @@ export const accountsController = {
   deleteCoreExpense: async (req, res) => {
     try {
       const { id } = req.params;
-      let expense = null;
-      if (mongoose.Types.ObjectId.isValid(id)) {
-        expense = await CoreExpense.findByIdAndDelete(id);
-      } else {
-        expense = await CoreExpense.findOneAndDelete({ _id: id });
-      }
-
-      // Also clean up from legacy leadhunter database if present
-      try {
-        if (mongoose.connection?.client && mongoose.Types.ObjectId.isValid(id)) {
-          const lhDb = mongoose.connection.client.db('leadhunter');
-          const r = await lhDb.collection('expenses').deleteOne({ _id: new mongoose.Types.ObjectId(id) });
-          if (r.deletedCount > 0 && !expense) {
-            expense = { _id: id, title: 'CRM Expense', amount: 0 };
-          }
-        }
-      } catch (lhErr) {
-        console.warn('[accountsController:deleteCoreExpense] Legacy clean check error:', lhErr.message);
-      }
-
+      const expense = await CoreExpense.findByIdAndDelete(id);
       if (!expense) {
         return res.status(404).json({ success: false, message: 'Expense record not found.' });
       }
@@ -797,10 +925,61 @@ export const accountsController = {
         endDate,
       });
 
+      const expenseBreakdown = financialCalculationService.computeExpenseBreakdown([], data.coreExpenses);
+
+      const cash = summary.cashBasis;
+      const accrual = summary.accrualBasis;
+
+      const expCat = {};
+      (expenseBreakdown.categorySummary || []).forEach((c) => {
+        expCat[c.key] = c.total;
+      });
+
+      const expenseList = (expenseBreakdown.categorySummary || []).map((c) => ({
+        key: c.key,
+        label: c.label || c.key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+        total: Number(c.total) || 0,
+      }));
+
+      const statement = {
+        period: { startDate, endDate },
+        revenue: {
+          salesRevenue: cash.realizedSalesInflow,
+          realizedSales: cash.realizedSalesInflow,
+          projectPayments: cash.totalProjectPaymentsInflow || 0,
+          otherIncome: cash.totalOtherIncome,
+          totalRevenue: cash.totalOperatingInflow,
+        },
+        costOfDelivery: {
+          developerCommissions: cash.totalCommissionCost,
+          commissionLiabilities: cash.totalCommissionCost,
+          contractorCosts: expCat.contractor || 0,
+          totalCostOfDelivery: cash.totalCommissionCost + (expCat.contractor || 0),
+          totalCOGS: cash.totalCommissionCost + (expCat.contractor || 0),
+        },
+        grossProfit: cash.totalOperatingInflow - cash.totalCommissionCost - (expCat.contractor || 0),
+        grossMarginPercent: cash.totalOperatingInflow > 0
+          ? parseFloat((((cash.totalOperatingInflow - cash.totalCommissionCost - (expCat.contractor || 0)) / cash.totalOperatingInflow) * 100).toFixed(1))
+          : 0,
+        operatingExpenses: expenseList,
+        totalOperatingExpenses: cash.totalOperatingExpenses,
+        operatingProfit: cash.realizedNetProfit,
+        netProfitMarginPercent: cash.realizedProfitMargin,
+        accrualComparison: {
+          bookedSales: accrual.bookedSales,
+          pendingReceivables: accrual.pendingReceivables,
+          uncollectedReceivables: accrual.pendingReceivables,
+          totalBookedRevenue: accrual.totalBookedRevenue,
+          projectedNetProfit: accrual.projectedNetProfit,
+          projectedProfitMargin: accrual.projectedProfitMargin,
+        },
+      };
+
       return res.json({
         success: true,
-        cashBasis: summary.cashBasis,
-        accrualBasis: summary.accrualBasis,
+        statement,
+        cashBasis: cash,
+        accrualBasis: accrual,
         consolidatedCost: summary.consolidatedCost,
         period: { startDate, endDate },
       });
@@ -828,9 +1007,39 @@ export const accountsController = {
         endDate,
       });
 
+      const cash = summary.cashBasis;
+
+      const cashFlowStatement = {
+        period: { startDate, endDate },
+        operatingActivities: {
+          cashFromSales: cash.realizedSalesInflow,
+          salesAdvancesReceived: cash.realizedSalesInflow,
+          otherIncome: cash.totalOtherIncome,
+          otherOperatingInflows: cash.totalOtherIncome,
+          totalOperatingReceipts: cash.totalOperatingInflow,
+          operatingExpenses: cash.totalOperatingExpenses,
+          operatingExpensesPaid: cash.totalOperatingExpenses,
+          commissionPayouts: cash.totalCommissionCost,
+          commissionsPaid: cash.totalCommissionCost,
+          totalOperatingPayments: cash.totalCashOutflow,
+          netOperatingCashFlow: cash.realizedNetProfit,
+        },
+        financingActivities: {
+          capitalInjections: cash.totalInvestment,
+          investmentCapitalInflows: cash.totalInvestment,
+          adjustments: 0,
+          administrativeAdjustments: 0,
+          netFinancingCashFlow: cash.totalInvestment,
+        },
+        netCashChange: cash.netCashFlow,
+        cashBasis: cash,
+      };
+
       return res.json({
         success: true,
-        cashFlow: summary.cashBasis,
+        cashFlow: cashFlowStatement,
+        statement: cashFlowStatement,
+        summary: cash,
         inflows: data.inflows,
         expenses: data.coreExpenses,
       });
@@ -856,7 +1065,12 @@ export const accountsController = {
 
       return res.json({
         success: true,
-        reconciliation,
+        reconciliation: {
+          ...reconciliation,
+          adjustments: data.adjustments || [],
+        },
+        ...reconciliation,
+        adjustments: data.adjustments || [],
       });
     } catch (err) {
       console.error('[accountsController:getReconciliation] Error:', err);
@@ -882,26 +1096,38 @@ export const accountsController = {
    */
   createAdjustment: async (req, res) => {
     try {
-      const { title, reason, type, amount, targetType, targetId, note, effectiveDate = new Date() } = req.body;
+      const { title, reason, type, adjustmentType, amount, targetType, targetEntity, targetId, note, notes, effectiveDate = new Date() } = req.body;
 
       if (!title || amount === undefined) {
         return res.status(400).json({ success: false, message: 'Title and amount are required.' });
       }
 
+      const userId = req.user?._id && mongoose.Types.ObjectId.isValid(req.user._id)
+        ? req.user._id
+        : (req.user?.id && mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : null);
+
+      const adjType = adjustmentType || type || 'manual_adjustment';
+
       const adjustment = await AccountAdjustment.create({
         title,
         reason: reason || title,
-        type: type || 'manual_adjustment',
+        type: adjType,
+        adjustmentType: adjType,
         amount: Number(amount),
-        targetType: targetType || 'general',
+        targetEntity: targetEntity || targetType || 'general',
         targetId: targetId || null,
-        note: note || '',
+        notes: notes || note || '',
         effectiveDate: new Date(effectiveDate),
-        status: 'approved',
-        approvedBy: {
-          id: req.user?._id,
+        status: 'applied',
+        createdBy: {
+          id: userId,
           name: req.user?.name || 'Admin',
-          email: req.user?.email,
+          email: req.user?.email || 'admin@megatrix.internal',
+        },
+        approvedBy: {
+          id: userId,
+          name: req.user?.name || 'Admin',
+          email: req.user?.email || 'admin@megatrix.internal',
         },
       });
 
@@ -1052,10 +1278,13 @@ export const accountsController = {
       const buffer = await accountExportService.generatePdfDossier({
         summary,
         aging,
+        commissions: data.commissions || [],
+        sales: data.sales || [],
+        expenses: data.coreExpenses || [],
         expenseBreakdown,
         salesCount: data.sales.length,
         projectsCount: data.projects.length,
-        generatedBy: req.user?.name || 'MegaTrix Core Admin',
+        generatedBy: req.user?.name || 'Abu Sufian',
       });
 
       res.setHeader('Content-Type', 'application/pdf');
@@ -1063,6 +1292,55 @@ export const accountsController = {
       return res.send(buffer);
     } catch (err) {
       console.error('[accountsController:exportPdf] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * GET /api/accounts/sales-agents
+   * Fetch active sales team members with default commission profiles
+   */
+  getSalesAgents: async (req, res) => {
+    try {
+      const agents = await crmSyncService.getSalesAgents();
+      return res.json({ success: true, agents });
+    } catch (err) {
+      console.error('[accountsController:getSalesAgents] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * POST /api/accounts/crm-sync/preview
+   * Dry-run diff between LeadHunter CRM and Core Admin
+   */
+  previewCrmSync: async (req, res) => {
+    try {
+      const preview = await crmSyncService.previewCrmSync();
+      return res.json(preview);
+    } catch (err) {
+      console.error('[accountsController:previewCrmSync] Error:', err);
+      return res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  /**
+   * POST /api/accounts/crm-sync/execute
+   * Commit confirmed CRM data to master database
+   */
+  executeCrmSync: async (req, res) => {
+    try {
+      const { selectedSaleIds } = req.body;
+      const result = await crmSyncService.executeCrmSync({
+        selectedSaleIds,
+        actor: req.user,
+      });
+
+      await logFinancialAudit(req, 'CRM_SYNC_EXECUTED', 'CRM_SYNC', result.syncId, result.summary);
+
+      return res.json(result);
+    } catch (err) {
+      console.error('[accountsController:executeCrmSync] Error:', err);
       return res.status(500).json({ success: false, message: err.message });
     }
   },

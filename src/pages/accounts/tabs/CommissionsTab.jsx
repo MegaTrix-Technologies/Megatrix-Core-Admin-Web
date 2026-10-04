@@ -64,7 +64,7 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
             {fmt(commissionData?.totalCommissionLiability)}
           </span>
           <span className="text-[10px] font-mono text-mx-subtle">
-            Calculated across all completed CRM deals
+            Calculated across all completed Core contracts
           </span>
         </div>
 
@@ -112,7 +112,7 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
       {/* ─────────────────────────────────────────────────────────────
        * 3. AGENT LEADERBOARD & ITEMIZATION
        * ───────────────────────────────────────────────────────────── */}
-      <div className="space-y-3">
+      <div className="space-y-3" data-testid="commissions-container">
         {loading ? (
           <div className="py-12 text-center text-mx-subtle text-xs font-mono">
             Loading agent commission liabilities...
@@ -125,14 +125,25 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
           filteredAgents.map((ag) => {
             const isExpanded = expandedAgentId === ag.userId;
             const rates = ag.commissionRates || {};
+            const leadRate = rates.leadGenPercent !== undefined && rates.leadGenPercent !== 0 
+              ? rates.leadGenPercent 
+              : (ag.itemized?.find((i) => i.role === 'Lead Generator' || i.rolesEarned?.some(r => r.role === 'Lead Generator'))?.percent || 0);
+            const closerRate = rates.closerPercent !== undefined && rates.closerPercent !== 0
+              ? rates.closerPercent
+              : (ag.itemized?.find((i) => i.role === 'Sales Closer' || i.rolesEarned?.some(r => r.role === 'Sales Closer'))?.percent || 0);
+            const devRate = rates.developerPercent !== undefined && rates.developerPercent !== 0
+              ? rates.developerPercent
+              : (ag.itemized?.find((i) => i.role === 'Developer' || i.rolesEarned?.some(r => r.role === 'Developer'))?.percent || 0);
 
             return (
               <div
                 key={ag.userId}
                 className="rounded-md bg-mx-panel border border-mx-border overflow-hidden transition-colors"
+                data-testid={`agent-card-${ag.userId}`}
               >
                 {/* Agent Summary Row */}
                 <div
+                  data-testid="agent-summary-row"
                   onClick={() => setExpandedAgentId(isExpanded ? null : ag.userId)}
                   className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-mx-surface/60 transition-colors"
                 >
@@ -154,9 +165,15 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
                   <div className="flex items-center gap-6">
                     {/* Rates Info */}
                     <div className="hidden md:flex items-center gap-3 text-[11px] font-mono text-mx-subtle">
-                      <span>Lead: <b className="text-white">{rates.leadGenPercent || 0}%</b></span>
-                      <span>Closer: <b className="text-white">{rates.closerPercent || 0}%</b></span>
-                      <span>Dev: <b className="text-white">{rates.developerPercent || 0}%</b></span>
+                      <span className={leadRate > 0 ? 'text-emerald-400' : ''}>
+                        Lead: <b className={leadRate > 0 ? 'text-emerald-300' : 'text-white'}>{leadRate}%</b>
+                      </span>
+                      <span className={closerRate > 0 ? 'text-blue-400' : ''}>
+                        Closer: <b className={closerRate > 0 ? 'text-blue-300' : 'text-white'}>{closerRate}%</b>
+                      </span>
+                      <span className={devRate > 0 ? 'text-purple-400' : ''}>
+                        Dev: <b className={devRate > 0 ? 'text-purple-300' : 'text-white'}>{devRate}%</b>
+                      </span>
                     </div>
 
                     {/* Earnings */}
@@ -217,8 +234,11 @@ const CommissionsTab = ({ onOpenSaleDetail }) => {
                                 </td>
                                 <td className="py-2 text-center">
                                   <button
+                                    type="button"
+                                    data-testid="btn-view-deal"
+                                    data-sale-id={item.saleId}
                                     onClick={() => onOpenSaleDetail(item.saleId)}
-                                    className="px-2 py-0.5 rounded-sm bg-mx-panel border border-mx-border text-[10px] font-mono text-mx-blue hover:text-white"
+                                    className="px-2 py-0.5 rounded-sm bg-mx-panel border border-mx-border text-[10px] font-mono text-mx-blue hover:text-white cursor-pointer"
                                   >
                                     View Deal
                                   </button>
